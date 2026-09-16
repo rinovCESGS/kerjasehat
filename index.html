@@ -9487,7 +9487,7 @@ function bind_game_sama(){
 =================================================================== */
 const MW_LABEL={
  asli:{warga:"Warga",pen:"Penyusup",mw:"Mister White"},
- kantor:{warga:"Staf",pen:"CEO",mw:"HR"}
+ kantor:{warga:"Staf",pen:"CEO",mw:"HRD"}
 };
 function mwL(){return MW_LABEL[ST.mw&&ST.mw.label==="kantor"?"kantor":"asli"]}
 /* susunan peran mengikuti tabel yang lazim dipakai */
@@ -9498,7 +9498,7 @@ function mwSusun(n){
  return {pen:3,mw:1};
 }
 function mwInit(){
- ST.mw={fase:"atur",n:6,label:"asli",peran:{},kata:{},keluar:[],ronde:1,idx:1,lihat:false,
+ ST.mw={fase:"atur",n:6,label:"asli",aturan:"asli",peran:{},kata:{},keluar:[],ronde:1,idx:1,lihat:false,
   urutan:[],vote:null,ungkap:null,menang:null,rng:mulberry32(Date.now()&0xffffff)};
 }
 function mwHidup(){const M=ST.mw;return [...Array(M.n).keys()].map(i=>i+1).filter(i=>M.keluar.indexOf(i)<0)}
@@ -9522,9 +9522,13 @@ function mwBagi(){
  M.fase="bagi";
 }
 function mwCek(){
- const lawan=mwLawanHidup(), hidup=mwHidup().length, warga=hidup-lawan;
+ const M=ST.mw;
+ const pen=mwJml("pen"), mw=mwJml("mw");
+ const hidup=mwHidup().length, lawan=pen+mw, warga=hidup-lawan;
+ /* aturan cepat: begitu seluruh penyusup keluar, warga menang walau Mister White masih bermain */
+ if(M.aturan==="cepat"&&pen===0) return "warga";
  if(lawan===0) return "warga";
- if(hidup<=2||warga<=lawan) return "lawan";
+ if(hidup<=2||warga<=lawan) return pen>0?"pen":"mw";
  return null;
 }
 function mwRondeBaru(){
@@ -9558,6 +9562,12 @@ function mwAtur(){
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Warga, Penyusup, Mister White</span></button>
     <button class="sortopt ${M.label==="kantor"?"on":""}" data-mwl="kantor" style="padding:14px">Istilah kantor
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Staf, CEO, HR</span></button></div></div>
+  <div class="field"><label class="lbl">Kapan permainan berakhir</label>
+   <div class="grid2" style="gap:10px">
+    <button class="sortopt ${M.aturan==="asli"?"on":""}" data-mwa="asli" style="padding:14px">Aturan asli
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">${esc(L.warga)} menang setelah ${esc(L.pen)} dan ${esc(L.mw)} keluar semua</span></button>
+    <button class="sortopt ${M.aturan==="cepat"?"on":""}" data-mwa="cepat" style="padding:14px">Berhenti saat ${esc(L.pen)} tertebak
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Permainan langsung selesai, ${esc(L.mw)} tidak dikejar</span></button></div></div>
   <button class="primary" id="mwmulai" ${M.n>=4?"":"disabled"}>Bagikan kata</button></div></div>
  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan</h4>
   <div class="kvl">
@@ -9568,7 +9578,7 @@ function mwAtur(){
    <div><span class="kk">Kata rahasia</span><span class="vv">Tetap sama sampai permainan selesai</span></div>
    <div><span class="kk">${esc(L.warga)} menang</span><span class="vv">Setelah seluruh ${esc(L.pen)} dan ${esc(L.mw)} keluar</span></div>
    <div><span class="kk">${esc(L.pen)} menang</span><span class="vv">Bila tersisa dua pemain, atau jumlahnya menyamai ${esc(L.warga)}</span></div>
-   <div><span class="kk">${esc(L.mw)} menang</span><span class="vv">Bila keluar lalu berhasil menyebut kata ${esc(L.warga)}</span></div>
+   <div><span class="kk">${esc(L.mw)} menang</span><span class="vv">Bila keluar lalu berhasil menyebut kata ${esc(L.warga)}, atau bertahan sampai tersisa dua pemain</span></div>
   </div>
   <ul class="ivl" style="margin-top:12px">
    <li class="org">Petunjuk satu kata, bukan kalimat, dan tidak menyebut kata rahasianya</li>
@@ -9582,10 +9592,11 @@ function mwBagiHal(){
  return hd(esc(pnama(i))+", pemain ke "+i+" dari "+M.n)+
  `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
   ${M.lihat?`
-   <div class="sup" style="font-size:12.5px">Kata Anda</div>
-   <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
-    ${M.kata[i]?esc(M.kata[i]):"Tidak ada kata"}</div>
-   <div class="sup" style="font-size:12.5px">${M.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
+   <div class="sup" style="font-size:12.5px">${M.kata[i]?"Kata Anda":"Peran Anda"}</div>
+   <div style="font-family:Montserrat;font-weight:700;margin:12px 0 4px;color:var(--mar-700);line-height:1.15;
+    font-size:${M.kata[i]?"34px":"27px"}">
+    ${M.kata[i]?esc(M.kata[i]):"Anda adalah "+esc(mwL().mw)}</div>
+   <div class="sup" style="font-size:12.5px">${M.kata[i]?"Jangan sebut kata ini":"Anda tidak menerima kata. Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
    <button class="primary" id="mwnext" style="margin-top:22px;width:100%">${i<M.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai ronde 1"}</button>`
   :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di ${esc(pnama(i))}</div>
    <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
@@ -9623,15 +9634,17 @@ function mwUngkap(){
  `<div class="card2" style="max-width:560px;margin:0 auto;text-align:center;padding:30px 24px">
   <div class="sup" style="font-size:12.5px">Perannya</div>
   <div style="font-family:Montserrat;font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
-  <div class="sup" style="font-size:12.5px">${u.kata?("katanya "+esc(u.kata)):"tidak menerima kata"}</div>
+  <div class="sup" style="font-size:12.5px">${u.kata?("katanya "+esc(u.kata)):"tidak pernah menerima kata"}</div>
   ${u.tebak?`
    <div class="field" style="max-width:320px;margin:20px auto 0;text-align:left">
     <label class="lbl">Satu kesempatan, sebutkan kata ${esc(L.warga)}</label>
     <input id="mwkata" placeholder="Tulis satu kata"></div>
    <button class="primary" id="mwcek" style="margin-top:6px">Cek</button>`
   :`<div class="kvl" style="margin-top:18px;text-align:left">
-    <div><span class="kk">Pihak lawan yang masih bermain</span><span class="vv">${mwLawanHidup()} orang</span></div>
+    <div><span class="kk">${esc(L.pen)} yang masih bermain</span><span class="vv">${mwJml("pen")} orang</span></div>
+    <div><span class="kk">${esc(L.mw)} yang masih bermain</span><span class="vv">${mwJml("mw")} orang</span></div>
     <div><span class="kk">Pemain yang masih bermain</span><span class="vv">${mwHidup().length} orang</span></div></div>
+   ${u.peran==="pen"&&mwJml("mw")>0&&M.aturan==="asli"?`<div class="sup" style="font-size:12.5px;margin-top:10px">${esc(L.pen)} sudah keluar, tetapi ${esc(L.mw)} masih bermain, sehingga permainan berlanjut.</div>`:""}
    <button class="primary" id="mwlanjut" style="margin-top:20px;width:100%">${u.lanjut?"Lanjut ronde "+(M.ronde+1)+", kata tetap sama":"Lihat hasil"}</button>`}
  </div>`;
 }
@@ -9639,7 +9652,8 @@ function mwSelesai(){
  const M=ST.mw, L=mwL();
  const pen=[...Array(M.n).keys()].map(i=>i+1).filter(i=>M.peran[i]==="pen");
  const mw=[...Array(M.n).keys()].map(i=>i+1).filter(i=>M.peran[i]==="mw");
- const teks={warga:L.warga+" menang",lawan:L.pen+" menang",mw:L.mw+" menang"}[M.menang]||"Permainan dihentikan";
+ const teks={warga:L.warga+" menang",pen:L.pen+" menang",
+  mw:L.mw+" menang, bertahan sampai akhir",mwTebak:L.mw+" menang, kata tertebak"}[M.menang]||"Permainan dihentikan";
  return hd(teks)+
  `<div class="tiles">
   <div class="kpi accent"><div class="k">Ronde dimainkan</div><div class="v">${M.ronde}</div><div class="f">${M.n} pemain</div></div>
@@ -9662,6 +9676,7 @@ function bind_game_mw(){
  const M=ST.mw, L=mwL();
  bindRoster();
  document.querySelectorAll("[data-mwl]").forEach(b=>b.onclick=()=>{M.label=b.dataset.mwl;render()});
+ document.querySelectorAll("[data-mwa]").forEach(b=>b.onclick=()=>{M.aturan=b.dataset.mwa;render()});
  const m=$("#mwmulai"); if(m) m.onclick=()=>{mwBagi();render();window.scrollTo(0,0)};
  const l=$("#mwlihat"); if(l) l.onclick=()=>{M.lihat=true;render()};
  const n=$("#mwnext"); if(n) n.onclick=()=>{
@@ -9683,7 +9698,7 @@ function bind_game_mw(){
   M.fase="ungkap";render();window.scrollTo(0,0)};
  const ck=$("#mwcek"); if(ck) ck.onclick=()=>{
   const x=($("#mwkata").value||"").trim().toLowerCase();
-  if(x&&x===String(M.kataWarga||"").toLowerCase()){M.menang="mw";M.fase="selesai"}
+  if(x&&x===String(M.kataWarga||"").toLowerCase()){M.menang="mwTebak";M.fase="selesai"}
   else{
    const hasil=mwCek();
    if(hasil){M.menang=hasil;M.fase="selesai"}
