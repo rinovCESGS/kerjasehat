@@ -101,7 +101,50 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-@media(max-width:1000px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.rail{display:none}}
+@media(max-width:1000px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+/* ---------- kerangka aplikasi ponsel ---------- */
+.mnav,.tabbar,.scrim{display:none}
+@media(max-width:900px){
+ .shell{display:block}
+ .rail{position:fixed;left:0;top:0;bottom:0;z-index:70;width:82vw;max-width:310px;min-width:0;height:100%;
+  transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 0 40px rgba(10,58,74,.22);background:#fff}
+ .rail.open{transform:none}
+ .scrim{display:block;position:fixed;inset:0;z-index:69;background:rgba(10,58,74,.42);
+  opacity:0;pointer-events:none;transition:opacity .28s}
+ .scrim.open{opacity:1;pointer-events:auto}
+ .nav button{padding:12px 12px;font-size:14px;white-space:normal}
+ .nav-g{padding:14px 9px 5px;white-space:normal}
+ .topbar{position:sticky;top:0;z-index:40;padding:10px 12px;gap:8px;background:#fff}
+ .topbar .t{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .mnav{display:flex;align-items:center;justify-content:center;flex:0 0 38px;height:38px;padding:0;
+  border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:17px;line-height:1;color:var(--mar-700)}
+ .page{padding:16px 14px calc(84px + env(safe-area-inset-bottom))}
+ .tabbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:60;
+  grid-auto-flow:column;grid-auto-columns:1fr;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+ .tabbar button{display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;
+  padding:6px 2px;border-radius:10px;color:var(--ink-3);font-size:10.5px;font-weight:600;line-height:1.2}
+ .tabbar button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+ .tabbar button.on{color:var(--mar-500)}
+ .tabbar button.on svg{stroke:var(--mar-500)}
+ .hd h1{font-size:20px}
+ .tiles{grid-template-columns:1fr 1fr}
+ .kpi .v{font-size:23px}
+ .panel > .pb{padding:14px}
+ .panel > .pb.flush{overflow-x:auto}
+ table{min-width:520px}
+ .tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+ .tabs button{white-space:nowrap}
+ .mrow{gap:10px}
+ .mrow .mt{flex:1 1 100%}
+ .opt{min-width:0;flex:1 1 44%;padding:11px 10px}
+ .opts.s7 .opt{flex:1 1 12%}
+ .svy-nav{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));background:#fff;padding:10px 0}
+ .whoami{padding:14px}
+}
+@media(max-width:430px){.tiles{grid-template-columns:1fr}.tabbar button{font-size:9.5px}}
 .kpi{border:1px solid var(--line);border-radius:var(--r);padding:16px 17px;background:#fff}
 .kpi .k{font-size:12px;color:var(--ink-3)}
 .kpi .v{font-family:Montserrat;font-weight:700;font-size:26px;margin-top:3px;line-height:1.1}
@@ -226,6 +269,11 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
  .lg-panel{padding:28px 20px 70px}
 }
 
+
+.sortopt{border:1px solid var(--line-2);background:#fff;color:var(--ink);border-radius:var(--r);
+ font-family:Montserrat;font-weight:600;text-align:center}
+.sortopt:hover{border-color:var(--mar-300);background:var(--mar-100)}
+.sortopt:active{background:var(--mar-100);transform:scale(.985)}
 /* ---------- komponen non-tabel ---------- */
 .mrow{display:flex;align-items:center;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .mrow:last-child{border-bottom:none}
@@ -3494,8 +3542,18 @@ function page_game_sortir(){
  if(!ST.sort) sortInit();
  const g=ST.sort, t=TENANTS.find(x=>x.id===ST.tenant);
  if(g.stage==="setup"){
-  return hd("Sortir kartu, 45 detik","Satu hal saja yang dilatih di sini, yaitu beda antara kegiatan yang mengubah cara kerja diatur dan kegiatan yang membantu orangnya. Tidak ada teks panjang dan tidak ada rasa sedang dites.")+
-  `<div class="note"><b>Cara main.</b> Kartu muncul satu per satu berisi nama kegiatan. Pilih kiri kalau kegiatan itu mengubah pekerjaannya, misalnya beban, jadwal, atau aturan. Pilih kanan kalau kegiatan itu membantu orangnya menghadapi keadaan, misalnya pelatihan, dukungan, atau layanan. Benar berurutan memberi rentetan bonus. Waktunya 45 detik, tidak ada hukuman kalau salah.</div>
+  return hd("Sortir kartu, 45 detik")+
+  `<div class="card2" style="margin-bottom:16px">
+   <h4 style="font-family:Montserrat;font-size:15px;margin:0 0 10px">Cara main</h4>
+   <div class="kvl">
+    <div><span class="kk">Yang muncul di kartu</span><span class="vv">Nama satu kegiatan</span></div>
+    <div><span class="kk">Pertanyaannya</span><span class="vv">Kegiatan itu termasuk yang mana</span></div>
+    <div><span class="kk">Pilihan kiri</span><span class="vv">Mengubah pekerjaannya</span></div>
+    <div><span class="kk">Pilihan kanan</span><span class="vv">Membantu orangnya</span></div>
+    <div><span class="kk">Waktu</span><span class="vv">45 detik, salah tidak dihukum</span></div>
+   </div>
+   <p style="margin:12px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Mengubah pekerjaannya berarti kegiatan itu mengubah cara kerja diatur, misalnya menata ulang beban, jadwal, atau aturan. Membantu orangnya berarti kegiatan itu menolong pekerja menghadapi keadaan tanpa mengubah keadaannya, misalnya pelatihan, dukungan, atau layanan konseling.</p>
+   <p style="margin:8px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Keduanya berguna dan keduanya benar sebagai kegiatan. Yang dilatih di sini hanya membedakannya, karena hanya kelompok pertama yang menurunkan sumber tekanannya.</p></div>
   <div class="panel"><div class="ph"><h3>Divisi Anda</h3></div><div class="pb"><div class="row">
    ${t.units.concat(["Seluruh unit"]).map(u=>`<button class="opt ${g.div===u?"on":""}" data-sd="${esc(u)}" style="flex:0 0 auto">${esc(u)}</button>`).join("")}</div></div></div>
   <div class="row"><button class="primary" id="sstart" ${g.div?"":"disabled"}>Mulai</button>
@@ -3507,23 +3565,25 @@ function page_game_sortir(){
   return `<div class="svy"><div class="svy-top"><div class="spread">
    <div><div class="sup" style="font-size:12px">${esc(g.div)}</div>
     <h2 style="margin-top:2px">Skor ${g.skor}</h2></div>
-   <div style="text-align:right"><div class="mono" id="stimer" style="font-size:24px;font-weight:700">45,0</div>
+   <div style="text-align:right"><div><span class="mono" id="stimer" style="font-size:24px;font-weight:700">45,0</span>
+     <span class="sup" style="font-size:12px"> detik</span></div>
     <div class="sup" style="font-size:12px">Rentetan ${g.streak}, terbaik ${g.best}</div></div></div>
    <div class="prog"><i id="sbar" style="width:100%"></i></div></div>
    <div id="sflash" style="text-align:center;height:24px;font-weight:600;font-family:Montserrat;font-size:15px;margin-top:8px"></div>
-   <div style="border:1px solid var(--line-2);border-radius:14px;padding:38px 22px;text-align:center;margin:6px 0 20px;
-    background:var(--grad-soft);min-height:150px;display:flex;align-items:center;justify-content:center">
+   <div style="text-align:center;font-size:13px;color:var(--ink-3);margin-bottom:8px">Kegiatan ini termasuk yang mana</div>
+   <div style="border:1px solid var(--line-2);border-radius:14px;padding:34px 22px;text-align:center;margin:0 0 18px;
+    background:var(--bg-2);min-height:132px;display:flex;align-items:center;justify-content:center">
     <div style="font-family:Montserrat;font-weight:600;font-size:22px;line-height:1.35">${esc(c.t)}</div></div>
    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <button class="primary" data-sp="1" style="padding:18px 12px;font-size:15px;line-height:1.3">Ubah pekerjaannya
-     <span style="display:block;font-size:11.5px;font-weight:400;opacity:.85;margin-top:4px">beban, jadwal, aturan</span></button>
-    <button data-sp="0" style="padding:18px 12px;font-size:15px;line-height:1.3;border:1px solid var(--line-2)">Bantu orangnya
-     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:4px">pelatihan, dukungan, layanan</span></button></div>
+    <button data-sp="1" class="sortopt" style="padding:18px 12px;font-size:15px;line-height:1.3">Mengubah pekerjaannya
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">beban, jadwal, aturan</span></button>
+    <button data-sp="0" class="sortopt" style="padding:18px 12px;font-size:15px;line-height:1.3">Membantu orangnya
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">pelatihan, dukungan, layanan</span></button></div>
    <div class="svy-nav"><span class="sup">Kartu ke ${g.idx+1}</span><button id="squit">Keluar</button></div></div>`;
  }
  const total=g.hits.length, benar=g.hits.filter(h=>h.ok).length;
  const salah=g.hits.filter(h=>!h.ok);
- return hd("Hasil sortir","Kecepatan dan ketepatan dicatat sebagai angka divisi. Kartu yang salah menjadi bahan materi berikutnya.")+
+ return hd("Hasil sortir")+
  `<div class="grid4">
   <div class="kpi accent"><div class="k">Skor</div><div class="v">${g.skor}</div><div class="f">${total} kartu dalam 45 detik</div></div>
   <div class="kpi"><div class="k">Ketepatan</div><div class="v">${total?pct(benar/total*100):"—"}</div><div class="f">${benar} benar dari ${total}</div></div>
@@ -3533,10 +3593,13 @@ function page_game_sortir(){
   <thead><tr><th>Kegiatan</th><th>Jawaban Anda</th><th>Seharusnya</th></tr></thead><tbody>
   ${salah.map(h=>`<tr><td>${esc(h.t)}</td><td><span class="pill bad">${h.pick?"Ubah pekerjaannya":"Bantu orangnya"}</span></td>
    <td><span class="pill ok">${h.p?"Ubah pekerjaannya":"Bantu orangnya"}</span></td></tr>`).join("")}
-  </tbody></table></div></div>`:`<div class="note ok" style="margin-top:16px"><b>Semua kartu tersortir benar.</b></div>`}
+  </tbody></table></div></div>`:`<div class="card2" style="margin-top:16px"><b>Semua kartu tersortir benar.</b></div>`}
  <div class="row noprint"><button class="primary" id="ssave">Simpan ke papan peringkat</button>
   <button id="skeg">Catat sebagai kegiatan</button><button id="sagain">Main lagi</button></div>
- <div class="note" style="margin-top:14px"><b>Kenapa cuma satu hal ini.</b> Kesalahan yang paling sering terjadi di program kesejahteraan perusahaan adalah menganggap kelas relaksasi setara dengan menata ulang beban kerja. Sekali orang bisa memisahkan keduanya, diskusi soal mana yang dikerjakan lebih dulu jadi jauh lebih cepat.</div>`;
+ <div class="card2" style="margin-top:14px">
+  <h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Kenapa hanya ini yang dilatih</h4>
+  <p style="margin:0;font-size:13px;color:var(--ink-2);line-height:1.68">Kesalahan yang paling sering terjadi pada program kesejahteraan perusahaan adalah menganggap kelas relaksasi setara dengan menata ulang beban kerja. Keduanya kegiatan yang sah, tetapi hanya yang kedua menurunkan sumber tekanannya. Sekali orang dapat memisahkan keduanya, diskusi soal mana yang dikerjakan lebih dulu menjadi jauh lebih cepat.</p>
+  <p style="margin:8px 0 0;font-size:13px;color:var(--ink-3);line-height:1.68">Skor perorangan tidak disimpan. Yang masuk papan peringkat hanya angka divisi, dan kartu yang tertukar menjadi bahan materi sesi berikutnya.</p></div>`;
 }
 function bind_game_sortir(){
  if(window.__st){clearInterval(window.__st);window.__st=null}
@@ -7993,6 +8056,1829 @@ render=function(){
   }
  }
 };
+/* ===================================================================
+   Lapisan kedua puluh satu: kerangka aplikasi ponsel
+   Rel kiri menjadi panel geser, ditambah bilah tab bawah berisi
+   tujuan utama per peran. Di layar lebar tampilannya tidak berubah.
+=================================================================== */
+const IKON={
+ rumah:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/>',
+ grafik:'<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M21 20H3"/>',
+ daftar:'<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3.5 6h.01"/><path d="M3.5 12h.01"/><path d="M3.5 18h.01"/>',
+ pena:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+ orang:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+ periksa:'<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/>',
+ berkas:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/>',
+ dadu:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.3"/><circle cx="15.5" cy="15.5" r="1.3"/><circle cx="12" cy="12" r="1.3"/>',
+ gedung:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h2"/><path d="M13 8h2"/><path d="M9 12h2"/><path d="M13 12h2"/><path d="M10 21v-4h4v4"/>',
+ gir:'<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/>'
+};
+const MTAB={
+ pekerja:[["svy","Asesmen","pena"],["myrep","Laporan","grafik"],["game_sortir","Permainan","dadu"],["riwayat","Riwayat","daftar"]],
+ admin_tenant:[["mulai","Mulai","rumah"],["iwh_company","Laporan","grafik"],["keg","Kegiatan","daftar"],["ep","Bukti","berkas"]],
+ direksi:[["board","Dasbor","grafik"],["iwh_company","Laporan","daftar"],["matr","Materialitas","periksa"],["target","Target","pena"]],
+ penyusun:[["std","Kebutuhan","daftar"],["entri","Data","pena"],["rate","Indikator","grafik"],["ep","Bukti","berkas"]],
+ assurance:[["isae","Prosedur","daftar"],["concl","Kesimpulan","periksa"],["ep","Bukti","berkas"],["ledger","Jejak","grafik"]],
+ auditor_smk3:[["iso","ISO 45003","periksa"],["pmk","Permenaker","berkas"],["bahaya","Bahaya","daftar"],["rate","Indikator","grafik"]],
+ pjk3:[["pjk","Klien","gedung"],["iwh_company","Laporan","grafik"],["iwh_interven","Tindakan","daftar"],["ep","Bukti","berkas"]],
+ platform:[["lp_edit","Situs","gir"],["p_tenant","Perusahaan","gedung"],["p_items","Bank butir","daftar"],["ledger","Jejak","grafik"]]
+};
+function tabbar(){
+ const t=MTAB[ST.user.role]||[];
+ if(!t.length) return "";
+ return `<nav class="tabbar noprint">${t.map(x=>`<button data-go="${x[0]}" class="${ST.page===x[0]?"on":""}">
+  <svg viewBox="0 0 24 24">${IKON[x[2]]||IKON.daftar}</svg><span>${esc(x[1])}</span></button>`).join("")}</nav>`;
+}
+const _shellM=shell;
+shell=function(body){
+ let h=_shellM(body);
+ h=h.replace('<aside class="rail">','<aside class="rail'+(ST.drawer?" open":"")+'">');
+ h=h.replace('<span class="t">','<button class="mnav noprint" id="mMenu" aria-label="Buka menu">&#9776;</button><span class="t">');
+ return h+`<div class="scrim noprint${ST.drawer?" open":""}" id="mScrim"></div>`+tabbar();
+};
+const _bindM=bindShell;
+bindShell=function(){
+ _bindM();
+ const rail=document.querySelector(".rail"), scrim=$("#mScrim"), mb=$("#mMenu");
+ const tutup=()=>{ST.drawer=false;if(rail)rail.classList.remove("open");if(scrim)scrim.classList.remove("open")};
+ const buka=()=>{ST.drawer=true;if(rail)rail.classList.add("open");if(scrim)scrim.classList.add("open")};
+ if(mb) mb.onclick=()=>{ST.drawer?tutup():buka()};
+ if(scrim) scrim.onclick=tutup;
+ /* memilih menu menutup panel, lalu berpindah halaman */
+ document.querySelectorAll(".rail [data-go]").forEach(b=>b.onclick=()=>{tutup();go(b.dataset.go)});
+ document.querySelectorAll(".tabbar [data-go]").forEach(b=>b.onclick=()=>{tutup();go(b.dataset.go)});
+};
+/* perpindahan halaman selalu menutup panel geser */
+const _go=go;
+go=function(p){ST.drawer=false;return _go(p)};
+/* ===================================================================
+   Lapisan kedua puluh dua: latihan bertingkat
+   Dimainkan sendiri, dua belas tingkat, empat jenis tantangan.
+   Skor hanya pengetahuan, bukan skor kesejahteraan, dan nilai
+   perorangan tidak pernah dipakai menilai pekerja.
+=================================================================== */
+const LV_BAND=[
+ {b:"A",n:"Kenali",j:"kenal",d:"Tentukan faktor kerja mana yang menjadi sumbernya"},
+ {b:"B",n:"Tingkatkan",j:"tingkat",d:"Tentukan kegiatan itu pencegahan tingkat berapa"},
+ {b:"C",n:"Pilih kendali",j:"kendali",d:"Pilih tindakan yang menyentuh sumbernya"},
+ {b:"D",n:"Atur anggaran",j:"anggaran",d:"Pilih dua tindakan dalam batas anggaran"}
+];
+const LV_FAKTOR=[
+ ["D1","Beban dan tempo kerja"],["D2","Tuntutan emosional"],["D3","Kejelasan dan konflik peran"],
+ ["D4","Kendali dan pengembangan"],["D5","Dukungan penyelia"],["D6","Keadilan organisasi"],
+ ["D7","Perilaku ofensif"],["D8","Kerja dan kehidupan"],["D11","Iklim keselamatan"],["D12","Keadilan imbalan"]
+];
+const LV_SOAL={
+ kenal:[
+  {s:"Operator lini dua diminta menyelesaikan pesanan tambahan tanpa penambahan orang, dan target harian tetap.",j:"D1"},
+  {s:"Petugas layanan pelanggan menerima kemarahan pelanggan sepanjang giliran dan harus tetap ramah.",j:"D2"},
+  {s:"Dua penyelia memberi perintah berbeda untuk pekerjaan yang sama pada hari yang sama.",j:"D3"},
+  {s:"Teknisi sudah lima tahun di posisi sama dan tidak pernah diberi tahu jalur naiknya.",j:"D4"},
+  {s:"Pekerja baru tidak tahu harus bertanya ke siapa saat mesin berhenti, dan penyelianya jarang di tempat.",j:"D5"},
+  {s:"Usulan pekerja pada forum bulanan tidak pernah dijawab, sementara usulan bagian lain langsung dijalankan.",j:"D6"},
+  {s:"Seorang pekerja berulang kali dijadikan bahan olok-olok di grup pesan tim.",j:"D7"},
+  {s:"Pesan kerja masuk pukul sebelas malam dan diharapkan dijawab sebelum pagi.",j:"D8"},
+  {s:"Manajemen menyebut kesehatan mental penting pada rapat, tetapi tidak ada penanggung jawabnya di struktur P2K3.",j:"D11"},
+  {s:"Dua pekerja dengan tanggung jawab setara menerima upah berbeda tanpa dasar yang dijelaskan.",j:"D12"},
+  {s:"Jadwal giliran berubah pada hari yang sama tanpa pemberitahuan, tiga kali dalam sebulan.",j:"D1"},
+  {s:"Pekerja diminta memutuskan penghentian produksi tanpa wewenang yang tertulis.",j:"D3"}
+ ],
+ tingkat:[
+  {s:"Menata ulang beban kerja pada jam puncak",j:"primer"},
+  {s:"Kelas relaksasi dan pernapasan mingguan",j:"sekunder"},
+  {s:"Program kembali kerja bagi pekerja yang sudah terdampak",j:"tersier"},
+  {s:"Memperbarui uraian jabatan dan batas wewenang",j:"primer"},
+  {s:"Pelatihan mengelola waktu bagi pekerja",j:"sekunder"},
+  {s:"Membatasi giliran malam berurutan menjadi maksimum tiga",j:"primer"},
+  {s:"Layanan konseling rahasia bagi pekerja",j:"sekunder"},
+  {s:"Penempatan ulang pekerja setelah pemulihan gangguan kesehatan kerja",j:"tersier"},
+  {s:"Menambah personel pada gelombang kerja tersibuk",j:"primer"},
+  {s:"Sosialisasi jalur bantuan dan pelindungan pelapor",j:"sekunder"},
+  {s:"Pendampingan medis dan pemantauan pemulihan",j:"tersier"},
+  {s:"Menghapus rapat yang tidak punya keputusan",j:"primer"}
+ ],
+ kendali:[
+  {s:"Skor beban dan tempo kerja unit produksi berada pada persentil 88.",o:[
+   ["Telaah beban kerja dan penataan tempo pada jam puncak",1],
+   ["Kelas manajemen stres tiap Jumat",0],
+   ["Poster ajakan bekerja lebih efisien",0],
+   ["Bonus kehadiran bagi pekerja",0]]},
+  {s:"Konflik peran tinggi karena dua penyelia memberi perintah berbeda.",o:[
+   ["Penetapan satu jalur pelaporan per posisi",1],
+   ["Pelatihan komunikasi asertif bagi pekerja",0],
+   ["Kotak saran di area produksi",0],
+   ["Sesi motivasi bulanan",0]]},
+  {s:"Perilaku ofensif dilaporkan oleh sebagian pekerja pada unit yang sama.",o:[
+   ["Kanal aduan independen di luar jalur penyelia beserta pelindungan pelapor",1],
+   ["Pelatihan ketahanan mental bagi yang terdampak",0],
+   ["Acara ramah tamah antar bagian",0],
+   ["Imbauan saling menghargai pada apel pagi",0]]},
+  {s:"Antarmuka kerja dan kehidupan memburuk, pesan kerja masuk larut malam.",o:[
+   ["Pembatasan komunikasi kerja di luar jam kerja beserta aturan tertulis",1],
+   ["Pelatihan menetapkan batas pribadi",0],
+   ["Kupon makan malam bagi yang lembur",0],
+   ["Aplikasi pengingat tidur",0]]},
+  {s:"Keadilan organisasi rendah, usulan pekerja tidak pernah dijawab.",o:[
+   ["Kewajiban umpan balik tertulis atas setiap usulan yang masuk",1],
+   ["Kelas berpikir positif",0],
+   ["Penambahan hadiah pada lomba kebersihan",0],
+   ["Pengumuman bahwa manajemen terbuka pada masukan",0]]},
+  {s:"Dukungan penyelia rendah pada giliran malam.",o:[
+   ["Penyesuaian rentang kendali penyelia pada giliran malam",1],
+   ["Pelatihan mandiri bagi pekerja giliran malam",0],
+   ["Tambahan kopi di ruang istirahat",0],
+   ["Survei kepuasan bulanan",0]]}
+ ],
+ anggaran:[
+  {s:"Unit produksi berpajanan tinggi pada beban kerja dan konflik peran. Anggaran 60 juta rupiah, pilih dua.",bat:60,o:[
+   ["Penambahan personel pada gelombang puncak",35,3],
+   ["Pembaruan uraian jabatan dan jalur pelaporan",20,3],
+   ["Kelas relaksasi mingguan setahun",25,1],
+   ["Pengadaan kursi pijat ruang istirahat",40,0],
+   ["Poster kampanye kesehatan mental",5,0]]},
+  {s:"Unit logistik berpajanan tinggi pada jam kerja dan dukungan penyelia. Anggaran 50 juta rupiah, pilih dua.",bat:50,o:[
+   ["Pembatasan giliran malam berurutan dan jeda antar giliran",25,3],
+   ["Pelatihan penyelia mengenali tanda pajanan",20,3],
+   ["Lomba kebersihan gudang",10,0],
+   ["Langganan aplikasi meditasi",15,1],
+   ["Seragam baru",30,0]]},
+  {s:"Kantor pusat berpajanan tinggi pada keadilan imbalan dan pengembangan. Anggaran 70 juta rupiah, pilih dua.",bat:70,o:[
+   ["Telaah kesepadanan upah terhadap beban tanggung jawab",40,3],
+   ["Publikasi kriteria promosi dan jalur karier",25,3],
+   ["Sesi motivasi pembicara luar",30,0],
+   ["Kelas yoga dua kali sepekan",20,1],
+   ["Perbaikan tata ruang kerja",45,0]]}
+ ]
+};
+function lvBand(n){return LV_BAND[Math.min(3,Math.floor((n-1)/3))]}
+function lvInit(){ST.lv=ST.lv||{prog:{},cur:null,idx:0,benar:0,pilih:[],mulai:0,sisa:0}}
+function lvTerbuka(n){lvInit();return n===1||!!(ST.lv.prog[n-1]&&ST.lv.prog[n-1]>0)}
+function lvBintang(n){lvInit();return ST.lv.prog[n]||0}
+function lvSoal(n){
+ const b=lvBand(n), pool=LV_SOAL[b.j];
+ const r=mulberry32(n*7919);
+ const idx=[...Array(pool.length).keys()].sort(()=>r()-0.5).slice(0,4);
+ return idx.map(i=>pool[i]);
+}
+function lvWaktu(n){return n>=7?30:0}
+/* ---------- halaman ---------- */
+function page_game_level(){
+ lvInit();
+ const L=ST.lv;
+ if(L.cur==null) return lvPeta();
+ if(L.idx>=lvSoal(L.cur).length) return lvHasil();
+ return lvMain();
+}
+function lvPeta(){
+ const total=12, sel=[...Array(total).keys()].filter(i=>lvBintang(i+1)>0).length;
+ const bintangTotal=[...Array(total).keys()].reduce((a,i)=>a+lvBintang(i+1),0);
+ return hd("Latihan bertingkat")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Tingkat selesai</div><div class="v">${sel} / ${total}</div><div class="f">Dimainkan sendiri, kapan saja</div></div>
+  <div class="tile"><div class="lpt1">Bintang</div><div class="lpt2">${bintangTotal} / ${total*3}</div><div class="lpt3">Tiga bintang bila empat soal benar</div></div>
+  <div class="tile"><div class="lpt1">Jenis tantangan</div><div class="lpt2">4</div><div class="lpt3">Kenali, tingkatkan, pilih kendali, atur anggaran</div></div>
+  <div class="tile"><div class="lpt1">Batas waktu</div><div class="lpt2">30 detik</div><div class="lpt3">Mulai berlaku dari tingkat 7</div></div></div>
+ ${LV_BAND.map((b,bi)=>`<div class="panel" style="margin-top:16px"><div class="ph"><h3>Babak ${b.b} · ${esc(b.n)}</h3>
+   <span class="pill mut">${esc(b.d)}</span></div><div class="pb">
+   <div class="grid3">${[1,2,3].map(k=>{
+    const n=bi*3+k, buka=lvTerbuka(n), bt=lvBintang(n);
+    return `<div class="card2" style="${buka?"":"opacity:.55"}">
+     <div class="spread"><div style="font-family:Montserrat;font-weight:700;font-size:15px">Tingkat ${n}</div>
+      <div style="letter-spacing:2px;color:${bt?"var(--mar-300)":"var(--line-2)"}">${"★".repeat(bt)}${"☆".repeat(3-bt)}</div></div>
+     <div class="sup" style="font-size:12px;margin-top:6px">${esc(b.d)}${lvWaktu(n)?" · "+lvWaktu(n)+" detik per soal":""}</div>
+     <button class="${buka?"primary":""}" data-lvgo="${n}" ${buka?"":"disabled"} style="margin-top:12px;width:100%">
+      ${buka?(bt?"Main lagi":"Mulai"):"Terkunci"}</button></div>`}).join("")}</div>
+  </div></div>`).join("")}
+ <div class="card2" style="margin-top:16px">
+  <h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang dicatat dan tidak dicatat</h4>
+  <div class="kvl">
+   <div><span class="kk">Dicatat</span><span class="vv">Skor pengetahuan tingkat divisi</span></div>
+   <div><span class="kk">Tidak dicatat</span><span class="vv">Nilai perorangan dan jawaban per soal</span></div>
+   <div><span class="kk">Tidak pernah dipakai</span><span class="vv">Menilai kinerja pekerja</span></div>
+  </div></div>`;
+}
+function lvMain(){
+ const L=ST.lv, n=L.cur, b=lvBand(n), soal=lvSoal(n), s=soal[L.idx], w=lvWaktu(n);
+ let pilihan="";
+ if(b.j==="kenal"){
+  const r=mulberry32(n*31+L.idx);
+  const salah=LV_FAKTOR.filter(f=>f[0]!==s.j).sort(()=>r()-0.5).slice(0,3);
+  const opsi=salah.concat([LV_FAKTOR.find(f=>f[0]===s.j)]).sort(()=>r()-0.5);
+  pilihan=`<div class="grid2" style="gap:10px">${opsi.map(o=>`<button class="sortopt" data-lvp="${o[0]}" style="padding:15px 12px;font-size:14px">${esc(o[1])}</button>`).join("")}</div>`;
+ } else if(b.j==="tingkat"){
+  pilihan=`<div class="grid3" style="gap:10px">${[["primer","Primer","mengubah cara kerja diatur"],["sekunder","Sekunder","memperkuat orangnya"],["tersier","Tersier","menangani yang sudah terdampak"]]
+   .map(o=>`<button class="sortopt" data-lvp="${o[0]}" style="padding:15px 12px;font-size:14px">${esc(o[1])}
+   <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">${esc(o[2])}</span></button>`).join("")}</div>`;
+ } else if(b.j==="kendali"){
+  const r=mulberry32(n*57+L.idx);
+  const opsi=s.o.slice().sort(()=>r()-0.5);
+  pilihan=`<div style="display:grid;gap:10px">${opsi.map(o=>`<button class="sortopt" data-lvp="${esc(o[0])}" style="padding:14px 14px;font-size:14px;text-align:left">${esc(o[0])}</button>`).join("")}</div>`;
+ } else {
+  const dipilih=L.pilih||[], biaya=dipilih.reduce((a,i)=>a+s.o[i][1],0);
+  pilihan=`<div style="display:grid;gap:10px">${s.o.map((o,i)=>`<button class="sortopt ${dipilih.indexOf(i)>=0?"on":""}" data-lvc="${i}"
+    style="padding:14px;font-size:14px;text-align:left;display:flex;justify-content:space-between;gap:12px;align-items:center${dipilih.indexOf(i)>=0?";border-color:var(--mar-300);background:var(--mar-100)":""}">
+    <span>${esc(o[0])}</span><span class="mono" style="font-weight:600">${o[1]} jt</span></button>`).join("")}</div>
+   <div class="spread" style="margin-top:14px">
+    <span class="sup">Terpilih ${dipilih.length} dari 2 · biaya ${biaya} dari ${s.bat} juta</span>
+    <button class="primary" id="lvkirim" ${dipilih.length===2?"":"disabled"}>Kunci pilihan</button></div>`;
+ }
+ return `<div class="svy"><div class="svy-top"><div class="spread">
+  <div><div class="sup" style="font-size:12px">Tingkat ${n} · Babak ${b.b} ${esc(b.n)}</div>
+   <h2 style="margin-top:2px">Soal ${L.idx+1} dari ${soal.length}</h2></div>
+  <div style="text-align:right">${w?`<div><span class="mono" id="lvtimer" style="font-size:22px;font-weight:700">${w},0</span>
+   <span class="sup" style="font-size:12px"> detik</span></div>`:""}
+   <div class="sup" style="font-size:12px">Benar ${L.benar}</div></div></div>
+  <div class="prog"><i style="width:${L.idx/soal.length*100}%"></i></div></div>
+  <div id="lvflash" style="text-align:center;height:24px;font-weight:600;font-family:Montserrat;font-size:15px;margin-top:8px"></div>
+  <div style="text-align:center;font-size:13px;color:var(--ink-3);margin-bottom:8px">${esc(b.d)}</div>
+  <div style="border:1px solid var(--line-2);border-radius:14px;padding:26px 20px;text-align:center;margin:0 0 18px;
+   background:var(--bg-2);min-height:112px;display:flex;align-items:center;justify-content:center">
+   <div style="font-family:Montserrat;font-weight:600;font-size:18px;line-height:1.45;max-width:52ch">${esc(s.s)}</div></div>
+  ${pilihan}
+  <div class="svy-nav"><span class="sup">Salah tidak mengurangi</span><button id="lvquit">Keluar</button></div></div>`;
+}
+function lvHasil(){
+ const L=ST.lv, n=L.cur, soal=lvSoal(n), total=soal.length;
+ const bt=L.benar===total?3:L.benar>=total-1?2:L.benar>=Math.ceil(total*0.6)?1:0;
+ if((ST.lv.prog[n]||0)<bt) ST.lv.prog[n]=bt;
+ const lolos=bt>0;
+ return hd("Hasil tingkat "+n)+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Bintang</div><div class="v" style="letter-spacing:3px">${"★".repeat(bt)}${"☆".repeat(3-bt)}</div>
+   <div class="f">${L.benar} benar dari ${total}</div></div>
+  <div class="tile"><div class="lpt1">Ketepatan</div><div class="lpt2">${pct(L.benar/total*100)}</div><div class="lpt3">Tingkat ${n}</div></div>
+  <div class="tile"><div class="lpt1">Tingkat berikutnya</div><div class="lpt2" style="font-size:17px">${lolos?(n<12?"Terbuka":"Selesai semua"):"Masih terkunci"}</div>
+   <div class="lpt3">${lolos?"":"Perlu sekurang-kurangnya satu bintang"}</div></div>
+  <div class="tile"><div class="lpt1">Bintang terkumpul</div><div class="lpt2">${[...Array(12).keys()].reduce((a,i)=>a+lvBintang(i+1),0)} / 36</div><div class="lpt3">Seluruh tingkat</div></div></div>
+ <div class="row" style="margin-top:16px">
+  <button class="primary" id="lvulang">Main lagi tingkat ${n}</button>
+  ${lolos&&n<12?`<button id="lvnext">Lanjut tingkat ${n+1}</button>`:""}
+  <button id="lvpeta">Daftar tingkat</button>
+  <button id="lvsimpan">Simpan ke papan peringkat</button></div>`;
+}
+function bind_game_level(){
+ const L=ST.lv;
+ document.querySelectorAll("[data-lvgo]").forEach(b=>b.onclick=()=>{
+  L.cur=+b.dataset.lvgo; L.idx=0; L.benar=0; L.pilih=[]; render()});
+ const q=$("#lvquit"); if(q) q.onclick=()=>{L.cur=null;lvBersih();render()};
+ const jawab=(ok,ket)=>{
+  if(ok) L.benar++;
+  const f=$("#lvflash");
+  if(f){f.textContent=ok?"Tepat":(ket||"Belum tepat");f.style.color=ok?"var(--ok)":"var(--bad)"}
+  setTimeout(()=>{L.idx++;L.pilih=[];lvBersih();render();window.scrollTo(0,0)},620);
+ };
+ const n=L.cur, b=n?lvBand(n):null, soal=n?lvSoal(n):[], s=soal[L.idx];
+ document.querySelectorAll("[data-lvp]").forEach(x=>x.onclick=()=>{
+  const v=x.dataset.lvp;
+  if(b.j==="kendali"){
+   const benar=s.o.find(o=>o[1]===1)[0];
+   jawab(v===benar,"Yang tepat menyentuh sumbernya");
+  } else jawab(v===s.j);
+ });
+ document.querySelectorAll("[data-lvc]").forEach(x=>x.onclick=()=>{
+  const i=+x.dataset.lvc; L.pilih=L.pilih||[];
+  const k=L.pilih.indexOf(i);
+  if(k>=0) L.pilih.splice(k,1); else if(L.pilih.length<2) L.pilih.push(i);
+  render();
+ });
+ const kr=$("#lvkirim"); if(kr) kr.onclick=()=>{
+  const biaya=L.pilih.reduce((a,i)=>a+s.o[i][1],0);
+  const efek=L.pilih.reduce((a,i)=>a+s.o[i][2],0);
+  const maks=s.o.map(o=>o[2]).sort((a,c)=>c-a).slice(0,2).reduce((a,c)=>a+c,0);
+  jawab(biaya<=s.bat&&efek>=maks, biaya>s.bat?"Melewati anggaran":"Ada pilihan yang lebih menurunkan pajanan");
+ };
+ const ul=$("#lvulang"); if(ul) ul.onclick=()=>{L.idx=0;L.benar=0;L.pilih=[];render()};
+ const nx=$("#lvnext"); if(nx) nx.onclick=()=>{L.cur=n+1;L.idx=0;L.benar=0;L.pilih=[];render();window.scrollTo(0,0)};
+ const pt=$("#lvpeta"); if(pt) pt.onclick=()=>{L.cur=null;render()};
+ const sv=$("#lvsimpan"); if(sv) sv.onclick=async()=>{
+  ST.gameRuns=ST.gameRuns||[];
+  ST.gameRuns.push({div:"Seluruh unit",tgl:today(),skor:Math.round(L.benar/soal.length*100),n:1,jenis:"Latihan bertingkat"});
+  await ledgerPush("portal.latihan","Hasil latihan bertingkat disimpan sebagai skor divisi",{tingkat:n,bintang:lvBintang(n)});
+  toast("Tersimpan sebagai angka divisi, bukan nilai perorangan");render()};
+ /* pewaktu mulai tingkat tujuh */
+ lvBersih();
+ const w=n?lvWaktu(n):0;
+ if(w&&L.idx<soal.length&&$("#lvtimer")){
+  L.sisa=w*1000; L.mulai=Date.now();
+  ST.lvTick=setInterval(()=>{
+   const sisa=Math.max(0,L.sisa-(Date.now()-L.mulai));
+   const el=$("#lvtimer"); if(!el){lvBersih();return}
+   el.textContent=(sisa/1000).toFixed(1).replace(".",",");
+   if(sisa<=0){lvBersih();jawab(false,"Waktu habis")}
+  },100);
+ }
+}
+function lvBersih(){if(ST.lvTick){clearInterval(ST.lvTick);ST.lvTick=null}}
+/* ---------- navigasi: sortir kartu diganti latihan bertingkat ---------- */
+(function(){
+ const ganti=(r)=>{
+  if(!NAV[r])return;
+  NAV[r]=NAV[r].map(e=>e[0]==="game_sortir"?["game_level","Latihan bertingkat"]:e);
+ };
+ ["pekerja","admin_tenant","penyusun","assurance","auditor_smk3","direksi","pjk3","platform"].forEach(ganti);
+ if(MTAB.pekerja) MTAB.pekerja=MTAB.pekerja.map(x=>x[0]==="game_sortir"?["game_level","Latihan","dadu"]:x);
+ if(HOME.pekerja==="game_sortir") HOME.pekerja="game_level";
+ SYARAT.game_papan=()=>(ST.gameRuns||[]).length>=1;
+})();
+/* ===================================================================
+   Lapisan kedua puluh tiga: Blok Jeda
+   Permainan blok 8 kali 8 bergaya block blast, dimainkan sendiri,
+   dua belas tingkat dengan sasaran skor yang menaik.
+=================================================================== */
+const BB_N=8;
+const BB_WARNA=["#0E7490","#17A398","#0A3A4A","#3FB6A8","#0E6376","#6ED0C0"];
+const BB_BENTUK=[
+ {n:"1",c:[[0,0]],k:1},
+ {n:"2 tegak",c:[[0,0],[1,0]],k:1},
+ {n:"2 datar",c:[[0,0],[0,1]],k:1},
+ {n:"3 datar",c:[[0,0],[0,1],[0,2]],k:1},
+ {n:"3 tegak",c:[[0,0],[1,0],[2,0]],k:1},
+ {n:"kotak",c:[[0,0],[0,1],[1,0],[1,1]],k:1},
+ {n:"L kecil",c:[[0,0],[1,0],[1,1]],k:1},
+ {n:"L cermin",c:[[0,1],[1,0],[1,1]],k:1},
+ {n:"4 datar",c:[[0,0],[0,1],[0,2],[0,3]],k:2},
+ {n:"4 tegak",c:[[0,0],[1,0],[2,0],[3,0]],k:2},
+ {n:"T",c:[[0,0],[0,1],[0,2],[1,1]],k:2},
+ {n:"L besar",c:[[0,0],[1,0],[2,0],[2,1]],k:2},
+ {n:"J besar",c:[[0,1],[1,1],[2,1],[2,0]],k:2},
+ {n:"S",c:[[0,1],[0,2],[1,0],[1,1]],k:3},
+ {n:"Z",c:[[0,0],[0,1],[1,1],[1,2]],k:3},
+ {n:"5 datar",c:[[0,0],[0,1],[0,2],[0,3],[0,4]],k:3},
+ {n:"5 tegak",c:[[0,0],[1,0],[2,0],[3,0],[4,0]],k:3},
+ {n:"tiga kali tiga",c:[[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],k:3},
+ {n:"plus",c:[[0,1],[1,0],[1,1],[1,2],[2,1]],k:3},
+ {n:"sudut besar",c:[[0,0],[0,1],[0,2],[1,0],[2,0]],k:3}
+];
+function bbSasaran(l){return 150+(l-1)*60}
+function bbPar(l){return Math.ceil(bbSasaran(l)/5.6)}
+function bbKesulitan(l){return l<=3?1:l<=8?2:3}
+function bbKolam(l){const k=bbKesulitan(l);return BB_BENTUK.filter(b=>b.k<=k)}
+/* potongan besar dibuat lebih jarang, kalau tidak papan cepat mati dan
+   tingkat tinggi menjadi mustahil, bukan menantang */
+const BB_BOBOT={1:6,2:3,3:1};
+function bbAcak(l){
+ const kolam=bbKolam(l), r=ST.bb.rng;
+ const total=kolam.reduce((a,b)=>a+BB_BOBOT[b.k],0);
+ const ambil=()=>{
+  let x=r()*total;
+  for(const b of kolam){x-=BB_BOBOT[b.k];if(x<=0)return b}
+  return kolam[0];
+ };
+ return [0,1,2].map(()=>{
+  const b=ambil();
+  return {n:b.n,c:b.c,w:BB_WARNA[Math.floor(r()*BB_WARNA.length)]};
+ });
+}
+function bbInit(l){
+ ST.bb={lvl:l,grid:new Array(BB_N*BB_N).fill(null),skor:0,baris:0,combo:0,sel:null,taruh:0,
+  rng:mulberry32(Date.now()&0xffffff),selesai:false,lolos:false,pesan:""};
+ ST.bb.potong=bbAcak(l);
+ return ST.bb;
+}
+function bbBisa(g,p,r,c){
+ for(const [dr,dc] of p.c){
+  const rr=r+dr, cc=c+dc;
+  if(rr<0||cc<0||rr>=BB_N||cc>=BB_N) return false;
+  if(g[rr*BB_N+cc]) return false;
+ }
+ return true;
+}
+function bbAnchor(g,p){
+ const out=[];
+ for(let r=0;r<BB_N;r++)for(let c=0;c<BB_N;c++) if(bbBisa(g,p,r,c)) out.push(r*BB_N+c);
+ return out;
+}
+function bbAdaLangkah(){
+ const B=ST.bb;
+ return B.potong.some(p=>p&&bbAnchor(B.grid,p).length>0);
+}
+function bbTaruh(i,idx){
+ const B=ST.bb, p=B.potong[i];
+ const r=Math.floor(idx/BB_N), c=idx%BB_N;
+ if(!p||!bbBisa(B.grid,p,r,c)) return false;
+ p.c.forEach(([dr,dc])=>{B.grid[(r+dr)*BB_N+(c+dc)]=p.w});
+ B.skor+=p.c.length; B.taruh++;
+ /* baris dan lajur penuh dibersihkan bersamaan */
+ const brs=[],ljr=[];
+ for(let x=0;x<BB_N;x++){
+  let pr=true,pc=true;
+  for(let y=0;y<BB_N;y++){if(!B.grid[x*BB_N+y])pr=false;if(!B.grid[y*BB_N+x])pc=false}
+  if(pr)brs.push(x); if(pc)ljr.push(x);
+ }
+ const garis=brs.length+ljr.length;
+ if(garis){
+  brs.forEach(x=>{for(let y=0;y<BB_N;y++)B.grid[x*BB_N+y]=null});
+  ljr.forEach(x=>{for(let y=0;y<BB_N;y++)B.grid[y*BB_N+x]=null});
+  B.combo++;
+  B.skor+=garis*10*B.combo+(garis>1?garis*5:0);
+  B.baris+=garis;
+  B.pesan=garis>1?garis+" garis sekaligus, lipat "+B.combo:"Bersih, lipat "+B.combo;
+ } else {B.combo=0;B.pesan=""}
+ B.potong[i]=null; B.sel=null;
+ if(B.potong.every(x=>!x)) B.potong=bbAcak(B.lvl);
+ if(B.skor>=bbSasaran(B.lvl)){B.selesai=true;B.lolos=true}
+ else if(!bbAdaLangkah()) B.selesai=true;
+ return true;
+}
+function bbBintang(){
+ const B=ST.bb, t=bbSasaran(B.lvl), par=bbPar(B.lvl);
+ if(B.skor<t) return 0;
+ if(B.taruh<=Math.ceil(par*0.75)) return 3;
+ if(B.taruh<=par) return 2;
+ return 1;
+}
+function bbProg(l){ST.bbProg=ST.bbProg||{};return ST.bbProg[l]||0}
+function bbBuka(l){return l===1||bbProg(l-1)>0}
+/* ---------- tampilan ---------- */
+const BB_CSS=`<style>
+.bbwrap{max-width:460px;margin:0 auto}
+.bbg{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;background:#EDF5F5;padding:8px;border-radius:14px}
+.bbg > button{aspect-ratio:1;border:none;border-radius:6px;background:#fff;padding:0;min-width:0;
+ box-shadow:inset 0 0 0 1px #E4EDED;transition:transform .1s,background .12s}
+.bbg > button.isi{box-shadow:none}
+.bbg > button.sah{background:#DBF0EC;box-shadow:inset 0 0 0 1.6px var(--mar-300)}
+.bbg > button.sah:active{transform:scale(.9)}
+.bbtray{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.bbp{border:1px solid var(--line-2);border-radius:12px;padding:10px;background:#fff;display:flex;
+ align-items:center;justify-content:center;min-height:92px}
+.bbp.on{border-color:var(--mar-300);background:var(--mar-100);box-shadow:0 0 0 2px rgba(23,163,152,.18)}
+.bbp.mati{opacity:.28}
+.bbp .mini{display:grid;gap:3px}
+.bbp .mini i{width:14px;height:14px;border-radius:3px;display:block}
+.bbhud{display:flex;gap:10px;align-items:flex-end;justify-content:space-between;margin-bottom:10px}
+.bbhud .sk{font-family:Montserrat;font-weight:700;font-size:30px;line-height:1}
+.bbflash{height:22px;text-align:center;font-family:Montserrat;font-weight:600;font-size:14px;color:var(--mar-500)}
+</style>`;
+function bbMini(p,skala){
+ const mr=Math.max(...p.c.map(x=>x[0]))+1, mc=Math.max(...p.c.map(x=>x[1]))+1;
+ const isi={}; p.c.forEach(([r,c])=>isi[r+","+c]=1);
+ let s=`<div class="mini" style="grid-template-columns:repeat(${mc},1fr)">`;
+ for(let r=0;r<mr;r++)for(let c=0;c<mc;c++)
+  s+=`<i style="background:${isi[r+","+c]?p.w:"transparent"}"></i>`;
+ return s+"</div>";
+}
+function page_game_blok(){
+ ST.bbProg=ST.bbProg||{};
+ if(!ST.bb) return bbPeta();
+ if(ST.bb.selesai) return bbHasil();
+ return bbMain();
+}
+function bbPeta(){
+ const bt=[...Array(12).keys()].reduce((a,i)=>a+bbProg(i+1),0);
+ const sel=[...Array(12).keys()].filter(i=>bbProg(i+1)>0).length;
+ return hd("Blok Jeda")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Tingkat selesai</div><div class="v">${sel} / 12</div><div class="f">Jeda pendek, dimainkan sendiri</div></div>
+  <div class="tile"><div class="lpt1">Bintang</div><div class="lpt2">${bt} / 36</div><div class="lpt3">Makin jauh melewati sasaran, makin banyak</div></div>
+  <div class="tile"><div class="lpt1">Papan</div><div class="lpt2">8 × 8</div><div class="lpt3">Tiga potongan tiap giliran</div></div>
+  <div class="tile"><div class="lpt1">Cara main</div><div class="lpt2" style="font-size:16px">Ketuk</div><div class="lpt3">Pilih potongan, lalu ketuk petak bertanda</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Pilih tingkat</h3>
+   <span class="pill mut">Sasaran skor menaik, potongan makin sulit</span></div><div class="pb">
+  <div class="grid4">${[...Array(12).keys()].map(i=>{
+   const l=i+1, buka=bbBuka(l), b=bbProg(l);
+   return `<div class="card2" style="${buka?"":"opacity:.55"}">
+    <div class="spread"><div style="font-family:Montserrat;font-weight:700;font-size:15px">Tingkat ${l}</div>
+     <div style="letter-spacing:2px;color:${b?"var(--mar-300)":"var(--line-2)"}">${"★".repeat(b)}${"☆".repeat(3-b)}</div></div>
+
+    <button class="${buka?"primary":""}" data-bbgo="${l}" ${buka?"":"disabled"} style="margin-top:12px;width:100%">${buka?(b?"Main lagi":"Mulai"):"Terkunci"}</button></div>`}).join("")}</div>
+  </div></div>`;
+}
+function bbMain(){
+ const B=ST.bb, t=bbSasaran(B.lvl);
+ const sah=B.sel!=null&&B.potong[B.sel]?bbAnchor(B.grid,B.potong[B.sel]):[];
+ const sahSet={}; sah.forEach(i=>sahSet[i]=1);
+ return BB_CSS+hd("Blok Jeda, tingkat "+B.lvl)+
+ `<div class="bbwrap">
+  <div class="bbhud">
+   <div><div class="sup" style="font-size:12px">Skor</div><div class="sk">${B.skor}</div></div>
+   <div style="text-align:right"><div class="sup" style="font-size:12px">Sasaran ${t}${B.combo>1?" · lipat "+B.combo:""}</div>
+    <div class="sup" style="font-size:12px">${B.taruh} potongan dipakai, patokan ${bbPar(B.lvl)}</div></div></div>
+  <div class="prog" style="margin-bottom:10px"><i style="width:${clamp(B.skor/t*100,0,100)}%"></i></div>
+  <div class="bbflash">${esc(B.pesan||"")}</div>
+  <div class="bbg">${B.grid.map((v,i)=>`<button data-bbc="${i}" class="${v?"isi":""}${sahSet[i]?" sah":""}"
+   style="${v?"background:"+v:""}"${(v||!sahSet[i])?" disabled":""}></button>`).join("")}</div>
+  <div class="bbtray">${B.potong.map((p,i)=>p?`<button class="bbp ${B.sel===i?"on":""}" data-bbp="${i}">${bbMini(p)}</button>`
+   :`<div class="bbp mati"></div>`).join("")}</div>
+  <div class="spread" style="margin-top:14px">
+   <span class="sup">${B.sel==null?"Pilih potongan lebih dulu":"Ketuk petak bertanda"}</span>
+   <div class="row"><button id="bbulang">Ulang</button><button id="bbkeluar">Keluar</button></div></div>
+ </div>`;
+}
+function bbHasil(){
+ const B=ST.bb, t=bbSasaran(B.lvl), b=bbBintang(), lolos=b>0, par=bbPar(B.lvl);
+ ST.bbProg=ST.bbProg||{};
+ if((ST.bbProg[B.lvl]||0)<b) ST.bbProg[B.lvl]=b;
+ return hd(B.lolos?"Sasaran tercapai":"Papan penuh")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Skor</div><div class="v">${B.skor}</div><div class="f">Sasaran ${t}</div></div>
+  <div class="tile"><div class="lpt1">Bintang</div><div class="lpt2" style="letter-spacing:3px">${"★".repeat(b)}${"☆".repeat(3-b)}</div>
+   <div class="lpt3">${b===3?"Sangat hemat":b===2?"Hemat":b===1?"Lolos":"Papan mati sebelum sasaran"}</div></div>
+  <div class="tile"><div class="lpt1">Potongan dipakai</div><div class="lpt2">${B.taruh}</div>
+   <div class="lpt3">Patokan ${par}, hemat berarti bintang lebih banyak</div></div>
+  <div class="tile"><div class="lpt1">Tingkat berikutnya</div><div class="lpt2" style="font-size:17px">${lolos?(B.lvl<12?"Terbuka":"Selesai semua"):"Terkunci"}</div>
+   <div class="lpt3">${lolos?"":"Capai sasaran untuk membukanya"}</div></div></div>
+ <div class="row" style="margin-top:16px">
+  <button class="primary" id="bbulang2">Main lagi tingkat ${B.lvl}</button>
+  ${lolos&&B.lvl<12?`<button id="bbnext">Lanjut tingkat ${B.lvl+1}</button>`:""}
+  <button id="bbpeta">Daftar tingkat</button></div>
+ <div class="card2" style="margin-top:14px">
+  <div class="kvl">
+   <div><span class="kk">Yang disimpan</span><span class="vv">Bintang per tingkat pada sesi ini</span></div>
+   <div><span class="kk">Tidak disimpan</span><span class="vv">Skor perorangan, dan tidak masuk papan peringkat</span></div>
+  </div></div>`;
+}
+function bind_game_blok(){
+ const B=ST.bb;
+ document.querySelectorAll("[data-bbgo]").forEach(b=>b.onclick=()=>{bbInit(+b.dataset.bbgo);render()});
+ if(!B) return;
+ document.querySelectorAll("[data-bbp]").forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.bbp; B.sel=B.sel===i?null:i; B.pesan=""; render()});
+ document.querySelectorAll("[data-bbc]").forEach(b=>b.onclick=()=>{
+  if(B.sel==null){toast("Pilih potongan lebih dulu");return}
+  if(bbTaruh(B.sel,+b.dataset.bbc)) render();
+ });
+ const u=$("#bbulang"), u2=$("#bbulang2");
+ [u,u2].forEach(x=>{if(x)x.onclick=()=>{bbInit(B.lvl);render()}});
+ const k=$("#bbkeluar"); if(k) k.onclick=()=>{ST.bb=null;render()};
+ const p=$("#bbpeta"); if(p) p.onclick=()=>{ST.bb=null;render()};
+ const n=$("#bbnext"); if(n) n.onclick=()=>{bbInit(B.lvl+1);render()};
+}
+/* ---------- navigasi: latihan bertingkat diganti Blok Jeda ---------- */
+(function(){
+ Object.keys(NAV).forEach(r=>{
+  NAV[r]=NAV[r].map(e=>e[0]==="game_level"?["game_blok","Blok Jeda"]:e);
+ });
+ if(MTAB.pekerja) MTAB.pekerja=MTAB.pekerja.map(x=>x[0]==="game_level"?["game_blok","Blok Jeda","dadu"]:x);
+ if(HOME.pekerja==="game_level") HOME.pekerja="game_blok";
+})();
+/* ===================================================================
+   Lapisan kedua puluh empat: Kata Ganjil
+   Permainan kelompok bergaya Mister White, dimainkan satu perangkat
+   yang dioper. Tidak ada eliminasi pemain, tidak ada pembingkaian
+   pembohong, dan satu ronde berhenti pada satu tebakan kelompok.
+=================================================================== */
+const KG_PASANG=[
+ ["Kopi","Teh"],["Lift","Tangga"],["Helm","Sarung tangan"],["Absen","Cuti"],
+ ["Gudang","Bengkel"],["Rapat","Pelatihan"],["Bakso","Soto"],["Ojek","Angkot"],
+ ["Jam istirahat","Jam lembur"],["Kantin","Musala"],["Sepatu safety","Rompi"],
+ ["Mandor","Penyelia"],["Genset","Kompresor"],["Palet","Peti"],
+ ["Nasi padang","Nasi kuning"],["Hujan","Angin"],["Sapu","Pel"],
+ ["Kartu akses","Kunci loker"],["Forklift","Troli"],["Kipas","Pendingin ruangan"],
+ ["Mesin jahit","Mesin bor"],["Termos","Botol minum"],["Papan tulis","Proyektor"],
+ ["Seragam","Jaket kerja"]
+];
+const KG_ATURAN=[
+ "Satu perangkat dioper, satu orang membaca katanya lalu menyerahkannya ke sebelah.",
+ "Tiap orang menyebut satu kata petunjuk, bukan kalimat, dan tidak boleh menyebut kata rahasianya.",
+ "Tuduhan hanya satu kali per ronde, dan tuduhan itu tentang kata, bukan tentang sifat orangnya.",
+ "Tidak ada pemain yang dikeluarkan, ronde selalu selesai bersama.",
+ "Kalau ada penyelia ikut bermain, dia menyebut petunjuk paling akhir."
+];
+function kgInit(){
+ ST.kg={fase:"atur",n:6,mode:"mirip",ganjil:[],kata:{},pasangan:null,idx:0,
+  urutan:[],ronde:1,skor:{warga:0,ganjil:0},tuduh:null,hasil:null,rng:mulberry32(Date.now()&0xffffff)};
+}
+function kgBagi(){
+ const K=ST.kg, r=K.rng;
+ const jml=K.n>=7?2:1;
+ const orang=[...Array(K.n).keys()].map(i=>i+1).sort(()=>r()-0.5);
+ K.ganjil=orang.slice(0,jml);
+ K.pasangan=KG_PASANG[Math.floor(r()*KG_PASANG.length)];
+ const balik=r()<0.5;
+ const kataWarga=balik?K.pasangan[1]:K.pasangan[0];
+ const kataGanjil=K.mode==="tanpa"?null:(balik?K.pasangan[0]:K.pasangan[1]);
+ K.kata={};
+ for(let i=1;i<=K.n;i++) K.kata[i]=K.ganjil.indexOf(i)>=0?kataGanjil:kataWarga;
+ K.kataWarga=kataWarga;
+ K.urutan=[...Array(K.n).keys()].map(i=>i+1).sort(()=>r()-0.5);
+ K.idx=1; K.lihat=false; K.fase="bagi"; K.tuduh=null; K.hasil=null;
+}
+function page_game_kata(){
+ if(!ST.kg) kgInit();
+ const K=ST.kg;
+ if(K.fase==="atur") return kgAtur();
+ if(K.fase==="bagi") return kgBagiHal();
+ if(K.fase==="diskusi") return kgDiskusi();
+ if(K.fase==="tuduh") return kgTuduh();
+ return kgHasil();
+}
+function kgAtur(){
+ const K=ST.kg;
+ return hd("Kata Ganjil")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Pemain</div><div class="v">${K.n}</div><div class="f">Satu perangkat dioper bergilir</div></div>
+  <div class="tile"><div class="lpt1">Yang berkata ganjil</div><div class="lpt2">${K.n>=7?2:1}</div><div class="lpt3">Bertambah pada tujuh pemain atau lebih</div></div>
+  <div class="tile"><div class="lpt1">Lama satu ronde</div><div class="lpt2">5 menit</div><div class="lpt3">Termasuk pembagian kata</div></div>
+  <div class="tile"><div class="lpt1">Ronde</div><div class="lpt2">${K.ronde}</div><div class="lpt3">Warga ${K.skor.warga} · ganjil ${K.skor.ganjil}</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
+  <div class="field"><label class="lbl">Jumlah pemain</label>
+   <div class="opts">${[4,5,6,7,8,9,10,12].map(x=>`<button class="opt ${K.n===x?"on":""}" data-kgn="${x}">${x}</button>`).join("")}</div></div>
+  <div class="field"><label class="lbl">Mode</label>
+   <div class="grid2" style="gap:10px">
+    <button class="sortopt ${K.mode==="mirip"?"on":""}" data-kgm="mirip" style="padding:14px">Kata mirip
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">yang ganjil menerima kata berbeda tapi serumpun</span></button>
+    <button class="sortopt ${K.mode==="tanpa"?"on":""}" data-kgm="tanpa" style="padding:14px">Tanpa kata
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">yang ganjil tidak menerima kata sama sekali</span></button></div></div>
+  <button class="primary" id="kgmulai">Bagikan kata</button></div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
+  <ul class="ivl">${KG_ATURAN.map(x=>`<li class="org">${esc(x)}</li>`).join("")}</ul>
+  <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Semua pemain menerima satu kata rahasia, kecuali satu atau dua orang yang menerima kata berbeda atau tidak menerima kata. Lewat petunjuk satu kata bergilir, kelompok menebak siapa yang katanya berbeda. Yang ganjil menang bila tidak tertebak, atau bila tertebak tetapi berhasil menyebut kata warga.</p></div>`;
+}
+function kgBagiHal(){
+ const K=ST.kg, i=K.idx;
+ return hd("Pemain "+i+" dari "+K.n)+
+ `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
+  ${K.lihat?`
+   <div class="sup" style="font-size:12.5px">Kata Anda</div>
+   <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+    ${K.kata[i]?esc(K.kata[i]):"Tidak ada kata"}</div>
+   <div class="sup" style="font-size:12.5px">${K.kata[i]?"Ingat, jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
+   <button class="primary" id="kgnext" style="margin-top:22px;width:100%">${i<K.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai diskusi"}</button>`
+  :`
+   <div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
+   <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
+   <button class="primary" id="kglihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
+ </div>
+ <div class="prog" style="max-width:520px;margin:16px auto 0"><i style="width:${(i-1)/K.n*100}%"></i></div>`;
+}
+function kgDiskusi(){
+ const K=ST.kg;
+ return hd("Giliran petunjuk")+
+ `<div class="card2" style="max-width:560px;margin:0 auto">
+  <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
+   <span class="pill mut">Ronde ${K.ronde}</span></div>
+  <div class="opts" style="margin-top:12px">${K.urutan.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. Pemain ${p}</span>`).join("")}</div>
+  <p style="margin:14px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Satu kata saja per orang. Setelah semua menyebut, boleh satu putaran kedua bila kelompok masih ragu.</p>
+  <div class="row" style="margin-top:16px"><button class="primary" id="kgtuduh" style="flex:1">Kelompok siap menebak</button></div>
+ </div>
+ <div class="card2" style="max-width:560px;margin:14px auto 0">
+  <h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang tidak dilakukan</h4>
+  <ul class="ivl">
+   <li class="org">Tidak menyinggung sifat, kinerja, atau kebiasaan kerja orang</li>
+   <li class="org">Tidak ada pemain yang dikeluarkan, ronde selesai bersama</li>
+   <li>Kalau ada yang tidak nyaman, ronde boleh dihentikan tanpa alasan</li></ul>
+  <div class="row" style="margin-top:12px"><button id="kgstop">Hentikan ronde</button></div></div>`;
+}
+function kgTuduh(){
+ const K=ST.kg;
+ return hd("Tebakan kelompok")+
+ `<div class="card2" style="max-width:560px;margin:0 auto">
+  <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang katanya berbeda</div>
+  <div class="sup" style="font-size:12.5px;margin-top:4px">Satu tebakan untuk seluruh kelompok</div>
+  <div class="opts" style="margin-top:14px">${[...Array(K.n).keys()].map(i=>`<button class="opt ${K.tuduh===i+1?"on":""}" data-kgt="${i+1}">Pemain ${i+1}</button>`).join("")}</div>
+  <button class="primary" id="kgbuka" ${K.tuduh?"":"disabled"} style="margin-top:16px;width:100%">Buka kartu</button></div>`;
+}
+function kgHasil(){
+ const K=ST.kg, h=K.hasil||{};
+ return hd(h.judul||"Hasil ronde")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Pemenang ronde</div><div class="v" style="font-size:21px">${esc(h.menang||"")}</div>
+   <div class="f">${esc(h.sebab||"")}</div></div>
+  <div class="tile"><div class="lpt1">Yang berkata ganjil</div><div class="lpt2" style="font-size:18px">${K.ganjil.map(x=>"Pemain "+x).join(", ")}</div>
+   <div class="lpt3">Tebakan kelompok pemain ${K.tuduh}</div></div>
+  <div class="tile"><div class="lpt1">Kata warga</div><div class="lpt2" style="font-size:18px">${esc(K.kataWarga||"")}</div>
+   <div class="lpt3">${K.mode==="tanpa"?"Yang ganjil tanpa kata":"Kata ganjil "+esc(K.pasangan.find(x=>x!==K.kataWarga)||"")}</div></div>
+  <div class="tile"><div class="lpt1">Skor</div><div class="lpt2">${K.skor.warga} : ${K.skor.ganjil}</div><div class="lpt3">Warga berbanding ganjil</div></div></div>
+ ${h.tebakKata?`<div class="panel" style="margin-top:16px"><div class="ph"><h3>Kesempatan terakhir yang ganjil</h3></div><div class="pb">
+  <div class="field" style="max-width:320px"><label class="lbl">Sebutkan kata warga</label><input id="kgkata" placeholder="Tulis satu kata"></div>
+  <button class="primary" id="kgcek">Cek</button></div></div>`:""}
+ <div class="row" style="margin-top:16px">
+  <button class="primary" id="kglagi">Ronde berikutnya</button>
+  <button id="kgcatat">Catat sebagai kegiatan tim</button>
+  <button id="kgselesai">Selesai</button></div>`;
+}
+function bind_game_kata(){
+ const K=ST.kg;
+ document.querySelectorAll("[data-kgn]").forEach(b=>b.onclick=()=>{K.n=+b.dataset.kgn;render()});
+ document.querySelectorAll("[data-kgm]").forEach(b=>b.onclick=()=>{K.mode=b.dataset.kgm;render()});
+ const m=$("#kgmulai"); if(m) m.onclick=()=>{kgBagi();render();window.scrollTo(0,0)};
+ const l=$("#kglihat"); if(l) l.onclick=()=>{K.lihat=true;render()};
+ const n=$("#kgnext"); if(n) n.onclick=()=>{
+  if(K.idx<K.n){K.idx++;K.lihat=false} else {K.fase="diskusi"}
+  render();window.scrollTo(0,0)};
+ const t=$("#kgtuduh"); if(t) t.onclick=()=>{K.fase="tuduh";render();window.scrollTo(0,0)};
+ const st=$("#kgstop"); if(st) st.onclick=()=>{kgInit();toast("Ronde dihentikan");render()};
+ document.querySelectorAll("[data-kgt]").forEach(b=>b.onclick=()=>{K.tuduh=+b.dataset.kgt;render()});
+ const bk=$("#kgbuka"); if(bk) bk.onclick=()=>{
+  const kena=K.ganjil.indexOf(K.tuduh)>=0;
+  if(kena){
+   K.hasil={judul:"Tebakan tepat",menang:"Belum tentu",sebab:"Yang ganjil masih punya satu kesempatan",tebakKata:true};
+  } else {
+   K.skor.ganjil++;
+   K.hasil={judul:"Tebakan keliru",menang:"Yang berkata ganjil",sebab:"Kelompok menebak pemain yang katanya sama"};
+  }
+  K.fase="hasil";render();window.scrollTo(0,0)};
+ const ck=$("#kgcek"); if(ck) ck.onclick=()=>{
+  const v=($("#kgkata").value||"").trim().toLowerCase();
+  const benar=v&&v===String(K.kataWarga||"").toLowerCase();
+  if(benar){K.skor.ganjil++;K.hasil={judul:"Kata tertebak",menang:"Yang berkata ganjil",sebab:"Tertebak, tetapi berhasil menyebut kata warga"}}
+  else{K.skor.warga++;K.hasil={judul:"Warga menang",menang:"Warga",sebab:"Tertebak dan kata warga tidak tersebut"}}
+  render();window.scrollTo(0,0)};
+ const lg=$("#kglagi"); if(lg) lg.onclick=()=>{K.ronde++;kgBagi();render();window.scrollTo(0,0)};
+ const sl=$("#kgselesai"); if(sl) sl.onclick=()=>{kgInit();render()};
+ const ct=$("#kgcatat"); if(ct) ct.onclick=async()=>{
+  const t2=TENANTS.find(x=>x.id===ST.tenant);
+  kegAll().push({id:"KG-"+String(kegAll().length+1).padStart(3,"0"),tgl:today(),tenant:ST.tenant,
+   div:"Seluruh unit",kat:"Kegiatan tim",judul:"Permainan Kata Ganjil, "+K.ronde+" ronde, "+K.n+" pemain",
+   peny:"Tim sendiri",diundang:K.n,hadir:K.n,jam:K.n*0.5,biaya:0,dim:["D5","D6"],
+   level:"sekunder",ctl:null,bukti:["Catatan sesi permainan kelompok"],
+   hasil:"Kegiatan keakraban tim, bukan bukti konsultasi bahaya"});
+  await ledgerPush("portal.permainan","Sesi permainan kelompok dicatat sebagai kegiatan tim",{pemain:K.n,ronde:K.ronde});
+  toast("Tercatat pada log kegiatan sebagai pencegahan sekunder");render()};
+}
+/* ---------- navigasi: Blok Jeda diganti Kata Ganjil ---------- */
+(function(){
+ Object.keys(NAV).forEach(r=>{
+  NAV[r]=NAV[r].map(e=>e[0]==="game_blok"?["game_kata","Kata Ganjil"]:e);
+ });
+ if(MTAB.pekerja) MTAB.pekerja=MTAB.pekerja.map(x=>x[0]==="game_blok"?["game_kata","Kata Ganjil","dadu"]:x);
+ if(HOME.pekerja==="game_blok") HOME.pekerja="game_kata";
+})();
+/* ===================================================================
+   Lapisan kedua puluh lima: Siapa Beda
+   Tiga peran, ronde berulang sampai CEO tertebak. Pengeluaran pemain
+   dibingkai sebagai keluar dari ruang rapat, bukan hukuman, dan hasil
+   per orang tidak pernah disimpan.
+=================================================================== */
+const SB_LABEL={
+ kantor:{staff:"Staf",hr:"HR",ceo:"CEO",
+  ket:{staff:"Menerima kata yang sama dengan staf lain",hr:"Tidak menerima kata sama sekali",ceo:"Menerima kata yang berbeda"}},
+ netral:{staff:"Warga",hr:"Tanpa kata",ceo:"Yang berbeda",
+  ket:{staff:"Menerima kata yang sama dengan warga lain",hr:"Tidak menerima kata sama sekali",ceo:"Menerima kata yang berbeda"}}
+};
+function sbL(){return SB_LABEL[ST.sb&&ST.sb.label==="netral"?"netral":"kantor"]}
+function sbInit(){
+ ST.sb={fase:"atur",n:6,label:"kantor",pakaiHR:true,peran:{},kata:{},keluar:[],
+  ronde:1,idx:1,lihat:false,urutan:[],vote:null,ungkap:null,menang:null,
+  rng:mulberry32(Date.now()&0xffffff)};
+}
+function sbHidup(){const S=ST.sb;return [...Array(S.n).keys()].map(i=>i+1).filter(i=>S.keluar.indexOf(i)<0)}
+function sbPeranHidup(p){return sbHidup().filter(i=>ST.sb.peran[i]===p)}
+function sbBagi(){
+ const S=ST.sb, r=S.rng;
+ const orang=[...Array(S.n).keys()].map(i=>i+1).sort(()=>r()-0.5);
+ S.peran={}; orang.forEach(i=>S.peran[i]="staff");
+ S.peran[orang[0]]="ceo";
+ const adaHR=S.pakaiHR&&S.n>=5;
+ if(adaHR) S.peran[orang[1]]="hr";
+ const p=KG_PASANG[Math.floor(r()*KG_PASANG.length)], balik=r()<0.5;
+ S.kataStaff=balik?p[1]:p[0]; S.kataCEO=balik?p[0]:p[1];
+ S.kata={};
+ for(let i=1;i<=S.n;i++){
+  S.kata[i]=S.peran[i]==="hr"?null:(S.peran[i]==="ceo"?S.kataCEO:S.kataStaff);
+ }
+ S.keluar=[]; S.ronde=1; S.idx=1; S.lihat=false; S.vote=null; S.ungkap=null; S.menang=null;
+ S.urutan=[...Array(S.n).keys()].map(i=>i+1).sort(()=>r()-0.5);
+ S.fase="bagi";
+}
+function sbCekMenang(){
+ const S=ST.sb;
+ const ceoHidup=sbPeranHidup("ceo").length>0;
+ if(!ceoHidup) return "staff";
+ const hidup=sbHidup().length, lawan=sbPeranHidup("ceo").length+sbPeranHidup("hr").length;
+ if(hidup-lawan<=lawan) return "ceo";
+ return null;
+}
+function page_game_siapa(){
+ if(!ST.sb) sbInit();
+ const S=ST.sb;
+ if(S.fase==="atur") return sbAtur();
+ if(S.fase==="bagi") return sbBagiHal();
+ if(S.fase==="petunjuk") return sbPetunjuk();
+ if(S.fase==="vote") return sbVote();
+ if(S.fase==="ungkap") return sbUngkap();
+ return sbSelesai();
+}
+function sbAtur(){
+ const S=ST.sb, L=sbL();
+ return hd("Siapa Beda")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Pemain</div><div class="v">${S.n}</div><div class="f">Satu perangkat dioper bergilir</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.ceo)}</div><div class="lpt2">1</div><div class="lpt3">${esc(L.ket.ceo)}</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.hr)}</div><div class="lpt2">${S.pakaiHR&&S.n>=5?1:0}</div><div class="lpt3">${esc(L.ket.hr)}</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.staff)}</div><div class="lpt2">${S.n-1-(S.pakaiHR&&S.n>=5?1:0)}</div><div class="lpt3">${esc(L.ket.staff)}</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
+  <div class="field"><label class="lbl">Jumlah pemain</label>
+   <div class="opts">${[4,5,6,7,8,9,10,12].map(x=>`<button class="opt ${S.n===x?"on":""}" data-sbn="${x}">${x}</button>`).join("")}</div></div>
+  <div class="field"><label class="lbl">Nama peran</label>
+   <div class="grid2" style="gap:10px">
+    <button class="sortopt ${S.label==="kantor"?"on":""}" data-sbl="kantor" style="padding:14px">Istilah kantor
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Staf, HR, CEO</span></button>
+    <button class="sortopt ${S.label==="netral"?"on":""}" data-sbl="netral" style="padding:14px">Istilah netral
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Warga, Tanpa kata, Yang berbeda</span></button></div></div>
+  <div class="field"><label class="lbl">Sertakan peran tanpa kata</label>
+   <div class="opts">
+    <button class="opt ${S.pakaiHR?"on":""}" data-sbhr="1">Ya</button>
+    <button class="opt ${S.pakaiHR?"":"on"}" data-sbhr="0">Tidak</button></div></div>
+  <button class="primary" id="sbmulai">Bagikan kata</button></div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
+  <div class="kvl">
+   <div><span class="kk">${esc(L.staff)}</span><span class="vv">${esc(L.ket.staff)}</span></div>
+   <div><span class="kk">${esc(L.ceo)}</span><span class="vv">${esc(L.ket.ceo)}</span></div>
+   <div><span class="kk">${esc(L.hr)}</span><span class="vv">${esc(L.ket.hr)}</span></div>
+   <div><span class="kk">Tiap ronde</span><span class="vv">Satu kata petunjuk per orang, lalu satu pemain keluar ruangan</span></div>
+   <div><span class="kk">Berakhir bila</span><span class="vv">${esc(L.ceo)} keluar, atau jumlah yang tersisa tidak lagi cukup</span></div>
+   <div><span class="kk">Bila ${esc(L.hr)} keluar</span><span class="vv">Satu kesempatan menyebut kata ${esc(L.staff)}, tepat berarti menang langsung</span></div>
+  </div>
+  <ul class="ivl" style="margin-top:12px">
+   <li class="org">Petunjuk satu kata, dan tidak menyebut kata rahasianya</li>
+   <li class="org">Tuduhan tentang kata, bukan tentang sifat atau kebiasaan kerja orang</li>
+   <li class="org">Keluar ruangan hanya istilah permainan, bukan penilaian atas siapa pun</li>
+   <li>Kalau ada penyelia ikut bermain, dia menyebut petunjuk paling akhir</li>
+   <li>Siapa pun boleh menghentikan permainan tanpa alasan</li></ul></div>`;
+}
+function sbBagiHal(){
+ const S=ST.sb, i=S.idx, L=sbL();
+ const nama={staff:L.staff,hr:L.hr,ceo:L.ceo}[S.peran[i]];
+ return hd("Pemain "+i+" dari "+S.n)+
+ `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
+  ${S.lihat?`
+   <div class="sup" style="font-size:12.5px">Kata Anda</div>
+   <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+    ${S.kata[i]?esc(S.kata[i]):"Tidak ada kata"}</div>
+   <div class="sup" style="font-size:12.5px">${S.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
+   <button class="primary" id="sbnext" style="margin-top:22px;width:100%">${i<S.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai ronde 1"}</button>`
+  :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
+   <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
+   <button class="primary" id="sblihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
+ </div>
+ <div class="prog" style="max-width:520px;margin:16px auto 0"><i style="width:${(i-1)/S.n*100}%"></i></div>`;
+}
+function sbRondeBaru(){
+ const S=ST.sb;
+ S.ronde++; S.vote=null; S.ungkap=null; S.fase="petunjuk";
+ /* kata dan peran tidak diganti, hanya urutan pemberi petunjuk yang diputar */
+ S.urutan=sbHidup().sort(()=>S.rng()-0.5).concat(S.keluar);
+}
+function sbPetunjuk(){
+ const S=ST.sb, hidup=sbHidup(), urut=S.urutan.filter(p=>hidup.indexOf(p)>=0);
+ return hd("Ronde "+S.ronde+", giliran petunjuk")+
+ `<div class="card2" style="max-width:560px;margin:0 auto">
+  <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
+   <span class="pill mut">${hidup.length} masih di ruangan</span></div>
+  <div class="opts" style="margin-top:12px">${urut.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. Pemain ${p}</span>`).join("")}</div>
+  ${S.keluar.length?`<div class="kvl" style="margin-top:12px">${S.keluar.map((x,i)=>`<div><span class="kk">Ronde ${i+1}</span>
+   <span class="vv">Pemain ${x} keluar · ${esc({staff:sbL().staff,hr:sbL().hr,ceo:sbL().ceo}[S.peran[x]])}</span></div>`).join("")}</div>`:""}
+  <p style="margin:14px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Satu kata per orang, dan kata petunjuk yang sudah dipakai pada ronde sebelumnya tidak boleh diulang. ${S.ronde>1?"Kata rahasia tetap sama seperti ronde pertama, tidak dibagikan ulang, hanya urutan pemberi petunjuk yang diputar.":"Kata rahasia berlaku sampai permainan selesai."}</p>
+  <div class="row" style="margin-top:16px"><button class="primary" id="sbvote" style="flex:1">Kelompok siap memilih</button></div></div>
+ <div class="row" style="max-width:560px;margin:14px auto 0"><button id="sbstop">Hentikan permainan</button></div>`;
+}
+function sbVote(){
+ const S=ST.sb, hidup=sbHidup();
+ return hd("Ronde "+S.ronde+", pilihan kelompok")+
+ `<div class="card2" style="max-width:560px;margin:0 auto">
+  <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang keluar ruangan ronde ini</div>
+  <div class="sup" style="font-size:12.5px;margin-top:4px">Satu pilihan untuk seluruh kelompok</div>
+  <div class="opts" style="margin-top:14px">${hidup.map(i=>`<button class="opt ${S.vote===i?"on":""}" data-sbv="${i}">Pemain ${i}</button>`).join("")}</div>
+  <button class="primary" id="sbbuka" ${S.vote?"":"disabled"} style="margin-top:16px;width:100%">Buka kartunya</button></div>`;
+}
+function sbUngkap(){
+ const S=ST.sb, L=sbL(), u=S.ungkap||{};
+ const nama={staff:L.staff,hr:L.hr,ceo:L.ceo}[u.peran];
+ return hd("Pemain "+u.p+" keluar ruangan")+
+ `<div class="card2" style="max-width:560px;margin:0 auto;text-align:center;padding:30px 24px">
+  <div class="sup" style="font-size:12.5px">Perannya</div>
+  <div style="font-family:Montserrat;font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
+  <div class="sup" style="font-size:12.5px">${esc(u.kata?("katanya "+u.kata):"tidak menerima kata")}</div>
+  ${u.tebak?`
+   <div class="field" style="max-width:320px;margin:20px auto 0;text-align:left">
+    <label class="lbl">Kesempatan satu kali, sebutkan kata ${esc(L.staff)}</label>
+    <input id="sbkata" placeholder="Tulis satu kata"></div>
+   <button class="primary" id="sbcek" style="margin-top:6px">Cek</button>`
+  :`<button class="primary" id="sblanjut" style="margin-top:22px;width:100%">${u.lanjut?"Lanjut ronde "+(S.ronde+1)+", kata tetap sama":"Lihat hasil"}</button>`}
+ </div>`;
+}
+function sbSelesai(){
+ const S=ST.sb, L=sbL();
+ const ceo=[...Array(S.n).keys()].map(i=>i+1).find(i=>S.peran[i]==="ceo");
+ const hr=[...Array(S.n).keys()].map(i=>i+1).find(i=>S.peran[i]==="hr");
+ const teksMenang={staff:L.staff+" menang",ceo:L.ceo+" menang",hr:L.hr+" menang"}[S.menang]||"Permainan dihentikan";
+ return hd(teksMenang)+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Ronde dimainkan</div><div class="v">${S.ronde}</div><div class="f">${S.n} pemain</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.ceo)}</div><div class="lpt2" style="font-size:18px">Pemain ${ceo}</div><div class="lpt3">Kata ${esc(S.kataCEO||"")}</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.hr)}</div><div class="lpt2" style="font-size:18px">${hr?"Pemain "+hr:"Tidak dipakai"}</div><div class="lpt3">Tanpa kata</div></div>
+  <div class="tile"><div class="lpt1">Kata ${esc(L.staff)}</div><div class="lpt2" style="font-size:18px">${esc(S.kataStaff||"")}</div>
+   <div class="lpt3">Keluar ruangan: ${S.keluar.length} pemain</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Urutan keluar ruangan</h3></div><div class="pb">
+  ${S.keluar.length?`<div class="kvl">${S.keluar.map((p,i)=>`<div><span class="kk">Ronde ${i+1}</span>
+   <span class="vv">Pemain ${p} · ${esc({staff:L.staff,hr:L.hr,ceo:L.ceo}[S.peran[p]])}</span></div>`).join("")}</div>`
+  :`<p style="margin:0">Tidak ada pemain yang keluar.</p>`}</div></div>
+ <div class="row">
+  <button class="primary" id="sblagi">Main lagi</button>
+  <button id="sbcatat">Catat sebagai kegiatan tim</button>
+  <button id="sbkeluar">Selesai</button></div>
+ <div class="card2" style="margin-top:14px"><div class="kvl">
+  <div><span class="kk">Yang disimpan</span><span class="vv">Tidak ada hasil per orang</span></div>
+  <div><span class="kk">Bila dicatat</span><span class="vv">Hanya jumlah peserta dan jam, sebagai kegiatan tim</span></div>
+ </div></div>`;
+}
+function bind_game_siapa(){
+ const S=ST.sb, L=sbL();
+ document.querySelectorAll("[data-sbn]").forEach(b=>b.onclick=()=>{S.n=+b.dataset.sbn;render()});
+ document.querySelectorAll("[data-sbl]").forEach(b=>b.onclick=()=>{S.label=b.dataset.sbl;render()});
+ document.querySelectorAll("[data-sbhr]").forEach(b=>b.onclick=()=>{S.pakaiHR=b.dataset.sbhr==="1";render()});
+ const m=$("#sbmulai"); if(m) m.onclick=()=>{sbBagi();render();window.scrollTo(0,0)};
+ const l=$("#sblihat"); if(l) l.onclick=()=>{S.lihat=true;render()};
+ const n=$("#sbnext"); if(n) n.onclick=()=>{
+  if(S.idx<S.n){S.idx++;S.lihat=false} else S.fase="petunjuk";
+  render();window.scrollTo(0,0)};
+ const v=$("#sbvote"); if(v) v.onclick=()=>{S.fase="vote";S.vote=null;render();window.scrollTo(0,0)};
+ const st=$("#sbstop"); if(st) st.onclick=()=>{S.menang=null;S.fase="selesai";toast("Permainan dihentikan");render()};
+ document.querySelectorAll("[data-sbv]").forEach(b=>b.onclick=()=>{S.vote=+b.dataset.sbv;render()});
+ const bk=$("#sbbuka"); if(bk) bk.onclick=()=>{
+  const p=S.vote, peran=S.peran[p];
+  S.keluar.push(p);
+  if(peran==="hr"){
+   S.ungkap={p,peran,kata:null,tebak:true};
+  } else {
+   const hasil=sbCekMenang();
+   S.ungkap={p,peran,kata:S.kata[p],lanjut:!hasil};
+   S.menangSementara=hasil;
+  }
+  S.fase="ungkap";render();window.scrollTo(0,0)};
+ const ck=$("#sbcek"); if(ck) ck.onclick=()=>{
+  const x=($("#sbkata").value||"").trim().toLowerCase();
+  if(x&&x===String(S.kataStaff||"").toLowerCase()){S.menang="hr";S.fase="selesai"}
+  else{
+   const hasil=sbCekMenang();
+   if(hasil){S.menang=hasil;S.fase="selesai"}
+   else{sbRondeBaru();toast("Kata tidak tepat, permainan berlanjut dengan kata yang sama")}
+  }
+  render();window.scrollTo(0,0)};
+ const lj=$("#sblanjut"); if(lj) lj.onclick=()=>{
+  const hasil=S.menangSementara||sbCekMenang();
+  if(hasil){S.menang=hasil;S.fase="selesai"}
+  else sbRondeBaru();
+  S.menangSementara=null;render();window.scrollTo(0,0)};
+ const lg=$("#sblagi"); if(lg) lg.onclick=()=>{sbBagi();render();window.scrollTo(0,0)};
+ const sl=$("#sbkeluar"); if(sl) sl.onclick=()=>{sbInit();render()};
+ const ct=$("#sbcatat"); if(ct) ct.onclick=async()=>{
+  kegAll().push({id:"KG-"+String(kegAll().length+1).padStart(3,"0"),tgl:today(),tenant:ST.tenant,
+   div:"Seluruh unit",kat:"Kegiatan tim",judul:"Permainan Siapa Beda, "+S.ronde+" ronde, "+S.n+" pemain",
+   peny:"Tim sendiri",diundang:S.n,hadir:S.n,jam:S.n*0.4,biaya:0,dim:["D5","D6"],
+   level:"sekunder",ctl:null,bukti:["Catatan sesi permainan kelompok"],
+   hasil:"Kegiatan keakraban tim, bukan bukti konsultasi bahaya"});
+  await ledgerPush("portal.permainan","Sesi permainan kelompok dicatat sebagai kegiatan tim",{pemain:S.n,ronde:S.ronde});
+  toast("Tercatat pada log kegiatan sebagai pencegahan sekunder");render()};
+}
+/* ---------- navigasi ---------- */
+(function(){
+ Object.keys(NAV).forEach(r=>{
+  NAV[r]=NAV[r].map(e=>e[0]==="game_kata"?["game_siapa","Siapa Beda"]:e);
+ });
+ if(MTAB.pekerja) MTAB.pekerja=MTAB.pekerja.map(x=>x[0]==="game_kata"?["game_siapa","Siapa Beda","dadu"]:x);
+ if(HOME.pekerja==="game_kata") HOME.pekerja="game_siapa";
+})();
+/* ===================================================================
+   Lapisan kedua puluh enam: bank kata dapat disunting, akun staf,
+   dan undangan tanpa server
+   Peran dihitung dari kode undangan memakai pembangkit acak bersemai,
+   sehingga setiap ponsel yang memakai undangan sama menghitung peran
+   yang sama tanpa perlu saling terhubung.
+=================================================================== */
+const KG_BAWAAN=KG_PASANG.map(p=>[p[0],p[1]]);
+function kataOf(tid){
+ tid=tid||ST.tenant;
+ ST.bank=ST.bank||{};
+ if(!ST.bank[tid]) ST.bank[tid]=KG_BAWAAN.map(p=>[p[0],p[1]]);
+ return ST.bank[tid];
+}
+(function(){
+ const pakai=()=>{const b=kataOf();KG_PASANG.length=0;b.forEach(p=>KG_PASANG.push(p))};
+ const _a=sbBagi; sbBagi=function(){pakai();return _a()};
+})();
+function page_bank_kata(){
+ const b=kataOf(), t=TENANTS.find(x=>x.id===ST.tenant);
+ return hd("Bank kata permainan")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Pasangan kata</div><div class="v">${b.length}</div><div class="f">${esc(t.name)}</div></div>
+  <div class="tile"><div class="lpt1">Dipakai oleh</div><div class="lpt2" style="font-size:17px">Siapa Beda</div><div class="lpt3">Satu pasangan diacak per ronde</div></div>
+  <div class="tile"><div class="lpt1">Minimum</div><div class="lpt2">6</div><div class="lpt3">Agar ronde tidak berulang kata</div></div>
+  <div class="tile"><div class="lpt1">Bawaan</div><div class="lpt2">${KG_BAWAAN.length}</div><div class="lpt3">Dapat dipulihkan kapan saja</div></div></div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Tambah pasangan</h3></div><div class="pb">
+  <div class="grid2" style="gap:12px">
+   <div class="field"><label class="lbl">Kata untuk staf</label><input id="bk_a" placeholder="Misalnya Genset"></div>
+   <div class="field"><label class="lbl">Kata untuk yang berbeda</label><input id="bk_b" placeholder="Misalnya Kompresor"></div></div>
+  <button class="primary" id="bk_add">Tambah</button>
+  <p class="sup" style="margin-top:10px;margin-bottom:0">Pasangan yang baik adalah dua benda serumpun, cukup dekat agar petunjuknya bisa tertukar, cukup beda agar bisa dikenali.</p></div></div>
+ <div class="panel"><div class="ph"><h3>Daftar pasangan</h3></div><div class="pb">
+  ${b.map((p,i)=>`<div class="mrow" style="align-items:flex-start">
+   <div class="lpno" style="font-family:Montserrat;font-weight:700;color:var(--mar-300);flex:0 0 26px">${i+1}</div>
+   <div class="mt"><div class="grid2" style="gap:10px">
+    <div><label class="lbl">Kata staf</label><input id="bk_a_${i}" value="${esc(p[0])}"></div>
+    <div><label class="lbl">Kata berbeda</label><input id="bk_b_${i}" value="${esc(p[1])}"></div></div></div>
+   <div class="row"><button data-bks="${i}">Simpan</button><button data-bkd="${i}">Hapus</button></div></div>`).join("")}
+  </div></div>
+ <div class="row"><button id="bk_reset">Pulihkan bawaan</button>
+  <button class="primary" data-go="game_siapa">Coba permainan</button></div>`;
+}
+function bind_bank_kata(){
+ const b=kataOf();
+ const v=id=>{const e=$("#"+id);return e?e.value.trim():""};
+ const simpan=async(p)=>{await ledgerPush("admin.perusahaan@"+ST.tenant,"Bank kata permainan diubah, "+p,{jumlah:kataOf().length});
+  toast("Tersimpan");render()};
+ const a=$("#bk_add"); if(a) a.onclick=()=>{
+  const x=v("bk_a"), y=v("bk_b");
+  if(!x||!y){toast("Kedua kata harus diisi");return}
+  if(x.toLowerCase()===y.toLowerCase()){toast("Kedua kata tidak boleh sama");return}
+  b.push([x,y]); simpan("penambahan")};
+ document.querySelectorAll("[data-bks]").forEach(x=>x.onclick=()=>{
+  const i=+x.dataset.bks, p=v("bk_a_"+i), q=v("bk_b_"+i);
+  if(!p||!q){toast("Kedua kata harus diisi");return}
+  if(p.toLowerCase()===q.toLowerCase()){toast("Kedua kata tidak boleh sama");return}
+  b[i]=[p,q]; simpan("penyuntingan")});
+ document.querySelectorAll("[data-bkd]").forEach(x=>x.onclick=()=>{
+  if(b.length<=6){toast("Sekurang-kurangnya enam pasangan harus tersisa");return}
+  b.splice(+x.dataset.bkd,1); simpan("penghapusan")});
+ const r=$("#bk_reset"); if(r) r.onclick=()=>{
+  ST.bank[ST.tenant]=KG_BAWAAN.map(p=>[p[0],p[1]]); simpan("pemulihan bawaan")};
+}
+/* ---------- akun staf ---------- */
+const AKUN=[
+ {id:"SF1",nama:"Zayyan",panjang:"Zayyan Uryaddin",mail:"zayyanuryaddin@gmail.com",pwd:"Zayyan_2026",role:"pekerja"},
+ {id:"SF2",nama:"Bagas",panjang:"Aditya Bagas",mail:"adityabagas.official@gmail.com",pwd:"Bagas_2026",role:"pekerja"},
+ {id:"SF3",nama:"Rosya",panjang:"Rosyadatul U",mail:"rosyadatul.u@gmail.com",pwd:"Rosya_2026",role:"pekerja"},
+ {id:"SF4",nama:"Bakdi",panjang:"Bakdi",mail:"bakdi@cesgs.or.id",pwd:"Bakdi_2026",role:"pekerja"},
+ {id:"SF5",nama:"Fida",panjang:"Nurfida",mail:"nurfida@gmail.com",pwd:"Fida_2026",role:"pekerja"},
+ {id:"SF6",nama:"Farras",panjang:"Ghaly Farras",mail:"ghalyfarras0@gmail.com",pwd:"Farras_2026",role:"pekerja"}
+];
+AKUN.forEach(u=>{ACCOUNTS.push({id:u.id,name:u.panjang,role:u.role,tenant:"T1",
+ org:"PT Anugerah Manufaktur Nusantara",desc:"Akun staf, mengisi asesmen dan ikut permainan kelompok.",
+ perm:"Laporan pribadi miliknya sendiri. Tidak ada akses ke data pekerja lain."})});
+const _bg2=bindGate;
+bindGate=function(){
+ _bg2();
+ const go=$("#lg_go");
+ if(go) go.onclick=()=>{
+  const m=(($("#lg_mail")||{}).value||"").trim().toLowerCase();
+  const s=(($("#lg_pass")||{}).value||"");
+  if(!m){toast("Surel belum diisi");return}
+  if(!s){toast("Kata sandi belum diisi");return}
+  const u=AKUN.find(x=>x.mail.toLowerCase()===m);
+  if(u){
+   if(u.pwd!==s){toast("Kata sandi tidak cocok");return}
+   login(u.id); return;
+  }
+  const role=Object.keys(ACC_MAIL).find(r=>ACC_MAIL[r].toLowerCase()===m);
+  if(!role){toast("Surel tidak dikenali");return}
+  login(ACCOUNTS.find(a=>a.role===role).id);
+ };
+};
+/* ---------- undangan tanpa server ---------- */
+function sbSemai(txt){
+ let h=2166136261;
+ for(let i=0;i<txt.length;i++){h^=txt.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
+ return h>>>0;
+}
+function sbKode(){
+ const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+ let s=""; for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)];
+ return s;
+}
+function sbUndangan(u){
+ return "SIAPABEDA|"+u.kode+"|"+u.nama.join(",")+"|"+u.mode+"|"+(u.hr?1:0);
+}
+function sbBaca(txt){
+ const p=String(txt||"").trim().split("|");
+ if(p.length<5||p[0].toUpperCase()!=="SIAPABEDA") return null;
+ const nama=p[2].split(",").map(x=>x.trim()).filter(Boolean);
+ if(nama.length<4) return null;
+ return {kode:p[1].toUpperCase(),nama,mode:p[3]==="tanpa"?"tanpa":"mirip",hr:p[4]==="1"};
+}
+/* peran dihitung dari kode, jadi hasilnya sama di setiap ponsel */
+function sbPeranUndangan(u,bank){
+ const r=mulberry32(sbSemai(u.kode+"|"+u.nama.join(",")));
+ const n=u.nama.length;
+ const urut=[...Array(n).keys()].sort(()=>r()-0.5);
+ const peran={}; urut.forEach(i=>peran[i]="staff");
+ peran[urut[0]]="ceo";
+ if(u.hr&&n>=5) peran[urut[1]]="hr";
+ const p=bank[Math.floor(r()*bank.length)], balik=r()<0.5;
+ const kataStaf=balik?p[1]:p[0], kataCEO=balik?p[0]:p[1];
+ const kata={};
+ for(let i=0;i<n;i++) kata[i]=peran[i]==="hr"?null:(peran[i]==="ceo"?(u.mode==="tanpa"?kataCEO:kataCEO):kataStaf);
+ if(u.mode==="tanpa"){for(let i=0;i<n;i++) if(peran[i]==="hr") kata[i]=null}
+ const urutPetunjuk=[...Array(n).keys()].sort(()=>r()-0.5);
+ return {peran,kata,kataStaf,kataCEO,urutPetunjuk};
+}
+function page_sb_undang(){
+ ST.sbU=ST.sbU||{mode:"buat",kode:sbKode(),nama:AKUN.map(u=>u.nama),mode2:"mirip",hr:true,teks:"",pilih:null,baca:null};
+ const U=ST.sbU;
+ if(U.mode==="gabung") return sbGabungHal();
+ const u={kode:U.kode,nama:U.nama,mode:U.mode2,hr:U.hr};
+ const und=sbUndangan(u);
+ const hasil=U.nama.length>=4?sbPeranUndangan(u,kataOf()):null;
+ return hd("Undangan permainan")+
+ `<div class="tabs noprint">
+   <button data-sbu="buat" class="on">Buat undangan</button>
+   <button data-sbu="gabung">Gabung dengan undangan</button></div>
+ <div class="panel"><div class="ph"><h3>Daftar pemain</h3><span class="pill ${U.nama.length>=4?"ok":"bad"}">${U.nama.length} pemain</span></div><div class="pb">
+  <div class="opts">${U.nama.map((n,i)=>`<span class="opt" style="pointer-events:none">${i+1}. ${esc(n)}
+   <button data-sbudel="${i}" class="ghost" style="padding:0 4px;font-size:11.5px">hapus</button></span>`).join("")}</div>
+  <div class="row" style="margin-top:12px">
+   <div class="field" style="max-width:220px;margin-bottom:0"><label class="lbl">Tambah nama</label><input id="sbunama" placeholder="Nama panggilan"></div>
+   <button style="align-self:flex-end" id="sbutambah">Tambah</button>
+   <button style="align-self:flex-end" id="sbuakun">Isi dari daftar akun</button></div>
+  <div class="grid2" style="gap:10px;margin-top:14px">
+   <div class="field"><label class="lbl">Mode</label>
+    <div class="opts"><button class="opt ${U.mode2==="mirip"?"on":""}" data-sbum="mirip">Kata mirip</button>
+     <button class="opt ${U.mode2==="tanpa"?"on":""}" data-sbum="tanpa">Tanpa kata</button></div></div>
+   <div class="field"><label class="lbl">Peran tanpa kata</label>
+    <div class="opts"><button class="opt ${U.hr?"on":""}" data-sbuh="1">Ya</button>
+     <button class="opt ${U.hr?"":"on"}" data-sbuh="0">Tidak</button></div></div></div>
+  </div></div>
+ <div class="panel"><div class="ph"><h3>Kode undangan</h3>
+   <span class="pill accent" style="font-family:Montserrat;font-weight:700;letter-spacing:2px">${esc(U.kode)}</span></div><div class="pb">
+  <div class="field"><label class="lbl">Teks undangan, kirim lewat pesan</label>
+   <textarea id="sbuteks" rows="3" readonly>${esc(und)}</textarea></div>
+  <div class="row"><button class="primary" id="sbusalin">Salin teks undangan</button>
+   <button id="sbukode">Ganti kode</button>
+   <button data-go="game_siapa">Buka pencatat ronde</button></div>
+  ${hasil?`<div class="kvl" style="margin-top:14px">
+   <div><span class="kk">Urutan menyebut petunjuk</span><span class="vv">${hasil.urutPetunjuk.map(i=>esc(U.nama[i])).join(" · ")}</span></div>
+   <div><span class="kk">Yang berbeda dan tanpa kata</span><span class="vv">Tidak ditampilkan di layar ini</span></div>
+  </div>`:`<p class="sup" style="margin-top:12px;margin-bottom:0">Perlu sekurang-kurangnya empat pemain.</p>`}
+  </div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara memakainya</h4>
+  <div class="kvl">
+   <div><span class="kk">1</span><span class="vv">Susun daftar pemain, lalu salin teks undangan</span></div>
+   <div><span class="kk">2</span><span class="vv">Kirim teks itu ke grup, semua orang membuka berkas aplikasi yang sama</span></div>
+   <div><span class="kk">3</span><span class="vv">Tiap orang menempel undangan pada tab Gabung, lalu memilih namanya sendiri</span></div>
+   <div><span class="kk">4</span><span class="vv">Kata rahasia muncul hanya di ponsel masing-masing</span></div>
+   <div><span class="kk">5</span><span class="vv">Diskusi, tuduhan, dan pengeluaran dijalankan lisan, pencatat rondenya di satu ponsel</span></div>
+  </div>
+  <p style="margin:12px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Peran dihitung dari kode undangan, sehingga setiap ponsel menghasilkan pembagian yang sama tanpa perlu saling terhubung. Mengganti kode berarti mengganti pembagian, dan seluruh pemain harus memakai kode yang sama.</p></div>`;
+}
+function sbGabungHal(){
+ const U=ST.sbU, b=U.baca;
+ return hd("Gabung permainan")+
+ `<div class="tabs noprint">
+   <button data-sbu="buat">Buat undangan</button>
+   <button data-sbu="gabung" class="on">Gabung dengan undangan</button></div>
+ ${!b?`<div class="panel"><div class="pb">
+  <div class="field"><label class="lbl">Tempel teks undangan yang Anda terima</label>
+   <textarea id="sbgteks" rows="3" placeholder="SIAPABEDA|ABC123|Nama,Nama,...">${esc(U.teks||"")}</textarea></div>
+  <button class="primary" id="sbgbaca">Baca undangan</button></div></div>`
+ :U.pilih==null?`<div class="panel"><div class="ph"><h3>Anda siapa</h3>
+   <span class="pill mut">Kode ${esc(b.kode)}</span></div><div class="pb">
+  <div class="opts">${b.nama.map((n,i)=>`<button class="opt" data-sbgp="${i}">${esc(n)}</button>`).join("")}</div>
+  <p class="sup" style="margin-top:12px;margin-bottom:0">Pilih nama Anda sendiri. Nama orang lain jangan dibuka.</p></div></div>`
+ :(function(){
+   const h=sbPeranUndangan(b,kataOf()), i=U.pilih;
+   return `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
+    <div class="sup" style="font-size:12.5px">${esc(b.nama[i])}, kata Anda</div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+     ${h.kata[i]?esc(h.kata[i]):"Tidak ada kata"}</div>
+    <div class="sup" style="font-size:12.5px">${h.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
+    <div class="kvl" style="margin-top:20px;text-align:left">
+     <div><span class="kk">Urutan petunjuk</span><span class="vv">${h.urutPetunjuk.map(x=>esc(b.nama[x])).join(" · ")}</span></div>
+     <div><span class="kk">Pemain</span><span class="vv">${b.nama.length} orang</span></div>
+    </div>
+    <div class="row" style="justify-content:center;margin-top:18px">
+     <button id="sbgtutup">Sembunyikan</button><button id="sbgulang">Undangan lain</button></div></div>`;
+  })()}`;
+}
+function bind_sb_undang(){
+ const U=ST.sbU;
+ document.querySelectorAll("[data-sbu]").forEach(b=>b.onclick=()=>{U.mode=b.dataset.sbu;U.pilih=null;render()});
+ document.querySelectorAll("[data-sbudel]").forEach(b=>b.onclick=()=>{U.nama.splice(+b.dataset.sbudel,1);render()});
+ const t=$("#sbutambah"); if(t) t.onclick=()=>{
+  const v=($("#sbunama").value||"").trim();
+  if(!v){toast("Nama belum diisi");return}
+  if(U.nama.length>=12){toast("Maksimum dua belas pemain");return}
+  U.nama.push(v);render()};
+ const ak=$("#sbuakun"); if(ak) ak.onclick=()=>{U.nama=AKUN.map(u=>u.nama);render()};
+ document.querySelectorAll("[data-sbum]").forEach(b=>b.onclick=()=>{U.mode2=b.dataset.sbum;render()});
+ document.querySelectorAll("[data-sbuh]").forEach(b=>b.onclick=()=>{U.hr=b.dataset.sbuh==="1";render()});
+ const k=$("#sbukode"); if(k) k.onclick=()=>{U.kode=sbKode();toast("Kode diganti, bagikan ulang");render()};
+ const s=$("#sbusalin"); if(s) s.onclick=()=>{
+  const el=$("#sbuteks"); if(!el)return;
+  el.select&&el.select();
+  try{navigator.clipboard.writeText(el.value);toast("Teks undangan disalin")}
+  catch(e){try{document.execCommand("copy");toast("Teks undangan disalin")}catch(e2){toast("Salin manual dari kotak teks")}}
+ };
+ const bc=$("#sbgbaca"); if(bc) bc.onclick=()=>{
+  U.teks=($("#sbgteks").value||"");
+  const b=sbBaca(U.teks);
+  if(!b){toast("Teks undangan tidak dikenali");return}
+  U.baca=b;U.pilih=null;render()};
+ document.querySelectorAll("[data-sbgp]").forEach(b=>b.onclick=()=>{U.pilih=+b.dataset.sbgp;render()});
+ const tp=$("#sbgtutup"); if(tp) tp.onclick=()=>{U.pilih=null;render()};
+ const ug=$("#sbgulang"); if(ug) ug.onclick=()=>{U.baca=null;U.pilih=null;U.teks="";render()};
+}
+/* ---------- navigasi ---------- */
+(function(){
+ const sisip=(r,setelah,item)=>{
+  if(!NAV[r])return;
+  const i=NAV[r].findIndex(e=>e[0]===setelah);
+  if(i>=0) NAV[r].splice(i+1,0,item); else NAV[r].push(item);
+ };
+ sisip("pekerja","game_siapa",["sb_undang","Undangan permainan"]);
+ sisip("admin_tenant","roda_edit",["bank_kata","Bank kata permainan"]);
+ sisip("admin_tenant","bank_kata",["sb_undang","Undangan permainan"]);
+})();
+/* ===================================================================
+   Lapisan kedua puluh tujuh: fitur undangan dicabut, permainan
+   kebersamaan ditambahkan
+   Dua mode, keduanya tanpa pemenang dan tanpa pemain yang keluar.
+=================================================================== */
+(function(){
+ Object.keys(NAV).forEach(r=>{NAV[r]=NAV[r].filter(e=>e[0]!=="sb_undang")});
+})();
+const SM_KESAMAAN=[
+ "Makanan yang semuanya suka","Minuman yang semuanya pernah pesan",
+ "Lagu yang semuanya tahu liriknya","Tempat di kota ini yang semuanya pernah datangi",
+ "Aplikasi di ponsel yang semuanya punya","Hal kecil yang membuat hari kerja terasa lebih ringan",
+ "Alat kerja yang semuanya pernah pakai","Bagian pekerjaan yang semuanya anggap penting",
+ "Jam paling sibuk yang semuanya rasakan sama","Kebiasaan sebelum mulai kerja yang sama",
+ "Film atau tayangan yang semuanya pernah tonton","Olahraga yang semuanya pernah coba",
+ "Jajanan yang semuanya suka","Warna yang tidak ada satu pun yang membencinya",
+ "Hal yang membuat semuanya kesal di jalan","Kebiasaan setelah pulang kerja yang sama",
+ "Tempat makan dekat kantor yang semuanya tahu","Hal yang semuanya takuti",
+ "Mata pelajaran sekolah yang semuanya pernah sulit","Alat rumah tangga yang semuanya punya",
+ "Hari dalam seminggu yang semuanya sukai","Hal yang semuanya lakukan saat menunggu",
+ "Cuaca yang semuanya sukai","Kebiasaan saat rapat yang sama"
+];
+const SM_APRESIASI=[
+ "satu hal yang kamu hargai dari cara NAMA bekerja",
+ "kapan NAMA pernah menolongmu",
+ "kebiasaan baik NAMA yang layak dicontoh",
+ "satu kata yang menggambarkan NAMA",
+ "hal yang kamu pelajari dari NAMA",
+ "saat NAMA membuat suasana kerja lebih ringan",
+ "hal yang membuat NAMA enak diajak kerja sama",
+ "keahlian NAMA yang mungkin dia sendiri tidak sadari",
+ "bagian pekerjaan yang paling cocok dipercayakan ke NAMA",
+ "satu hal yang ingin kamu ucapkan terima kasih ke NAMA",
+ "kebiasaan NAMA yang membuat tim lebih tenang",
+ "hal yang akan tim rasakan hilang kalau NAMA tidak ada"
+];
+function smInit(){
+ ST.sm={fase:"atur",mode:"kesamaan",n:6,target:5,skor:0,ronde:1,prompt:"",
+  subjek:null,sudah:[],putaran:1,akhir:0,rng:mulberry32(Date.now()&0xffffff)};
+}
+function smBersih(){if(ST.smTick){clearInterval(ST.smTick);ST.smTick=null}}
+function smPrompt(){
+ const S=ST.sm, r=S.rng;
+ if(S.mode==="kesamaan"){
+  S.prompt=SM_KESAMAAN[Math.floor(r()*SM_KESAMAAN.length)];
+  S.akhir=Date.now()+60000;
+ } else {
+  const belum=[...Array(S.n).keys()].map(i=>i+1).filter(i=>S.sudah.indexOf(i)<0);
+  if(!belum.length){S.putaran++;S.sudah=[]}
+  const sisa=S.sudah.length?[...Array(S.n).keys()].map(i=>i+1).filter(i=>S.sudah.indexOf(i)<0):[...Array(S.n).keys()].map(i=>i+1);
+  S.subjek=sisa[Math.floor(r()*sisa.length)];
+  S.prompt=SM_APRESIASI[Math.floor(r()*SM_APRESIASI.length)].replace("NAMA","Pemain "+S.subjek);
+ }
+}
+function page_game_sama(){
+ if(!ST.sm) smInit();
+ const S=ST.sm;
+ if(S.fase==="atur") return smAtur();
+ if(S.fase==="main") return S.mode==="kesamaan"?smKesamaan():smApresiasi();
+ return smHasil();
+}
+function smAtur(){
+ const S=ST.sm;
+ return hd("Satu Kesamaan")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Mode</div><div class="v" style="font-size:19px">${S.mode==="kesamaan"?"Cari kesamaan":"Lingkaran apresiasi"}</div>
+   <div class="f">Tanpa pemenang, tanpa pemain yang keluar</div></div>
+  <div class="tile"><div class="lpt1">Pemain</div><div class="lpt2">${S.n}</div><div class="lpt3">Duduk melingkar, satu perangkat di tengah</div></div>
+  <div class="tile"><div class="lpt1">${S.mode==="kesamaan"?"Sasaran":"Putaran"}</div><div class="lpt2">${S.mode==="kesamaan"?S.target:S.n}</div>
+   <div class="lpt3">${S.mode==="kesamaan"?"Kesamaan yang perlu ditemukan":"Setiap orang kebagian satu kali"}</div></div>
+  <div class="tile"><div class="lpt1">Lama</div><div class="lpt2">${S.mode==="kesamaan"?"60 detik":"Santai"}</div>
+   <div class="lpt3">${S.mode==="kesamaan"?"Per kartu, boleh dilewati":"Tidak ada pewaktu"}</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Pilih mode</h3></div><div class="pb">
+  <div class="grid2" style="gap:10px">
+   <button class="sortopt ${S.mode==="kesamaan"?"on":""}" data-smm="kesamaan" style="padding:16px;text-align:left">Cari kesamaan
+    <span style="display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:6px;line-height:1.6">Satu kartu berisi kategori, misalnya makanan yang semuanya suka. Kelompok punya 60 detik menemukan satu jawaban yang benar-benar berlaku untuk semua orang. Kelompok bermain melawan waktu, bukan melawan satu sama lain.</span></button>
+   <button class="sortopt ${S.mode==="apresiasi"?"on":""}" data-smm="apresiasi" style="padding:16px;text-align:left">Lingkaran apresiasi
+    <span style="display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:6px;line-height:1.6">Satu orang menjadi subjek, yang lain menyebut satu hal yang mereka hargai darinya. Aplikasi memastikan setiap orang kebagian satu kali sebelum ada yang kebagian dua kali.</span></button></div>
+  <div class="field" style="margin-top:14px"><label class="lbl">Jumlah pemain</label>
+   <div class="opts">${[4,5,6,7,8,9,10,12].map(x=>`<button class="opt ${S.n===x?"on":""}" data-smn="${x}">${x}</button>`).join("")}</div></div>
+  ${S.mode==="kesamaan"?`<div class="field"><label class="lbl">Sasaran kesamaan</label>
+   <div class="opts">${[3,5,8].map(x=>`<button class="opt ${S.target===x?"on":""}" data-smt="${x}">${x}</button>`).join("")}</div></div>`:""}
+  <button class="primary" id="smmulai">Mulai</button></div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan yang berlaku pada kedua mode</h4>
+  <ul class="ivl">
+   <li class="org">Tidak ada pemenang, tidak ada yang kalah, dan tidak ada yang dikeluarkan</li>
+   <li class="org">Tidak ada jawaban yang dinilai salah, kelompok sendiri yang menyepakati</li>
+   <li class="org">Boleh melewati kartu tanpa memberi alasan</li>
+   <li>Pada lingkaran apresiasi, penyelia berbicara paling akhir</li>
+   <li>Tidak ada hasil per orang yang disimpan</li></ul></div>`;
+}
+function smKesamaan(){
+ const S=ST.sm;
+ return hd("Kartu "+S.ronde)+
+ `<div style="max-width:560px;margin:0 auto">
+  <div class="spread" style="margin-bottom:10px">
+   <div><div class="sup" style="font-size:12px">Kesamaan ditemukan</div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:28px;line-height:1">${S.skor} / ${S.target}</div></div>
+   <div style="text-align:right"><span class="mono" id="smtimer" style="font-size:26px;font-weight:700">60,0</span>
+    <span class="sup" style="font-size:12px"> detik</span></div></div>
+  <div class="prog" style="margin-bottom:14px"><i style="width:${clamp(S.skor/S.target*100,0,100)}%"></i></div>
+  <div style="border:1px solid var(--line-2);border-radius:14px;padding:38px 24px;text-align:center;background:var(--bg-2);
+   min-height:150px;display:flex;align-items:center;justify-content:center">
+   <div style="font-family:Montserrat;font-weight:600;font-size:21px;line-height:1.4">${esc(S.prompt)}</div></div>
+  <div class="grid2" style="gap:10px;margin-top:16px">
+   <button class="sortopt" id="smdapat" style="padding:16px">Dapat, semua setuju</button>
+   <button class="sortopt" id="smlewat" style="padding:16px">Lewati kartu ini</button></div>
+  <div class="spread" style="margin-top:14px"><span class="sup">Kelompok melawan waktu, bukan satu sama lain</span>
+   <button id="smstop">Hentikan</button></div></div>`;
+}
+function smApresiasi(){
+ const S=ST.sm;
+ const belum=[...Array(S.n).keys()].map(i=>i+1).filter(i=>S.sudah.indexOf(i)<0).length;
+ return hd("Putaran "+S.putaran)+
+ `<div style="max-width:560px;margin:0 auto">
+  <div class="spread" style="margin-bottom:10px">
+   <div><div class="sup" style="font-size:12px">Subjek</div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">Pemain ${S.subjek}</div></div>
+   <div style="text-align:right"><div class="sup" style="font-size:12px">Belum kebagian</div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:20px">${belum}</div></div></div>
+  <div class="prog" style="margin-bottom:14px"><i style="width:${(S.n-belum)/S.n*100}%"></i></div>
+  <div style="border:1px solid var(--line-2);border-radius:14px;padding:38px 24px;text-align:center;background:var(--bg-2);
+   min-height:150px;display:flex;align-items:center;justify-content:center">
+   <div style="font-family:Montserrat;font-weight:600;font-size:20px;line-height:1.45">Sebutkan ${esc(S.prompt)}</div></div>
+  <div class="grid2" style="gap:10px;margin-top:16px">
+   <button class="sortopt" id="smselesai" style="padding:16px">Sudah, lanjut orang berikutnya</button>
+   <button class="sortopt" id="smlewat2" style="padding:16px">Ganti pertanyaan</button></div>
+  <div class="spread" style="margin-top:14px"><span class="sup">Setiap orang kebagian satu kali dulu</span>
+   <button id="smstop2">Hentikan</button></div></div>`;
+}
+function smHasil(){
+ const S=ST.sm;
+ return hd("Sesi selesai")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Mode</div><div class="v" style="font-size:19px">${S.mode==="kesamaan"?"Cari kesamaan":"Lingkaran apresiasi"}</div>
+   <div class="f">${S.n} pemain</div></div>
+  ${S.mode==="kesamaan"?`
+  <div class="tile"><div class="lpt1">Kesamaan ditemukan</div><div class="lpt2">${S.skor} / ${S.target}</div>
+   <div class="lpt3">${S.skor>=S.target?"Sasaran tercapai bersama":"Boleh dilanjutkan kapan saja"}</div></div>
+  <div class="tile"><div class="lpt1">Kartu dibuka</div><div class="lpt2">${S.ronde}</div><div class="lpt3">Termasuk yang dilewati</div></div>`
+  :`<div class="tile"><div class="lpt1">Orang yang kebagian</div><div class="lpt2">${S.sudah.length} / ${S.n}</div>
+   <div class="lpt3">${S.sudah.length>=S.n?"Semua kebagian":"Masih ada yang belum"}</div></div>
+  <div class="tile"><div class="lpt1">Putaran</div><div class="lpt2">${S.putaran}</div><div class="lpt3">Satu putaran mencakup semua orang</div></div>`}
+  <div class="tile"><div class="lpt1">Yang disimpan</div><div class="lpt2" style="font-size:17px">Tidak ada</div>
+   <div class="lpt3">Tanpa hasil per orang</div></div></div>
+ <div class="row" style="margin-top:16px">
+  <button class="primary" id="smlagi">Main lagi</button>
+  <button id="smcatat">Catat sebagai kegiatan tim</button>
+  <button id="smtutup">Selesai</button></div>`;
+}
+function bind_game_sama(){
+ const S=ST.sm;
+ smBersih();
+ document.querySelectorAll("[data-smm]").forEach(b=>b.onclick=()=>{S.mode=b.dataset.smm;render()});
+ document.querySelectorAll("[data-smn]").forEach(b=>b.onclick=()=>{S.n=+b.dataset.smn;render()});
+ document.querySelectorAll("[data-smt]").forEach(b=>b.onclick=()=>{S.target=+b.dataset.smt;render()});
+ const m=$("#smmulai"); if(m) m.onclick=()=>{
+  S.skor=0;S.ronde=1;S.sudah=[];S.putaran=1;S.fase="main";smPrompt();render();window.scrollTo(0,0)};
+ const dp=$("#smdapat"); if(dp) dp.onclick=()=>{
+  S.skor++;
+  if(S.skor>=S.target){S.fase="hasil";smBersih()} else {S.ronde++;smPrompt()}
+  render();window.scrollTo(0,0)};
+ const lw=$("#smlewat"); if(lw) lw.onclick=()=>{S.ronde++;smPrompt();render();window.scrollTo(0,0)};
+ const sl=$("#smselesai"); if(sl) sl.onclick=()=>{
+  if(S.sudah.indexOf(S.subjek)<0) S.sudah.push(S.subjek);
+  if(S.sudah.length>=S.n&&S.putaran>=1){S.fase="hasil";render();window.scrollTo(0,0);return}
+  smPrompt();render();window.scrollTo(0,0)};
+ const gp=$("#smlewat2"); if(gp) gp.onclick=()=>{
+  const sub=S.subjek;
+  S.prompt=SM_APRESIASI[Math.floor(S.rng()*SM_APRESIASI.length)].replace("NAMA","Pemain "+sub);
+  S.subjek=sub; render()};
+ [$("#smstop"),$("#smstop2")].forEach(x=>{if(x)x.onclick=()=>{S.fase="hasil";smBersih();render()}});
+ const lg=$("#smlagi"); if(lg) lg.onclick=()=>{S.fase="atur";smBersih();render()};
+ const tp=$("#smtutup"); if(tp) tp.onclick=()=>{smBersih();smInit();render()};
+ const ct=$("#smcatat"); if(ct) ct.onclick=async()=>{
+  kegAll().push({id:"KG-"+String(kegAll().length+1).padStart(3,"0"),tgl:today(),tenant:ST.tenant,
+   div:"Seluruh unit",kat:"Kegiatan tim",
+   judul:"Permainan "+(S.mode==="kesamaan"?"Cari kesamaan":"Lingkaran apresiasi")+", "+S.n+" pemain",
+   peny:"Tim sendiri",diundang:S.n,hadir:S.n,jam:S.n*0.3,biaya:0,dim:S.mode==="kesamaan"?["D6"]:["D5","D6"],
+   level:"sekunder",ctl:null,bukti:["Catatan sesi permainan kelompok"],
+   hasil:"Kegiatan keakraban tim, bukan bukti konsultasi bahaya"});
+  await ledgerPush("portal.permainan","Sesi permainan kebersamaan dicatat sebagai kegiatan tim",{mode:S.mode,pemain:S.n});
+  toast("Tercatat pada log kegiatan sebagai pencegahan sekunder");render()};
+ /* pewaktu hanya pada mode cari kesamaan */
+ if(S.fase==="main"&&S.mode==="kesamaan"&&$("#smtimer")){
+  ST.smTick=setInterval(()=>{
+   const el=$("#smtimer"); if(!el){smBersih();return}
+   const sisa=Math.max(0,S.akhir-Date.now());
+   el.textContent=(sisa/1000).toFixed(1).replace(".",",");
+   if(sisa<=0){smBersih();S.ronde++;smPrompt();render()}
+  },100);
+ }
+}
+(function(){
+ const sisip=(r,setelah,item)=>{
+  if(!NAV[r])return;
+  const i=NAV[r].findIndex(e=>e[0]===setelah);
+  if(i>=0) NAV[r].splice(i+1,0,item); else NAV[r].push(item);
+ };
+ sisip("pekerja","game_roda",["game_sama","Satu Kesamaan"]);
+ if(MTAB.pekerja&&MTAB.pekerja.length<5) MTAB.pekerja.push(["game_sama","Kesamaan","orang"]);
+})();
+/* ===================================================================
+   Lapisan kedua puluh delapan: Mister White
+   Mengikuti aturan aslinya. Warga menang hanya setelah seluruh
+   penyusup dan Mister White keluar. Mister White yang keluar mendapat
+   satu kesempatan menyebut kata warga, tepat berarti menang seketika.
+=================================================================== */
+const MW_LABEL={
+ asli:{warga:"Warga",pen:"Penyusup",mw:"Mister White"},
+ kantor:{warga:"Staf",pen:"CEO",mw:"HR"}
+};
+function mwL(){return MW_LABEL[ST.mw&&ST.mw.label==="kantor"?"kantor":"asli"]}
+/* susunan peran mengikuti tabel yang lazim dipakai */
+function mwSusun(n){
+ if(n<=4) return {pen:1,mw:0};
+ if(n<=7) return {pen:1,mw:1};
+ if(n<=10) return {pen:2,mw:1};
+ return {pen:3,mw:1};
+}
+function mwInit(){
+ ST.mw={fase:"atur",n:6,label:"asli",peran:{},kata:{},keluar:[],ronde:1,idx:1,lihat:false,
+  urutan:[],vote:null,ungkap:null,menang:null,rng:mulberry32(Date.now()&0xffffff)};
+}
+function mwHidup(){const M=ST.mw;return [...Array(M.n).keys()].map(i=>i+1).filter(i=>M.keluar.indexOf(i)<0)}
+function mwJml(p){return mwHidup().filter(i=>ST.mw.peran[i]===p).length}
+function mwLawanHidup(){return mwJml("pen")+mwJml("mw")}
+function mwBagi(){
+ const M=ST.mw, r=M.rng, s=mwSusun(M.n);
+ const bank=kataOf();
+ const orang=[...Array(M.n).keys()].map(i=>i+1).sort(()=>r()-0.5);
+ M.peran={}; orang.forEach(i=>M.peran[i]="warga");
+ for(let k=0;k<s.pen;k++) M.peran[orang[k]]="pen";
+ for(let k=0;k<s.mw;k++) M.peran[orang[s.pen+k]]="mw";
+ const p=bank[Math.floor(r()*bank.length)], balik=r()<0.5;
+ M.kataWarga=balik?p[1]:p[0]; M.kataPen=balik?p[0]:p[1];
+ M.kata={};
+ for(let i=1;i<=M.n;i++){
+  M.kata[i]=M.peran[i]==="mw"?null:(M.peran[i]==="pen"?M.kataPen:M.kataWarga);
+ }
+ M.keluar=[]; M.ronde=1; M.idx=1; M.lihat=false; M.vote=null; M.ungkap=null; M.menang=null;
+ M.urutan=[...Array(M.n).keys()].map(i=>i+1).sort(()=>r()-0.5);
+ M.fase="bagi";
+}
+function mwCek(){
+ const lawan=mwLawanHidup(), hidup=mwHidup().length, warga=hidup-lawan;
+ if(lawan===0) return "warga";
+ if(hidup<=2||warga<=lawan) return "lawan";
+ return null;
+}
+function mwRondeBaru(){
+ const M=ST.mw;
+ M.ronde++; M.vote=null; M.ungkap=null; M.fase="petunjuk";
+ M.urutan=mwHidup().sort(()=>M.rng()-0.5).concat(M.keluar);
+}
+function page_game_mw(){
+ if(!ST.mw) mwInit();
+ const M=ST.mw;
+ if(M.fase==="atur") return mwAtur();
+ if(M.fase==="bagi") return mwBagiHal();
+ if(M.fase==="petunjuk") return mwPetunjuk();
+ if(M.fase==="vote") return mwVote();
+ if(M.fase==="ungkap") return mwUngkap();
+ return mwSelesai();
+}
+function mwAtur(){
+ const M=ST.mw, L=mwL(), s=mwSusun(M.n);
+ return hd("Mister White")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Pemain</div><div class="v">${M.n}</div><div class="f">Satu perangkat dioper bergilir</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.warga)}</div><div class="lpt2">${M.n-s.pen-s.mw}</div><div class="lpt3">Kata yang sama</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.pen)}</div><div class="lpt2">${s.pen}</div><div class="lpt3">Kata berbeda tapi serumpun</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.mw)}</div><div class="lpt2">${s.mw}</div><div class="lpt3">Tanpa kata sama sekali</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
+  <div class="field"><label class="lbl">Jumlah pemain</label>
+   <div class="opts">${[4,5,6,7,8,9,10,11,12].map(x=>`<button class="opt ${M.n===x?"on":""}" data-mwn="${x}">${x}</button>`).join("")}</div></div>
+  <div class="field"><label class="lbl">Nama peran</label>
+   <div class="grid2" style="gap:10px">
+    <button class="sortopt ${M.label==="asli"?"on":""}" data-mwl="asli" style="padding:14px">Istilah asli
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Warga, Penyusup, Mister White</span></button>
+    <button class="sortopt ${M.label==="kantor"?"on":""}" data-mwl="kantor" style="padding:14px">Istilah kantor
+     <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Staf, CEO, HR</span></button></div></div>
+  <button class="primary" id="mwmulai">Bagikan kata</button></div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan</h4>
+  <div class="kvl">
+   <div><span class="kk">${esc(L.warga)}</span><span class="vv">Menerima kata yang sama</span></div>
+   <div><span class="kk">${esc(L.pen)}</span><span class="vv">Menerima kata berbeda tapi serumpun</span></div>
+   <div><span class="kk">${esc(L.mw)}</span><span class="vv">Tidak menerima kata sama sekali</span></div>
+   <div><span class="kk">Tiap ronde</span><span class="vv">Satu kata petunjuk per orang, lalu satu pemain keluar</span></div>
+   <div><span class="kk">Kata rahasia</span><span class="vv">Tetap sama sampai permainan selesai</span></div>
+   <div><span class="kk">${esc(L.warga)} menang</span><span class="vv">Setelah seluruh ${esc(L.pen)} dan ${esc(L.mw)} keluar</span></div>
+   <div><span class="kk">${esc(L.pen)} menang</span><span class="vv">Bila tersisa dua pemain, atau jumlahnya menyamai ${esc(L.warga)}</span></div>
+   <div><span class="kk">${esc(L.mw)} menang</span><span class="vv">Bila keluar lalu berhasil menyebut kata ${esc(L.warga)}</span></div>
+  </div>
+  <ul class="ivl" style="margin-top:12px">
+   <li class="org">Petunjuk satu kata, bukan kalimat, dan tidak menyebut kata rahasianya</li>
+   <li class="org">Kata petunjuk yang sudah dipakai tidak boleh diulang pada ronde berikutnya</li>
+   <li class="org">Tuduhan tentang kata, bukan tentang sifat atau kebiasaan kerja orang</li>
+   <li>Kalau ada penyelia ikut bermain, dia menyebut petunjuk paling akhir</li>
+   <li>Siapa pun boleh menghentikan permainan tanpa alasan</li></ul></div>`;
+}
+function mwBagiHal(){
+ const M=ST.mw, i=M.idx;
+ return hd("Pemain "+i+" dari "+M.n)+
+ `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
+  ${M.lihat?`
+   <div class="sup" style="font-size:12.5px">Kata Anda</div>
+   <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+    ${M.kata[i]?esc(M.kata[i]):"Tidak ada kata"}</div>
+   <div class="sup" style="font-size:12.5px">${M.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
+   <button class="primary" id="mwnext" style="margin-top:22px;width:100%">${i<M.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai ronde 1"}</button>`
+  :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
+   <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
+   <button class="primary" id="mwlihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
+ </div>
+ <div class="prog" style="max-width:520px;margin:16px auto 0"><i style="width:${(i-1)/M.n*100}%"></i></div>`;
+}
+function mwPetunjuk(){
+ const M=ST.mw, L=mwL(), hidup=mwHidup(), urut=M.urutan.filter(p=>hidup.indexOf(p)>=0);
+ return hd("Ronde "+M.ronde+", giliran petunjuk")+
+ `<div class="card2" style="max-width:560px;margin:0 auto">
+  <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
+   <span class="pill mut">${hidup.length} masih bermain</span></div>
+  <div class="opts" style="margin-top:12px">${urut.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. Pemain ${p}</span>`).join("")}</div>
+  ${M.keluar.length?`<div class="kvl" style="margin-top:12px">${M.keluar.map((x,i)=>`<div><span class="kk">Ronde ${i+1}</span>
+   <span class="vv">Pemain ${x} keluar · ${esc({warga:L.warga,pen:L.pen,mw:L.mw}[M.peran[x]])}</span></div>`).join("")}
+   <div><span class="kk">Masih di dalam</span><span class="vv">${mwLawanHidup()} dari ${mwSusun(M.n).pen+mwSusun(M.n).mw} pihak lawan</span></div></div>`:""}
+  <p style="margin:14px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Satu kata per orang. ${M.ronde>1?"Kata rahasia tetap sama seperti ronde pertama, hanya urutan pemberi petunjuk yang diputar.":"Kata rahasia berlaku sampai permainan selesai."}</p>
+  <div class="row" style="margin-top:16px"><button class="primary" id="mwvote" style="flex:1">Kelompok siap memilih</button></div></div>
+ <div class="row" style="max-width:560px;margin:14px auto 0"><button id="mwstop">Hentikan permainan</button></div>`;
+}
+function mwVote(){
+ const M=ST.mw, hidup=mwHidup();
+ return hd("Ronde "+M.ronde+", pemungutan suara")+
+ `<div class="card2" style="max-width:560px;margin:0 auto">
+  <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang keluar ronde ini</div>
+  <div class="sup" style="font-size:12.5px;margin-top:4px">Satu pilihan hasil kesepakatan kelompok</div>
+  <div class="opts" style="margin-top:14px">${hidup.map(i=>`<button class="opt ${M.vote===i?"on":""}" data-mwv="${i}">Pemain ${i}</button>`).join("")}</div>
+  <button class="primary" id="mwbuka" ${M.vote?"":"disabled"} style="margin-top:16px;width:100%">Buka kartunya</button></div>`;
+}
+function mwUngkap(){
+ const M=ST.mw, L=mwL(), u=M.ungkap||{};
+ const nama={warga:L.warga,pen:L.pen,mw:L.mw}[u.peran];
+ return hd("Pemain "+u.p+" keluar")+
+ `<div class="card2" style="max-width:560px;margin:0 auto;text-align:center;padding:30px 24px">
+  <div class="sup" style="font-size:12.5px">Perannya</div>
+  <div style="font-family:Montserrat;font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
+  <div class="sup" style="font-size:12.5px">${u.kata?("katanya "+esc(u.kata)):"tidak menerima kata"}</div>
+  ${u.tebak?`
+   <div class="field" style="max-width:320px;margin:20px auto 0;text-align:left">
+    <label class="lbl">Satu kesempatan, sebutkan kata ${esc(L.warga)}</label>
+    <input id="mwkata" placeholder="Tulis satu kata"></div>
+   <button class="primary" id="mwcek" style="margin-top:6px">Cek</button>`
+  :`<div class="kvl" style="margin-top:18px;text-align:left">
+    <div><span class="kk">Pihak lawan yang masih bermain</span><span class="vv">${mwLawanHidup()} orang</span></div>
+    <div><span class="kk">Pemain yang masih bermain</span><span class="vv">${mwHidup().length} orang</span></div></div>
+   <button class="primary" id="mwlanjut" style="margin-top:20px;width:100%">${u.lanjut?"Lanjut ronde "+(M.ronde+1)+", kata tetap sama":"Lihat hasil"}</button>`}
+ </div>`;
+}
+function mwSelesai(){
+ const M=ST.mw, L=mwL();
+ const pen=[...Array(M.n).keys()].map(i=>i+1).filter(i=>M.peran[i]==="pen");
+ const mw=[...Array(M.n).keys()].map(i=>i+1).filter(i=>M.peran[i]==="mw");
+ const teks={warga:L.warga+" menang",lawan:L.pen+" menang",mw:L.mw+" menang"}[M.menang]||"Permainan dihentikan";
+ return hd(teks)+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Ronde dimainkan</div><div class="v">${M.ronde}</div><div class="f">${M.n} pemain</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.pen)}</div><div class="lpt2" style="font-size:18px">${pen.map(x=>"Pemain "+x).join(", ")||"—"}</div>
+   <div class="lpt3">Kata ${esc(M.kataPen||"")}</div></div>
+  <div class="tile"><div class="lpt1">${esc(L.mw)}</div><div class="lpt2" style="font-size:18px">${mw.map(x=>"Pemain "+x).join(", ")||"Tidak dipakai"}</div>
+   <div class="lpt3">Tanpa kata</div></div>
+  <div class="tile"><div class="lpt1">Kata ${esc(L.warga)}</div><div class="lpt2" style="font-size:18px">${esc(M.kataWarga||"")}</div>
+   <div class="lpt3">${M.keluar.length} pemain keluar</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Urutan keluar</h3></div><div class="pb">
+  ${M.keluar.length?`<div class="kvl">${M.keluar.map((p,i)=>`<div><span class="kk">Ronde ${i+1}</span>
+   <span class="vv">Pemain ${p} · ${esc({warga:L.warga,pen:L.pen,mw:L.mw}[M.peran[p]])}</span></div>`).join("")}</div>`
+  :`<p style="margin:0">Tidak ada pemain yang keluar.</p>`}</div></div>
+ <div class="row">
+  <button class="primary" id="mwlagi">Main lagi</button>
+  <button id="mwcatat">Catat sebagai kegiatan tim</button>
+  <button id="mwtutup">Selesai</button></div>`;
+}
+function bind_game_mw(){
+ const M=ST.mw, L=mwL();
+ document.querySelectorAll("[data-mwn]").forEach(b=>b.onclick=()=>{M.n=+b.dataset.mwn;render()});
+ document.querySelectorAll("[data-mwl]").forEach(b=>b.onclick=()=>{M.label=b.dataset.mwl;render()});
+ const m=$("#mwmulai"); if(m) m.onclick=()=>{mwBagi();render();window.scrollTo(0,0)};
+ const l=$("#mwlihat"); if(l) l.onclick=()=>{M.lihat=true;render()};
+ const n=$("#mwnext"); if(n) n.onclick=()=>{
+  if(M.idx<M.n){M.idx++;M.lihat=false} else M.fase="petunjuk";
+  render();window.scrollTo(0,0)};
+ const v=$("#mwvote"); if(v) v.onclick=()=>{M.fase="vote";M.vote=null;render();window.scrollTo(0,0)};
+ const st=$("#mwstop"); if(st) st.onclick=()=>{M.menang=null;M.fase="selesai";toast("Permainan dihentikan");render()};
+ document.querySelectorAll("[data-mwv]").forEach(b=>b.onclick=()=>{M.vote=+b.dataset.mwv;render()});
+ const bk=$("#mwbuka"); if(bk) bk.onclick=()=>{
+  const p=M.vote, peran=M.peran[p];
+  M.keluar.push(p);
+  if(peran==="mw"){
+   M.ungkap={p,peran,kata:null,tebak:true};
+  } else {
+   const hasil=mwCek();
+   M.ungkap={p,peran,kata:M.kata[p],lanjut:!hasil};
+   M.sementara=hasil;
+  }
+  M.fase="ungkap";render();window.scrollTo(0,0)};
+ const ck=$("#mwcek"); if(ck) ck.onclick=()=>{
+  const x=($("#mwkata").value||"").trim().toLowerCase();
+  if(x&&x===String(M.kataWarga||"").toLowerCase()){M.menang="mw";M.fase="selesai"}
+  else{
+   const hasil=mwCek();
+   if(hasil){M.menang=hasil;M.fase="selesai"}
+   else{mwRondeBaru();toast("Kata tidak tepat, permainan berlanjut")}
+  }
+  render();window.scrollTo(0,0)};
+ const lj=$("#mwlanjut"); if(lj) lj.onclick=()=>{
+  const hasil=M.sementara||mwCek();
+  if(hasil){M.menang=hasil;M.fase="selesai"}
+  else mwRondeBaru();
+  M.sementara=null;render();window.scrollTo(0,0)};
+ const lg=$("#mwlagi"); if(lg) lg.onclick=()=>{mwBagi();render();window.scrollTo(0,0)};
+ const tp=$("#mwtutup"); if(tp) tp.onclick=()=>{mwInit();render()};
+ const ct=$("#mwcatat"); if(ct) ct.onclick=async()=>{
+  kegAll().push({id:"KG-"+String(kegAll().length+1).padStart(3,"0"),tgl:today(),tenant:ST.tenant,
+   div:"Seluruh unit",kat:"Kegiatan tim",judul:"Permainan Mister White, "+M.ronde+" ronde, "+M.n+" pemain",
+   peny:"Tim sendiri",diundang:M.n,hadir:M.n,jam:M.n*0.4,biaya:0,dim:["D5","D6"],
+   level:"sekunder",ctl:null,bukti:["Catatan sesi permainan kelompok"],
+   hasil:"Kegiatan keakraban tim, bukan bukti konsultasi bahaya"});
+  await ledgerPush("portal.permainan","Sesi permainan kelompok dicatat sebagai kegiatan tim",{pemain:M.n,ronde:M.ronde});
+  toast("Tercatat pada log kegiatan sebagai pencegahan sekunder");render()};
+}
+(function(){
+ Object.keys(NAV).forEach(r=>{
+  NAV[r]=NAV[r].map(e=>e[0]==="game_siapa"?["game_mw","Mister White"]:e);
+ });
+ if(MTAB.pekerja) MTAB.pekerja=MTAB.pekerja.map(x=>x[0]==="game_siapa"?["game_mw","Mister White","dadu"]:x);
+ if(HOME.pekerja==="game_siapa") HOME.pekerja="game_mw";
+})();
+/* ===================================================================
+   Lapisan kedua puluh sembilan: Kursi Panas
+   Murni hiburan. Tidak ada skor, tidak ada pemenang, dan sesinya
+   tidak dicatat sebagai kegiatan apa pun.
+   Bank pertanyaan sengaja menghindari gaji, agama, politik, kondisi
+   kesehatan, dan urusan keluarga.
+=================================================================== */
+const KP_TANYA=[
+ "Makanan yang NAMA pesan kalau sedang malas memilih",
+ "Lagu yang paling sering NAMA putar di jalan",
+ "Jam berapa NAMA biasanya bangun pada hari libur",
+ "Minuman NAMA di warung langganan",
+ "Hal pertama yang NAMA lakukan begitu sampai rumah",
+ "Tempat yang paling ingin NAMA kunjungi kalau ada libur panjang",
+ "Olahraga yang NAMA pernah coba lalu berhenti",
+ "Aplikasi yang paling sering NAMA buka",
+ "Benda yang selalu ada di tas atau kantong NAMA",
+ "Film atau tayangan yang NAMA tonton berulang kali",
+ "Hewan yang NAMA paling tidak suka",
+ "Warna baju yang paling banyak NAMA punya",
+ "Jajanan masa kecil yang masih NAMA cari sampai sekarang",
+ "Hal kecil yang bikin NAMA senang sepanjang hari",
+ "Kalau boleh memilih, NAMA lebih suka pagi atau malam",
+ "Rasa es krim yang NAMA pilih kalau cuma boleh satu",
+ "Hal yang NAMA lakukan saat menunggu terlalu lama",
+ "Tempat makan dekat sini yang NAMA rekomendasikan",
+ "Keahlian NAMA yang orang biasanya tidak menduga",
+ "Alat kerja yang paling NAMA kuasai",
+ "Cita-cita NAMA waktu masih SD",
+ "Kalau ada satu jam ekstra tiap hari, NAMA pakai untuk apa",
+ "Kebiasaan NAMA sebelum mulai bekerja",
+ "Hal yang NAMA selalu bawa kalau bepergian jauh",
+ "Rasa mi instan pilihan NAMA",
+ "Cara NAMA menghabiskan waktu di perjalanan",
+ "Hal yang paling NAMA banggakan dari kampung asalnya",
+ "Kalau jadi ketua panitia acara kantor, NAMA bikin acara apa"
+];
+const KP_TANTANG=[
+ "Tirukan suara mesin atau alat di tempat kerjamu, kelompok menebak alatnya",
+ "Sebutkan tiga benda di ruangan ini yang warnanya sama, dalam sepuluh detik",
+ "Ceritakan perjalanan dari rumah ke sini dalam sepuluh detik",
+ "Sebutkan lima nama rekan kerja tanpa mengulang, dalam sepuluh detik",
+ "Peragakan pekerjaanmu tanpa bersuara, kelompok menebak",
+ "Sebutkan satu hal yang kamu lakukan hari ini yang tidak dilakukan orang lain di ruangan"
+];
+function kpInit(){
+ ST.kp={fase:"atur",n:6,kursi:null,sudah:[],putaran:1,tanya:"",jenis:"tanya",
+  tantang:true,rng:mulberry32(Date.now()&0xffffff)};
+}
+function kpKartu(){
+ const K=ST.kp, r=K.rng;
+ const belum=[...Array(K.n).keys()].map(i=>i+1).filter(i=>K.sudah.indexOf(i)<0);
+ const kolam=belum.length?belum:[...Array(K.n).keys()].map(i=>i+1);
+ if(!belum.length){K.putaran++;K.sudah=[]}
+ K.kursi=kolam[Math.floor(r()*kolam.length)];
+ if(K.tantang&&r()<0.22){
+  K.jenis="tantang";
+  K.tanya=KP_TANTANG[Math.floor(r()*KP_TANTANG.length)];
+ } else {
+  K.jenis="tanya";
+  K.tanya=KP_TANYA[Math.floor(r()*KP_TANYA.length)].replace("NAMA","Pemain "+K.kursi);
+ }
+}
+function page_game_kursi(){
+ if(!ST.kp) kpInit();
+ const K=ST.kp;
+ if(K.fase==="atur") return kpAtur();
+ if(K.fase==="main") return kpMain();
+ return kpHasil();
+}
+function kpAtur(){
+ const K=ST.kp;
+ return hd("Kursi Panas")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Pemain</div><div class="v">${K.n}</div><div class="f">Duduk melingkar, satu perangkat di tengah</div></div>
+  <div class="tile"><div class="lpt1">Lama</div><div class="lpt2">5 menit</div><div class="lpt3">Sekitar satu kartu per orang</div></div>
+  <div class="tile"><div class="lpt1">Skor</div><div class="lpt2" style="font-size:17px">Tidak ada</div><div class="lpt3">Murni hiburan</div></div>
+  <div class="tile"><div class="lpt1">Bank kartu</div><div class="lpt2">${KP_TANYA.length}+${KP_TANTANG.length}</div><div class="lpt3">Pertanyaan dan tantangan ringan</div></div></div>
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
+  <div class="field"><label class="lbl">Jumlah pemain</label>
+   <div class="opts">${[3,4,5,6,7,8,9,10,12].map(x=>`<button class="opt ${K.n===x?"on":""}" data-kpn="${x}">${x}</button>`).join("")}</div></div>
+  <div class="field"><label class="lbl">Sertakan kartu tantangan ringan</label>
+   <div class="opts"><button class="opt ${K.tantang?"on":""}" data-kpt="1">Ya</button>
+    <button class="opt ${K.tantang?"":"on"}" data-kpt="0">Tidak</button></div></div>
+  <button class="primary" id="kpmulai">Mulai</button></div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
+  <div class="kvl">
+   <div><span class="kk">1</span><span class="vv">Aplikasi menunjuk satu orang duduk di kursi panas</span></div>
+   <div><span class="kk">2</span><span class="vv">Kartu berisi pertanyaan tentang dirinya, kelompok menebak dulu</span></div>
+   <div><span class="kk">3</span><span class="vv">Yang di kursi panas menjawab dan mengoreksi tebakan</span></div>
+   <div><span class="kk">4</span><span class="vv">Aplikasi menunjuk orang berikutnya, semua kebagian dulu sebelum ada yang kedua</span></div>
+  </div>
+  <ul class="ivl" style="margin-top:12px">
+   <li class="org">Tidak ada skor, tidak ada pemenang, tidak ada yang keluar</li>
+   <li class="org">Kartu boleh diganti atau dilewati tanpa alasan</li>
+   <li class="org">Bank kartu tidak memuat pertanyaan soal gaji, agama, politik, kondisi kesehatan, maupun urusan keluarga</li>
+   <li>Yang di kursi panas berhak menjawab tidak mau menjawab</li></ul></div>`;
+}
+function kpMain(){
+ const K=ST.kp;
+ const belum=[...Array(K.n).keys()].map(i=>i+1).filter(i=>K.sudah.indexOf(i)<0).length;
+ return hd("Kursi panas: Pemain "+K.kursi)+
+ `<div style="max-width:560px;margin:0 auto">
+  <div class="spread" style="margin-bottom:10px">
+   <div><div class="sup" style="font-size:12px">Putaran ${K.putaran}</div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">Pemain ${K.kursi}</div></div>
+   <div style="text-align:right"><div class="sup" style="font-size:12px">Belum kebagian</div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:20px">${belum}</div></div></div>
+  <div class="prog" style="margin-bottom:14px"><i style="width:${(K.n-belum)/K.n*100}%"></i></div>
+  <div style="border:1px solid var(--line-2);border-radius:14px;padding:34px 24px;text-align:center;background:var(--bg-2);
+   min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+   <span class="pill ${K.jenis==="tantang"?"warn":"mut"}">${K.jenis==="tantang"?"Kartu tantangan":"Kartu pertanyaan"}</span>
+   <div style="font-family:Montserrat;font-weight:600;font-size:20px;line-height:1.45">${esc(K.tanya)}</div></div>
+  <div class="grid2" style="gap:10px;margin-top:16px">
+   <button class="sortopt" id="kpnext" style="padding:16px">Sudah dijawab, lanjut</button>
+   <button class="sortopt" id="kpganti" style="padding:16px">Ganti kartu</button></div>
+  <div class="spread" style="margin-top:14px">
+   <button id="kplewat">Lewati orang ini</button>
+   <button id="kpstop">Hentikan</button></div></div>`;
+}
+function kpHasil(){
+ const K=ST.kp;
+ return hd("Sesi selesai")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Orang yang kebagian</div><div class="v">${K.sudah.length} / ${K.n}</div>
+   <div class="f">${K.sudah.length>=K.n?"Semua kebagian kursi panas":"Masih ada yang belum"}</div></div>
+  <div class="tile"><div class="lpt1">Putaran</div><div class="lpt2">${K.putaran}</div><div class="lpt3">Satu putaran mencakup semua orang</div></div>
+  <div class="tile"><div class="lpt1">Skor</div><div class="lpt2" style="font-size:17px">Tidak ada</div><div class="lpt3">Tidak ada yang menang atau kalah</div></div>
+  <div class="tile"><div class="lpt1">Yang disimpan</div><div class="lpt2" style="font-size:17px">Tidak ada</div><div class="lpt3">Sesi ini tidak dicatat ke mana pun</div></div></div>
+ <div class="row" style="margin-top:16px">
+  <button class="primary" id="kplagi">Main lagi</button>
+  <button id="kptutup">Selesai</button></div>`;
+}
+function bind_game_kursi(){
+ const K=ST.kp;
+ document.querySelectorAll("[data-kpn]").forEach(b=>b.onclick=()=>{K.n=+b.dataset.kpn;render()});
+ document.querySelectorAll("[data-kpt]").forEach(b=>b.onclick=()=>{K.tantang=b.dataset.kpt==="1";render()});
+ const m=$("#kpmulai"); if(m) m.onclick=()=>{
+  K.sudah=[];K.putaran=1;K.fase="main";kpKartu();render();window.scrollTo(0,0)};
+ const n=$("#kpnext"); if(n) n.onclick=()=>{
+  if(K.sudah.indexOf(K.kursi)<0) K.sudah.push(K.kursi);
+  if(K.sudah.length>=K.n){K.fase="hasil";render();window.scrollTo(0,0);return}
+  kpKartu();render();window.scrollTo(0,0)};
+ const g=$("#kpganti"); if(g) g.onclick=()=>{
+  const k=K.kursi;
+  if(K.jenis==="tantang") K.tanya=KP_TANTANG[Math.floor(K.rng()*KP_TANTANG.length)];
+  else K.tanya=KP_TANYA[Math.floor(K.rng()*KP_TANYA.length)].replace("NAMA","Pemain "+k);
+  K.kursi=k;render()};
+ const lw=$("#kplewat"); if(lw) lw.onclick=()=>{
+  if(K.sudah.indexOf(K.kursi)<0) K.sudah.push(K.kursi);
+  if(K.sudah.length>=K.n){K.fase="hasil";render();window.scrollTo(0,0);return}
+  kpKartu();render();window.scrollTo(0,0)};
+ const st=$("#kpstop"); if(st) st.onclick=()=>{K.fase="hasil";render()};
+ const lg=$("#kplagi"); if(lg) lg.onclick=()=>{K.fase="atur";render()};
+ const tp=$("#kptutup"); if(tp) tp.onclick=()=>{kpInit();render()};
+}
+(function(){
+ const sisip=(r,setelah,item)=>{
+  if(!NAV[r])return;
+  const i=NAV[r].findIndex(e=>e[0]===setelah);
+  if(i>=0) NAV[r].splice(i+1,0,item); else NAV[r].push(item);
+ };
+ sisip("pekerja","game_sama",["game_kursi","Kursi Panas"]);
+})();
 /* =================== pemetaan halaman =================== */
 function pageHTML(){
  const f=window["page_"+ST.page];
