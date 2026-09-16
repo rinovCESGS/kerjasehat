@@ -274,6 +274,52 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
  font-family:Montserrat;font-weight:600;text-align:center}
 .sortopt:hover{border-color:var(--mar-300);background:var(--mar-100)}
 .sortopt:active{background:var(--mar-100);transform:scale(.985)}
+
+/* ---------- tata letak bergaya papan kerja ---------- */
+.nav button{display:flex;align-items:center;gap:10px}
+.nav button svg{width:17px;height:17px;flex:0 0 17px;stroke:currentColor;fill:none;stroke-width:1.8;
+ stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.nav button.on svg{opacity:1}
+.who-av{width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;display:flex;
+ align-items:center;justify-content:center;font-family:Montserrat;font-weight:700;font-size:12.5px;flex:0 0 34px}
+.whoami .row2{display:flex;align-items:center;gap:10px}
+.top-av{width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;display:flex;
+ align-items:center;justify-content:center;font-family:Montserrat;font-weight:700;font-size:11.5px;flex:0 0 30px}
+.br-hero{background:linear-gradient(135deg,var(--mar-900) 0%,var(--mar-500) 52%,var(--mar-300) 100%);
+ border-radius:16px;padding:26px 28px 24px;color:#fff;position:relative;overflow:hidden;margin-bottom:18px}
+.br-hero::after{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;
+ background:radial-gradient(circle,rgba(255,255,255,.18),transparent 65%);pointer-events:none}
+.br-hero .eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600}
+.br-hero h1{font-family:Montserrat;font-weight:700;font-size:clamp(22px,2.6vw,31px);margin:10px 0 0;letter-spacing:-.02em}
+.br-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.br-chips span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);
+ border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:500}
+.br-chips span svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.br-hero .row{margin-top:18px}
+.br-hero .row button{background:#fff;color:var(--mar-700);border:none;font-weight:600}
+.br-hero .row button.ghost2{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.br-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+.br-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px 18px 16px;
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;box-shadow:0 1px 2px rgba(10,58,74,.04)}
+.br-card .lab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.br-card .num{font-family:Montserrat;font-weight:700;font-size:27px;line-height:1.05;margin-top:8px;letter-spacing:-.02em}
+.br-card .num.kecil{font-size:18px;line-height:1.25}
+.br-card .cap{font-size:12px;color:var(--ink-3);margin-top:7px;line-height:1.5}
+.br-badge{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 42px}
+.br-badge svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.br-sec{display:flex;align-items:center;gap:9px;margin:22px 0 12px}
+.br-sec svg{width:16px;height:16px;stroke:var(--mar-500);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.br-sec span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mar-700);font-weight:700}
+.br-step{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.br-step:last-child{border-bottom:none}
+.br-step .no{width:26px;height:26px;border-radius:50%;flex:0 0 26px;display:flex;align-items:center;justify-content:center;
+ font-family:Montserrat;font-weight:700;font-size:12px;background:var(--mar-100);color:var(--mar-700)}
+.br-step .no.ok{background:var(--grad);color:#fff}
+@media(max-width:900px){
+ .br-hero{padding:22px 20px;border-radius:14px}
+ .br-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){.br-grid{grid-template-columns:1fr}}
 /* ---------- komponen non-tabel ---------- */
 .mrow{display:flex;align-items:center;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .mrow:last-child{border-bottom:none}
@@ -10585,6 +10631,266 @@ bindAkun=function(peran,tenantTetap){
  document.querySelectorAll("[data-akp]").forEach(b=>b.onclick=()=>{
   ST.akunTenant=b.dataset.akp; render();
   const f=$("#ak_nama"); if(f&&f.focus) f.focus()});
+};
+/* ===================================================================
+   Lapisan ketiga puluh tujuh: beranda sambutan
+   Satu halaman pembuka untuk setiap peran, berisi sapaan, keadaan
+   sekarang, dan langkah berikutnya yang dihitung dari data nyata.
+=================================================================== */
+/* gelar di depan nama dilewati agar sapaan tidak berbunyi "Selamat pagi, Ir." */
+const GELAR=["ir","dr","drs","dra","prof","h","hj","hc","st","se","mm","mt"];
+function namaSapa(n){
+ const bagian=String(n||"").trim().split(/\s+/);
+ for(const b of bagian){
+  const bersih=b.replace(/[.,]/g,"").toLowerCase();
+  if(!bersih) continue;
+  if(GELAR.indexOf(bersih)>=0) continue;
+  if(bersih.length<3) continue;
+  return b.replace(/[.,]$/,"");
+ }
+ return bagian[0]||"";
+}
+function sapa(){
+ const j=new Date().getHours();
+ return j<11?"Selamat pagi":j<15?"Selamat siang":j<19?"Selamat sore":"Selamat malam";
+}
+function brKartu(k,v,f,aksen){
+ return `<div class="${aksen?"kpi accent":"tile"}">
+  <div class="${aksen?"k":"lpt1"}">${esc(k)}</div>
+  <div class="${aksen?"v":"lpt2"}"${String(v).length>6?' style="font-size:18px;line-height:1.2"':""}>${esc(String(v))}</div>
+  <div class="${aksen?"f":"lpt3"}">${esc(f)}</div></div>`;
+}
+function brLangkah(role){
+ const n=respOf(ST.tenant).length, c=dmCfgInit(), u=(typeof usersInit==="function"?usersInit():[]);
+ const hr=typeof hrTerisi==="function"?hrTerisi():false;
+ const sik=typeof siklusDibuka==="function"?siklusDibuka():false;
+ const pekerjaTanpaUnit=u.filter(x=>x.tenant===ST.tenant&&x.role==="pekerja"&&!x.unit).length;
+ const L={
+  pekerja:[
+   {ok:(ST.mySubs||[]).length>0,n:"Isi asesmen versi Full",p:"svy"},
+   {ok:!!ST.myReport,n:"Buka laporan pribadi Anda",p:"myrep"},
+   {ok:false,n:"Main sebentar bersama tim",p:"game_mw"}],
+  admin_tenant:[
+   {ok:hr,n:"Isi data pendamping",p:"entri"},
+   {ok:sik,n:"Buka siklus asesmen dan terbitkan token",p:"t_cycle"},
+   {ok:pekerjaTanpaUnit===0&&u.some(x=>x.tenant===ST.tenant&&x.role==="pekerja"),n:"Petakan akun pekerja ke unit kerja",p:"akun_tenant"},
+   {ok:n>=K_MIN,n:"Kumpulkan "+K_MIN+" respons agar laporan terbuka",p:"iwh_company"},
+   {ok:kegOf(ST.tenant).length>0,n:"Catat kegiatan pencegahan",p:"keg"},
+   {ok:(typeof bahayaOf==="function"?bahayaOf(ST.tenant).length:0)>0,n:"Isi daftar bahaya psikososial",p:"bahaya"}],
+  penyusun:[
+   {ok:hr,n:"Lengkapi data pendamping",p:"entri"},
+   {ok:dmJawabanAktif().length>0,n:"Kumpulkan jawaban materialitas",p:"matr"},
+   {ok:n>=K_MIN&&PRIOR.list.length>0,n:"Tetapkan metrik dan target",p:"target"},
+   {ok:n>=K_MIN&&hr,n:"Tarik bahan pengungkapan GRI 403",p:"gri"}],
+  assurance:[
+   {ok:n>=K_MIN,n:"Telaah prosedur ISAE 3000",p:"isae"},
+   {ok:n>=K_MIN,n:"Periksa berkas bukti",p:"ep"},
+   {ok:ST.ledger.length>0,n:"Uji keutuhan jejak audit",p:"ledger"},
+   {ok:false,n:"Bentuk temuan dan kesimpulan",p:"concl"}],
+  auditor_smk3:[
+   {ok:n>=K_MIN,n:"Periksa kesesuaian ISO 45003",p:"iso"},
+   {ok:n>=K_MIN,n:"Ambil laporan faktor psikologi",p:"pmk"},
+   {ok:(typeof bahayaOf==="function"?bahayaOf(ST.tenant).length:0)>0,n:"Telaah daftar bahaya",p:"bahaya"}],
+  direksi:[
+   {ok:n>=K_MIN,n:"Baca dasbor",p:"board"},
+   {ok:dmJawabanAktif().length>0,n:"Sahkan hasil materialitas",p:"matr"},
+   {ok:n>=K_MIN,n:"Tinjau tindakan pengendalian",p:"ctl"}],
+  pjk3:[
+   {ok:TENANTS.some(t=>t.parent==="PJK1"&&respOf(t.id).length>=K_MIN),n:"Pantau klien terkelola",p:"pjk"},
+   {ok:false,n:"Siapkan laporan klien",p:"iwh_company"}],
+  platform:[
+   {ok:TENANTS.every(t=>u.some(x=>x.tenant===t.id&&x.role==="admin_tenant")),n:"Terbitkan akun HR untuk setiap perusahaan",p:"akun_platform"},
+   {ok:true,n:"Periksa bank butir dan tabel norma",p:"p_items"},
+   {ok:false,n:"Buka fitur peran lain bila perlu",p:"super"},
+   {ok:false,n:"Kelola halaman depan situs",p:"lp_edit"}]
+ };
+ return L[role]||[];
+}
+function brStatus(role){
+ const n=respOf(ST.tenant).length, rr=(typeof responseRate==="function"?responseRate(ST.tenant):{rate:null,target:0});
+ const u=(typeof usersInit==="function"?usersInit():[]);
+ const t=TENANTS.find(x=>x.id===ST.tenant)||{units:[]};
+ if(role==="pekerja") return [
+  brKartu("Asesmen Anda",(ST.mySubs||[]).length?"Sudah terkirim":"Belum diisi",(ST.mySubs||[]).length?"Laporan pribadi tersedia":"Sekitar 18 sampai 24 menit",1),
+  brKartu("Kerahasiaan","Melekat","Jawaban diganti kode, atasan tidak punya jalur membukanya"),
+  brKartu("Permainan tim","4","Mister White, Roda diskusi, Satu Kesamaan, Kursi Panas"),
+  brKartu("Riwayat",(ST.mySubs||[]).length,"Pengiriman Anda pada sesi ini")];
+ if(role==="admin_tenant") return [
+  brKartu("Respons masuk",n+" dari "+K_MIN,n>=K_MIN?"Laporan sudah terbuka":"Laporan terbuka setelah ambang tercapai",1),
+  brKartu("Unit kerja",t.units.length,"Akun belum dipetakan: "+u.filter(x=>x.tenant===ST.tenant&&x.role==="pekerja"&&!x.unit).length),
+  brKartu("Kegiatan tercatat",kegOf(ST.tenant).length,"Bahaya terdaftar: "+(typeof bahayaOf==="function"?bahayaOf(ST.tenant).length:0)),
+  brKartu("Jejak audit",ST.ledger.length,"Entri terbit dari tindakan Anda")];
+ if(role==="penyusun") return [
+  brKartu("Butir kebutuhan data",(typeof REQ!=="undefined"?REQ.length:0),"Peta POJK 51, GRI 403, IFRS S1, ISO 45003",1),
+  brKartu("Data pendamping",(typeof hrTerisi==="function"&&hrTerisi())?"Terisi":"Belum","Menentukan indikator terhitung"),
+  brKartu("Materialitas",dmJawabanAktif().length+" jawaban",dmCfgInit().status==="terkunci"?"Formulir terkunci":"Formulir masih draf"),
+  brKartu("Respons asesmen",n,"Sumber angka pilar sosial")];
+ if(role==="assurance") return [
+  brKartu("Respons tersedia",n,n>=K_MIN?"Cukup untuk penugasan":"Belum cukup untuk penugasan",1),
+  brKartu("Jejak audit",ST.ledger.length,"Perantaian nilai hash"),
+  brKartu("Kriteria kesiapan","10","Diuji sebelum kesimpulan dibentuk"),
+  brKartu("Ambang privasi","k "+K_MIN,"Sel di bawah ambang tidak diterbitkan")];
+ if(role==="auditor_smk3") return [
+  brKartu("Instrumen wajib",N_SDS+" butir","Permenaker No. 5 Tahun 2018 Pasal 24",1),
+  brKartu("Respons tersedia",n,n>=K_MIN?"Laporan dapat diambil":"Belum cukup"),
+  brKartu("Daftar bahaya",(typeof bahayaOf==="function"?bahayaOf(ST.tenant).length:0),"Format ISO 45001 klausul 6.1.2"),
+  brKartu("Dimensi terukur",DIMS.length,"Termasuk di luar cakupan Pasal 24")];
+ if(role==="direksi") return [
+  brKartu("Respons masuk",n,n>=K_MIN?"Dasbor terbuka":"Dasbor terbuka setelah "+K_MIN+" respons",1),
+  brKartu("Tingkat respons",rr.rate==null?"—":pct(rr.rate),"Dari "+rr.target+" pekerja sasaran"),
+  brKartu("Materialitas",dmJawabanAktif().length+" jawaban",(ST.dm&&ST.dm.disahkan)?"Sudah disahkan":"Menunggu pengesahan"),
+  brKartu("Tindakan pengendalian",Object.keys(typeof CONTROLS!=="undefined"?CONTROLS:{}).length,"Dimensi yang sudah punya tindakan")];
+ if(role==="pjk3") return [
+  brKartu("Klien terkelola",TENANTS.filter(x=>x.parent==="PJK1").length,"Perusahaan di bawah pengelolaan Anda",1),
+  brKartu("Klien dengan hasil",TENANTS.filter(x=>x.parent==="PJK1"&&respOf(x.id).length>=K_MIN).length,"Sudah melewati ambang"),
+  brKartu("Ambang penerbitan","k "+K_MIN,"Berlaku sama di semua klien"),
+  brKartu("Berkas bukti","Tersedia","Setelah klien melewati ambang")];
+ return [
+  brKartu("Perusahaan terdaftar",TENANTS.length,"Perusahaan tanpa HR: "+TENANTS.filter(x=>!u.some(y=>y.tenant===x.id&&y.role==="admin_tenant")).length,1),
+  brKartu("Akun terdaftar",u.length,u.filter(x=>x.aktif).length+" aktif"),
+  brKartu("Bank butir","1.3.0",ITEM_INDEX.length+" butir inti, terkunci"),
+  brKartu("Jejak audit",ST.ledger.length,"Termasuk catatan mode peran")];
+}
+function page_beranda(){
+ const u=ST.user, t=TENANTS.find(x=>x.id===ST.tenant);
+ const L=brLangkah(u.role), sisa=L.filter(x=>!x.ok);
+ return `<div class="hd"><h1>${esc(sapa())}, ${esc(namaSapa(u.name))}</h1></div>
+ <div class="card2" style="margin-bottom:16px">
+  <div class="spread" style="flex-wrap:wrap;gap:10px">
+   <div><div style="font-family:Montserrat;font-weight:600;font-size:15px">${esc(u.name)}</div>
+    <div class="ms">${esc(ROLE_LABEL[u.role]||u.role)}${u.role==="platform"?"":" · "+esc(t?t.name:"")}${u.unit?" · "+esc(u.unit):""}</div></div>
+   <div class="row">${sisa.length?`<button class="primary" data-go="${sisa[0].p}">${esc(sisa[0].n)}</button>`:""}
+    ${L.length>1?`<button data-go="${L[L.length-1].p}">${esc(L[L.length-1].n)}</button>`:""}</div></div></div>
+ <div class="tiles">${brStatus(u.role).join("")}</div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Langkah Anda</h3>
+   <span class="pill ${sisa.length?"warn":"ok"}">${L.length-sisa.length} dari ${L.length} selesai</span></div><div class="pb">
+  ${L.map((x,i)=>`<div class="rank"><div class="no">${x.ok?"&#10003;":i+1}</div>
+   <div class="mt"><div class="mn">${esc(x.n)}</div></div>
+   <span class="pill ${x.ok?"ok":"mut"}">${x.ok?"Selesai":"Belum"}</span>
+   <button class="${x.ok?"":"primary"}" data-go="${x.p}">Buka</button></div>`).join("")}
+  </div></div>`;
+}
+(function(){
+ Object.keys(NAV).forEach(r=>{
+  if(NAV[r].some(e=>e[0]==="beranda")) return;
+  NAV[r]=[["Kelompok","Beranda"],["beranda","Beranda"]].concat(NAV[r]);
+  HOME[r]="beranda";
+  if(MTAB[r]) MTAB[r]=[["beranda","Beranda","rumah"]].concat(MTAB[r].slice(0,3));
+ });
+})();
+/* ===================================================================
+   Lapisan ketiga puluh delapan: tata letak bergaya papan kerja
+   Beranda memakai panel sambutan bergradien, kartu angka berlencana,
+   dan label seksi. Menu samping diberi ikon, identitas pemakai diberi
+   inisial bulat.
+=================================================================== */
+Object.assign(IKON,{
+ nilai:'<path d="M12 3v18"/><path d="M17 7.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.6 5 3 5 1.1 5 3-2.2 3-5 3-5-1.1-5-3"/>',
+ kalender:'<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',
+ target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>',
+ kunci:'<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+ arsip:'<path d="M3.5 7.5h17v12a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5Z"/><path d="M2.5 3.5h19v4h-19z"/><path d="M9.5 12h5"/>',
+ kilat:'<path d="M13.5 2.5 5 13.5h5l-1.5 8 8.5-11h-5Z"/>',
+ pesan:'<path d="M20.5 12a8.5 8.5 0 0 1-12.4 7.5L3.5 21l1.5-4.4A8.5 8.5 0 1 1 20.5 12Z"/>',
+ keluar:'<path d="M15 4.5H18a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-3"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h9"/>'
+});
+const PAGE_IKON={
+ beranda:"rumah",svy:"pena",myrep:"grafik",riwayat:"daftar",
+ game_mw:"dadu",game_roda:"dadu",game_sama:"dadu",game_kursi:"dadu",game_papan:"grafik",
+ mulai:"rumah",t_cycle:"kalender",entri:"pena",unit_edit:"gedung",akun_tenant:"orang",
+ iwh_company:"grafik",iwh_team:"orang",t_disag:"daftar",dq:"periksa",
+ iwh_interven:"kilat",keg:"daftar",bahaya:"kunci",
+ ep:"berkas",ledger:"arsip",setelan:"gir",roda_edit:"pena",bank_kata:"daftar",
+ std:"daftar",rate:"grafik",matr:"target",target:"target",gri:"berkas",
+ isae:"periksa",concl:"periksa",dpia:"kunci",period:"kalender",komparatif:"grafik",
+ iso:"periksa",pmk:"berkas",board:"grafik",ctl:"kilat",pjk:"gedung",
+ super:"gir",akun_platform:"orang",p_tenant:"gedung",p_items:"daftar",p_norm:"nilai",
+ itgc:"kunci",lp_edit:"gir"
+};
+function ikonHal(p){return IKON[PAGE_IKON[p]||"daftar"]||IKON.daftar}
+function inisial(n){
+ const b=String(n||"").trim().split(/\s+/).filter(x=>x.replace(/[.,]/g,"").length>2);
+ return ((b[0]||"?")[0]+((b[1]||"")[0]||"")).toUpperCase();
+}
+/* ikon pada menu samping, inisial pada identitas dan bilah atas */
+const _shellUI=shell;
+shell=function(body){
+ let h=_shellUI(body);
+ const a=h.indexOf('<nav class="nav">'), b=h.indexOf("</nav>");
+ if(a>=0&&b>a){
+  const nav=h.slice(a,b).replace(/<button data-go="(\w+)" class="([^"]*)">([^<]*)<\/button>/g,
+   (m,p,c,l)=>`<button data-go="${p}" class="${c}"><svg viewBox="0 0 24 24">${ikonHal(p)}</svg><span>${l}</span></button>`);
+  h=h.slice(0,a)+nav+h.slice(b);
+ }
+ const u=ST.user;
+ /* dicocokkan dengan pola, bukan dengan teks nama, karena penyapu istilah
+    dapat mengubah teks nama pada keluaran sebelum lapisan ini berjalan */
+ h=h.replace(/<div class="whoami"><div class="n">([\s\S]*?)<\/div>\s*<div class="r">([\s\S]*?)<\/div>/,
+  (m,nm,rl)=>`<div class="whoami"><div class="row2"><div class="who-av">${esc(inisial(nm))}</div>`+
+   `<div><div class="n">${nm}</div><div class="r">${rl}</div></div></div>`);
+ h=h.replace('<button class="ghost" id="logout" style="margin-top:8px;padding:4px 0">Keluar</button>',
+  '<button class="ghost" id="logout" style="margin-top:10px;padding:4px 0;display:flex;align-items:center;gap:7px">'+
+  '<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8">'+IKON.keluar+'</svg>Keluar</button>');
+ /* inisial ditempatkan sebagai elemen terakhir di dalam bilah atas */
+ const nm=(h.match(/class="who-av">([^<]*)</)||[])[1]||inisial(u.name);
+ const av=`<span class="top-av" title="${esc(u.name)}">${esc(nm)}</span>`;
+ h=h.replace(/(<div class="topbar noprint">[\s\S]*?)(<\/div>\s*<div class="page">)/,"$1"+av+"$2");
+ return h;
+};
+/* ---------- beranda ---------- */
+const BR_WARNA=["linear-gradient(135deg,#0A3A4A,#0E7490)","linear-gradient(135deg,#0E7490,#17A398)",
+ "linear-gradient(135deg,#17A398,#3FB6A8)","linear-gradient(135deg,#0E6376,#0A3A4A)"];
+function brKartu2(k,v,f,ik,i){
+ const panjang=String(v).length>7;
+ return `<div class="br-card"><div style="min-width:0">
+  <div class="lab">${esc(k)}</div>
+  <div class="num${panjang?" kecil":""}">${esc(String(v))}</div>
+  <div class="cap">${esc(f)}</div></div>
+  <div class="br-badge" style="background:${BR_WARNA[i%4]}"><svg viewBox="0 0 24 24">${IKON[ik]||IKON.daftar}</svg></div></div>`;
+}
+function brTanggal(){
+ const h=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+ const b=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+ const d=new Date();
+ return h[d.getDay()]+", "+d.getDate()+" "+b[d.getMonth()]+" "+d.getFullYear();
+}
+const BR_IKON={pekerja:["pena","kunci","dadu","daftar"],admin_tenant:["grafik","gedung","daftar","arsip"],
+ penyusun:["daftar","pena","target","grafik"],assurance:["periksa","arsip","target","kunci"],
+ auditor_smk3:["berkas","grafik","kunci","daftar"],direksi:["grafik","orang","target","kilat"],
+ pjk3:["gedung","grafik","kunci","berkas"],platform:["gedung","orang","daftar","arsip"]};
+page_beranda = function(){
+ const u=ST.user, t=TENANTS.find(x=>x.id===ST.tenant);
+ const L=brLangkah(u.role), sisa=L.filter(x=>!x.ok);
+ const persen=L.length?Math.round((L.length-sisa.length)/L.length*100):0;
+ const ik=BR_IKON[u.role]||["daftar","daftar","daftar","daftar"];
+ const kartu=brStatus(u.role).map((html,i)=>{
+  const k=(html.match(/class="(?:k|lpt1)">([^<]*)</)||[])[1]||"";
+  const v=(html.match(/class="(?:v|lpt2)"[^>]*>([^<]*)</)||[])[1]||"";
+  const f=(html.match(/class="(?:f|lpt3)">([^<]*)</)||[])[1]||"";
+  return brKartu2(k,v,f,ik[i]||"daftar",i);
+ }).join("");
+ return `<div class="br-hero">
+  <div class="eyebrow">${esc(ROLE_LABEL[u.role]||u.role)}</div>
+  <h1>${esc(sapa())}, ${esc(namaSapa(u.name))}</h1>
+  <div class="br-chips">
+   ${u.role==="platform"?"":`<span><svg viewBox="0 0 24 24">${IKON.gedung}</svg>${esc(t?t.name:"")}</span>`}
+   <span><svg viewBox="0 0 24 24">${IKON.kalender}</svg>${esc(brTanggal())}</span>
+   <span><svg viewBox="0 0 24 24">${IKON.target}</svg>Langkah ${persen} persen</span>
+   ${u.unit?`<span><svg viewBox="0 0 24 24">${IKON.orang}</svg>${esc(u.unit)}</span>`:""}</div>
+  <div class="row">
+   ${sisa.length?`<button data-go="${sisa[0].p}">${esc(sisa[0].n)}</button>`:""}
+   ${L.length>1?`<button class="ghost2" data-go="${L[L.length-1].p}">${esc(L[L.length-1].n)}</button>`:""}</div>
+ </div>
+ <div class="br-sec"><svg viewBox="0 0 24 24">${IKON.grafik}</svg><span>Keadaan sekarang</span></div>
+ <div class="br-grid">${kartu}</div>
+ <div class="br-sec"><svg viewBox="0 0 24 24">${IKON.kilat}</svg><span>Langkah Anda</span></div>
+ <div class="panel"><div class="ph"><h3>${sisa.length?"Berikutnya: "+esc(sisa[0].n):"Semua langkah selesai"}</h3>
+   <span class="pill ${sisa.length?"warn":"ok"}">${L.length-sisa.length} dari ${L.length}</span></div><div class="pb">
+  ${L.map((x,i)=>`<div class="br-step"><div class="no ${x.ok?"ok":""}">${x.ok?"&#10003;":i+1}</div>
+   <div class="mt" style="flex:1 1 220px"><div class="mn">${esc(x.n)}</div></div>
+   <span class="pill ${x.ok?"ok":"mut"}">${x.ok?"Selesai":"Belum"}</span>
+   <button class="${x.ok?"":"primary"}" data-go="${x.p}">Buka</button></div>`).join("")}
+  </div></div>`;
 };
 /* =================== pemetaan halaman =================== */
 function pageHTML(){
