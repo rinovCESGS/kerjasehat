@@ -9329,7 +9329,7 @@ function smPrompt(){
   if(!belum.length){S.putaran++;S.sudah=[]}
   const sisa=S.sudah.length?[...Array(S.n).keys()].map(i=>i+1).filter(i=>S.sudah.indexOf(i)<0):[...Array(S.n).keys()].map(i=>i+1);
   S.subjek=sisa[Math.floor(r()*sisa.length)];
-  S.prompt=SM_APRESIASI[Math.floor(r()*SM_APRESIASI.length)].replace("NAMA","Pemain "+S.subjek);
+  S.prompt=SM_APRESIASI[Math.floor(r()*SM_APRESIASI.length)].replace("NAMA",pnama(S.subjek));
  }
 }
 function page_game_sama(){
@@ -9340,7 +9340,7 @@ function page_game_sama(){
  return smHasil();
 }
 function smAtur(){
- const S=ST.sm;
+ const S=ST.sm; S.n=rosterN();
  return hd("Satu Kesamaan")+
  `<div class="tiles">
   <div class="kpi accent"><div class="k">Mode</div><div class="v" style="font-size:19px">${S.mode==="kesamaan"?"Cari kesamaan":"Lingkaran apresiasi"}</div>
@@ -9350,17 +9350,16 @@ function smAtur(){
    <div class="lpt3">${S.mode==="kesamaan"?"Kesamaan yang perlu ditemukan":"Setiap orang kebagian satu kali"}</div></div>
   <div class="tile"><div class="lpt1">Lama</div><div class="lpt2">${S.mode==="kesamaan"?"60 detik":"Santai"}</div>
    <div class="lpt3">${S.mode==="kesamaan"?"Per kartu, boleh dilewati":"Tidak ada pewaktu"}</div></div></div>
- <div class="panel" style="margin-top:16px"><div class="ph"><h3>Pilih mode</h3></div><div class="pb">
+ ${rosterUI(3)}
+ <div class="panel"><div class="ph"><h3>Pilih mode</h3></div><div class="pb">
   <div class="grid2" style="gap:10px">
    <button class="sortopt ${S.mode==="kesamaan"?"on":""}" data-smm="kesamaan" style="padding:16px;text-align:left">Cari kesamaan
     <span style="display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:6px;line-height:1.6">Satu kartu berisi kategori, misalnya makanan yang semuanya suka. Kelompok punya 60 detik menemukan satu jawaban yang benar-benar berlaku untuk semua orang. Kelompok bermain melawan waktu, bukan melawan satu sama lain.</span></button>
    <button class="sortopt ${S.mode==="apresiasi"?"on":""}" data-smm="apresiasi" style="padding:16px;text-align:left">Lingkaran apresiasi
     <span style="display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:6px;line-height:1.6">Satu orang menjadi subjek, yang lain menyebut satu hal yang mereka hargai darinya. Aplikasi memastikan setiap orang kebagian satu kali sebelum ada yang kebagian dua kali.</span></button></div>
-  <div class="field" style="margin-top:14px"><label class="lbl">Jumlah pemain</label>
-   <div class="opts">${[4,5,6,7,8,9,10,12].map(x=>`<button class="opt ${S.n===x?"on":""}" data-smn="${x}">${x}</button>`).join("")}</div></div>
   ${S.mode==="kesamaan"?`<div class="field"><label class="lbl">Sasaran kesamaan</label>
    <div class="opts">${[3,5,8].map(x=>`<button class="opt ${S.target===x?"on":""}" data-smt="${x}">${x}</button>`).join("")}</div></div>`:""}
-  <button class="primary" id="smmulai">Mulai</button></div></div>
+  <button class="primary" id="smmulai" ${S.n>=3?"":"disabled"}>Mulai</button></div></div>
  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan yang berlaku pada kedua mode</h4>
   <ul class="ivl">
    <li class="org">Tidak ada pemenang, tidak ada yang kalah, dan tidak ada yang dikeluarkan</li>
@@ -9395,7 +9394,7 @@ function smApresiasi(){
  `<div style="max-width:560px;margin:0 auto">
   <div class="spread" style="margin-bottom:10px">
    <div><div class="sup" style="font-size:12px">Subjek</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">Pemain ${S.subjek}</div></div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">${esc(pnama(S.subjek))}</div></div>
    <div style="text-align:right"><div class="sup" style="font-size:12px">Belum kebagian</div>
     <div style="font-family:Montserrat;font-weight:700;font-size:20px">${belum}</div></div></div>
   <div class="prog" style="margin-bottom:14px"><i style="width:${(S.n-belum)/S.n*100}%"></i></div>
@@ -9432,7 +9431,7 @@ function bind_game_sama(){
  const S=ST.sm;
  smBersih();
  document.querySelectorAll("[data-smm]").forEach(b=>b.onclick=()=>{S.mode=b.dataset.smm;render()});
- document.querySelectorAll("[data-smn]").forEach(b=>b.onclick=()=>{S.n=+b.dataset.smn;render()});
+ bindRoster();
  document.querySelectorAll("[data-smt]").forEach(b=>b.onclick=()=>{S.target=+b.dataset.smt;render()});
  const m=$("#smmulai"); if(m) m.onclick=()=>{
   S.skor=0;S.ronde=1;S.sudah=[];S.putaran=1;S.fase="main";smPrompt();render();window.scrollTo(0,0)};
@@ -9447,7 +9446,7 @@ function bind_game_sama(){
   smPrompt();render();window.scrollTo(0,0)};
  const gp=$("#smlewat2"); if(gp) gp.onclick=()=>{
   const sub=S.subjek;
-  S.prompt=SM_APRESIASI[Math.floor(S.rng()*SM_APRESIASI.length)].replace("NAMA","Pemain "+sub);
+  S.prompt=SM_APRESIASI[Math.floor(S.rng()*SM_APRESIASI.length)].replace("NAMA",pnama(sub));
   S.subjek=sub; render()};
  [$("#smstop"),$("#smstop2")].forEach(x=>{if(x)x.onclick=()=>{S.fase="hasil";smBersih();render()}});
  const lg=$("#smlagi"); if(lg) lg.onclick=()=>{S.fase="atur";smBersih();render()};
@@ -9544,23 +9543,22 @@ function page_game_mw(){
  return mwSelesai();
 }
 function mwAtur(){
- const M=ST.mw, L=mwL(), s=mwSusun(M.n);
+ const M=ST.mw; M.n=rosterN(); const L=mwL(), s=mwSusun(M.n);
  return hd("Mister White")+
  `<div class="tiles">
   <div class="kpi accent"><div class="k">Pemain</div><div class="v">${M.n}</div><div class="f">Satu perangkat dioper bergilir</div></div>
   <div class="tile"><div class="lpt1">${esc(L.warga)}</div><div class="lpt2">${M.n-s.pen-s.mw}</div><div class="lpt3">Kata yang sama</div></div>
   <div class="tile"><div class="lpt1">${esc(L.pen)}</div><div class="lpt2">${s.pen}</div><div class="lpt3">Kata berbeda tapi serumpun</div></div>
   <div class="tile"><div class="lpt1">${esc(L.mw)}</div><div class="lpt2">${s.mw}</div><div class="lpt3">Tanpa kata sama sekali</div></div></div>
- <div class="panel" style="margin-top:16px"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
-  <div class="field"><label class="lbl">Jumlah pemain</label>
-   <div class="opts">${[4,5,6,7,8,9,10,11,12].map(x=>`<button class="opt ${M.n===x?"on":""}" data-mwn="${x}">${x}</button>`).join("")}</div></div>
+ ${rosterUI(4)}
+ <div class="panel"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
   <div class="field"><label class="lbl">Nama peran</label>
    <div class="grid2" style="gap:10px">
     <button class="sortopt ${M.label==="asli"?"on":""}" data-mwl="asli" style="padding:14px">Istilah asli
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Warga, Penyusup, Mister White</span></button>
     <button class="sortopt ${M.label==="kantor"?"on":""}" data-mwl="kantor" style="padding:14px">Istilah kantor
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Staf, CEO, HR</span></button></div></div>
-  <button class="primary" id="mwmulai">Bagikan kata</button></div></div>
+  <button class="primary" id="mwmulai" ${M.n>=4?"":"disabled"}>Bagikan kata</button></div></div>
  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan</h4>
   <div class="kvl">
    <div><span class="kk">${esc(L.warga)}</span><span class="vv">Menerima kata yang sama</span></div>
@@ -9581,7 +9579,7 @@ function mwAtur(){
 }
 function mwBagiHal(){
  const M=ST.mw, i=M.idx;
- return hd("Pemain "+i+" dari "+M.n)+
+ return hd(esc(pnama(i))+", pemain ke "+i+" dari "+M.n)+
  `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
   ${M.lihat?`
    <div class="sup" style="font-size:12.5px">Kata Anda</div>
@@ -9589,7 +9587,7 @@ function mwBagiHal(){
     ${M.kata[i]?esc(M.kata[i]):"Tidak ada kata"}</div>
    <div class="sup" style="font-size:12.5px">${M.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
    <button class="primary" id="mwnext" style="margin-top:22px;width:100%">${i<M.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai ronde 1"}</button>`
-  :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
+  :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di ${esc(pnama(i))}</div>
    <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
    <button class="primary" id="mwlihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
  </div>
@@ -9601,9 +9599,9 @@ function mwPetunjuk(){
  `<div class="card2" style="max-width:560px;margin:0 auto">
   <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
    <span class="pill mut">${hidup.length} masih bermain</span></div>
-  <div class="opts" style="margin-top:12px">${urut.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. Pemain ${p}</span>`).join("")}</div>
+  <div class="opts" style="margin-top:12px">${urut.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. ${esc(pnama(p))}</span>`).join("")}</div>
   ${M.keluar.length?`<div class="kvl" style="margin-top:12px">${M.keluar.map((x,i)=>`<div><span class="kk">Ronde ${i+1}</span>
-   <span class="vv">Pemain ${x} keluar · ${esc({warga:L.warga,pen:L.pen,mw:L.mw}[M.peran[x]])}</span></div>`).join("")}
+   <span class="vv">${esc(pnama(x))} keluar · ${esc({warga:L.warga,pen:L.pen,mw:L.mw}[M.peran[x]])}</span></div>`).join("")}
    <div><span class="kk">Masih di dalam</span><span class="vv">${mwLawanHidup()} dari ${mwSusun(M.n).pen+mwSusun(M.n).mw} pihak lawan</span></div></div>`:""}
   <p style="margin:14px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Satu kata per orang. ${M.ronde>1?"Kata rahasia tetap sama seperti ronde pertama, hanya urutan pemberi petunjuk yang diputar.":"Kata rahasia berlaku sampai permainan selesai."}</p>
   <div class="row" style="margin-top:16px"><button class="primary" id="mwvote" style="flex:1">Kelompok siap memilih</button></div></div>
@@ -9615,13 +9613,13 @@ function mwVote(){
  `<div class="card2" style="max-width:560px;margin:0 auto">
   <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang keluar ronde ini</div>
   <div class="sup" style="font-size:12.5px;margin-top:4px">Satu pilihan hasil kesepakatan kelompok</div>
-  <div class="opts" style="margin-top:14px">${hidup.map(i=>`<button class="opt ${M.vote===i?"on":""}" data-mwv="${i}">Pemain ${i}</button>`).join("")}</div>
+  <div class="opts" style="margin-top:14px">${hidup.map(i=>`<button class="opt ${M.vote===i?"on":""}" data-mwv="${i}">${esc(pnama(i))}</button>`).join("")}</div>
   <button class="primary" id="mwbuka" ${M.vote?"":"disabled"} style="margin-top:16px;width:100%">Buka kartunya</button></div>`;
 }
 function mwUngkap(){
  const M=ST.mw, L=mwL(), u=M.ungkap||{};
  const nama={warga:L.warga,pen:L.pen,mw:L.mw}[u.peran];
- return hd("Pemain "+u.p+" keluar")+
+ return hd(esc(pnama(u.p))+" keluar")+
  `<div class="card2" style="max-width:560px;margin:0 auto;text-align:center;padding:30px 24px">
   <div class="sup" style="font-size:12.5px">Perannya</div>
   <div style="font-family:Montserrat;font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
@@ -9645,15 +9643,15 @@ function mwSelesai(){
  return hd(teks)+
  `<div class="tiles">
   <div class="kpi accent"><div class="k">Ronde dimainkan</div><div class="v">${M.ronde}</div><div class="f">${M.n} pemain</div></div>
-  <div class="tile"><div class="lpt1">${esc(L.pen)}</div><div class="lpt2" style="font-size:18px">${pen.map(x=>"Pemain "+x).join(", ")||"—"}</div>
+  <div class="tile"><div class="lpt1">${esc(L.pen)}</div><div class="lpt2" style="font-size:18px">${pen.map(x=>esc(pnama(x))).join(", ")||"—"}</div>
    <div class="lpt3">Kata ${esc(M.kataPen||"")}</div></div>
-  <div class="tile"><div class="lpt1">${esc(L.mw)}</div><div class="lpt2" style="font-size:18px">${mw.map(x=>"Pemain "+x).join(", ")||"Tidak dipakai"}</div>
+  <div class="tile"><div class="lpt1">${esc(L.mw)}</div><div class="lpt2" style="font-size:18px">${mw.map(x=>esc(pnama(x))).join(", ")||"Tidak dipakai"}</div>
    <div class="lpt3">Tanpa kata</div></div>
   <div class="tile"><div class="lpt1">Kata ${esc(L.warga)}</div><div class="lpt2" style="font-size:18px">${esc(M.kataWarga||"")}</div>
    <div class="lpt3">${M.keluar.length} pemain keluar</div></div></div>
  <div class="panel" style="margin-top:16px"><div class="ph"><h3>Urutan keluar</h3></div><div class="pb">
   ${M.keluar.length?`<div class="kvl">${M.keluar.map((p,i)=>`<div><span class="kk">Ronde ${i+1}</span>
-   <span class="vv">Pemain ${p} · ${esc({warga:L.warga,pen:L.pen,mw:L.mw}[M.peran[p]])}</span></div>`).join("")}</div>`
+   <span class="vv">${esc(pnama(p))} · ${esc({warga:L.warga,pen:L.pen,mw:L.mw}[M.peran[p]])}</span></div>`).join("")}</div>`
   :`<p style="margin:0">Tidak ada pemain yang keluar.</p>`}</div></div>
  <div class="row">
   <button class="primary" id="mwlagi">Main lagi</button>
@@ -9662,7 +9660,7 @@ function mwSelesai(){
 }
 function bind_game_mw(){
  const M=ST.mw, L=mwL();
- document.querySelectorAll("[data-mwn]").forEach(b=>b.onclick=()=>{M.n=+b.dataset.mwn;render()});
+ bindRoster();
  document.querySelectorAll("[data-mwl]").forEach(b=>b.onclick=()=>{M.label=b.dataset.mwl;render()});
  const m=$("#mwmulai"); if(m) m.onclick=()=>{mwBagi();render();window.scrollTo(0,0)};
  const l=$("#mwlihat"); if(l) l.onclick=()=>{M.lihat=true;render()};
@@ -9775,7 +9773,7 @@ function kpKartu(){
   K.tanya=KP_TANTANG[Math.floor(r()*KP_TANTANG.length)];
  } else {
   K.jenis="tanya";
-  K.tanya=KP_TANYA[Math.floor(r()*KP_TANYA.length)].replace("NAMA","Pemain "+K.kursi);
+  K.tanya=KP_TANYA[Math.floor(r()*KP_TANYA.length)].replace("NAMA",pnama(K.kursi));
  }
 }
 function page_game_kursi(){
@@ -9786,20 +9784,19 @@ function page_game_kursi(){
  return kpHasil();
 }
 function kpAtur(){
- const K=ST.kp;
+ const K=ST.kp; K.n=rosterN();
  return hd("Kursi Panas")+
  `<div class="tiles">
   <div class="kpi accent"><div class="k">Pemain</div><div class="v">${K.n}</div><div class="f">Duduk melingkar, satu perangkat di tengah</div></div>
   <div class="tile"><div class="lpt1">Lama</div><div class="lpt2">5 menit</div><div class="lpt3">Sekitar satu kartu per orang</div></div>
   <div class="tile"><div class="lpt1">Skor</div><div class="lpt2" style="font-size:17px">Tidak ada</div><div class="lpt3">Murni hiburan</div></div>
   <div class="tile"><div class="lpt1">Bank kartu</div><div class="lpt2">${KP_TANYA.length}+${KP_TANTANG.length}</div><div class="lpt3">Pertanyaan dan tantangan ringan</div></div></div>
- <div class="panel" style="margin-top:16px"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
-  <div class="field"><label class="lbl">Jumlah pemain</label>
-   <div class="opts">${[3,4,5,6,7,8,9,10,12].map(x=>`<button class="opt ${K.n===x?"on":""}" data-kpn="${x}">${x}</button>`).join("")}</div></div>
+ ${rosterUI(3)}
+ <div class="panel"><div class="ph"><h3>Atur permainan</h3></div><div class="pb">
   <div class="field"><label class="lbl">Sertakan kartu tantangan ringan</label>
    <div class="opts"><button class="opt ${K.tantang?"on":""}" data-kpt="1">Ya</button>
     <button class="opt ${K.tantang?"":"on"}" data-kpt="0">Tidak</button></div></div>
-  <button class="primary" id="kpmulai">Mulai</button></div></div>
+  <button class="primary" id="kpmulai" ${K.n>=3?"":"disabled"}>Mulai</button></div></div>
  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
   <div class="kvl">
    <div><span class="kk">1</span><span class="vv">Aplikasi menunjuk satu orang duduk di kursi panas</span></div>
@@ -9816,11 +9813,11 @@ function kpAtur(){
 function kpMain(){
  const K=ST.kp;
  const belum=[...Array(K.n).keys()].map(i=>i+1).filter(i=>K.sudah.indexOf(i)<0).length;
- return hd("Kursi panas: Pemain "+K.kursi)+
+ return hd("Kursi panas: "+esc(pnama(K.kursi)))+
  `<div style="max-width:560px;margin:0 auto">
   <div class="spread" style="margin-bottom:10px">
    <div><div class="sup" style="font-size:12px">Putaran ${K.putaran}</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">Pemain ${K.kursi}</div></div>
+    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">${esc(pnama(K.kursi))}</div></div>
    <div style="text-align:right"><div class="sup" style="font-size:12px">Belum kebagian</div>
     <div style="font-family:Montserrat;font-weight:700;font-size:20px">${belum}</div></div></div>
   <div class="prog" style="margin-bottom:14px"><i style="width:${(K.n-belum)/K.n*100}%"></i></div>
@@ -9850,7 +9847,7 @@ function kpHasil(){
 }
 function bind_game_kursi(){
  const K=ST.kp;
- document.querySelectorAll("[data-kpn]").forEach(b=>b.onclick=()=>{K.n=+b.dataset.kpn;render()});
+ bindRoster();
  document.querySelectorAll("[data-kpt]").forEach(b=>b.onclick=()=>{K.tantang=b.dataset.kpt==="1";render()});
  const m=$("#kpmulai"); if(m) m.onclick=()=>{
   K.sudah=[];K.putaran=1;K.fase="main";kpKartu();render();window.scrollTo(0,0)};
@@ -9861,7 +9858,7 @@ function bind_game_kursi(){
  const g=$("#kpganti"); if(g) g.onclick=()=>{
   const k=K.kursi;
   if(K.jenis==="tantang") K.tanya=KP_TANTANG[Math.floor(K.rng()*KP_TANTANG.length)];
-  else K.tanya=KP_TANYA[Math.floor(K.rng()*KP_TANYA.length)].replace("NAMA","Pemain "+k);
+  else K.tanya=KP_TANYA[Math.floor(K.rng()*KP_TANYA.length)].replace("NAMA",pnama(k));
   K.kursi=k;render()};
  const lw=$("#kplewat"); if(lw) lw.onclick=()=>{
   if(K.sudah.indexOf(K.kursi)<0) K.sudah.push(K.kursi);
@@ -9879,6 +9876,51 @@ function bind_game_kursi(){
  };
  sisip("pekerja","game_sama",["game_kursi","Kursi Panas"]);
 })();
+/* ===================================================================
+   Lapisan ketiga puluh: daftar nama pemain bersama
+   Satu daftar dipakai seluruh permainan, sehingga nama diisi sekali
+   lalu terpakai di mana-mana. Nama tidak disimpan ke mana pun selain
+   sesi ini.
+=================================================================== */
+function rosterInit(){
+ if(ST.roster&&ST.roster.length) return ST.roster;
+ ST.roster=(typeof AKUN!=="undefined"&&AKUN.length)?AKUN.map(u=>u.nama):["Andi","Budi","Citra","Dewi","Eko","Fitri"];
+ return ST.roster;
+}
+function rosterN(){return rosterInit().length}
+function pnama(i){
+ const r=rosterInit();
+ return (i>=1&&i<=r.length&&r[i-1])?r[i-1]:("Pemain "+i);
+}
+function rosterUI(min){
+ const r=rosterInit(), kurang=r.length<(min||3);
+ return `<div class="panel"><div class="ph"><h3>Daftar pemain</h3>
+   <span class="pill ${kurang?"bad":"ok"}">${r.length} orang${kurang?", perlu sekurang-kurangnya "+(min||3):""}</span></div><div class="pb">
+  <div class="opts">${r.map((n,i)=>`<span class="opt" style="pointer-events:none;gap:6px">${i+1}. ${esc(n)}
+   <button data-rsd="${i}" class="ghost" style="padding:0 5px;font-size:11.5px;pointer-events:auto">hapus</button></span>`).join("")}</div>
+  <div class="row" style="margin-top:12px;align-items:flex-end">
+   <div class="field" style="max-width:240px;margin-bottom:0"><label class="lbl">Tambah nama pemain</label>
+    <input id="rs_nama" placeholder="Nama panggilan"></div>
+   <button id="rs_add">Tambah</button>
+   <button id="rs_akun">Isi dari daftar akun</button>
+   <button id="rs_kosong">Kosongkan</button></div>
+  <p class="sup" style="margin-top:10px;margin-bottom:0">Daftar ini dipakai seluruh permainan. Nama hanya ada pada sesi ini dan tidak disimpan ke mana pun.</p>
+  </div></div>`;
+}
+function bindRoster(){
+ const r=rosterInit();
+ document.querySelectorAll("[data-rsd]").forEach(b=>b.onclick=()=>{r.splice(+b.dataset.rsd,1);render()});
+ const a=$("#rs_add"); if(a) a.onclick=()=>{
+  const v=($("#rs_nama").value||"").trim();
+  if(!v){toast("Nama belum diisi");return}
+  if(r.length>=12){toast("Maksimum dua belas pemain");return}
+  if(r.some(x=>x.toLowerCase()===v.toLowerCase())){toast("Nama itu sudah ada");return}
+  r.push(v);render()};
+ const k=$("#rs_akun"); if(k) k.onclick=()=>{
+  ST.roster=(typeof AKUN!=="undefined"&&AKUN.length)?AKUN.map(u=>u.nama):ST.roster;
+  toast("Daftar diisi dari akun terdaftar");render()};
+ const ks=$("#rs_kosong"); if(ks) ks.onclick=()=>{ST.roster=[];render()};
+}
 /* =================== pemetaan halaman =================== */
 function pageHTML(){
  const f=window["page_"+ST.page];
