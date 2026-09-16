@@ -9936,6 +9936,656 @@ function bindRoster(){
   toast("Daftar diisi dari akun terdaftar");render()};
  const ks=$("#rs_kosong"); if(ks) ks.onclick=()=>{ST.roster=[];render()};
 }
+/* ===================================================================
+   Lapisan ketiga puluh satu: pengelola unit kerja
+   Nama unit menentukan disagregasi, ambang supresi, laporan tim, dan
+   penerbitan token. Karena itu penggantian nama diteruskan ke seluruh
+   data yang sudah ada, dan penghapusan ditolak bila masih dirujuk.
+=================================================================== */
+function unitPakai(u,tid){
+ tid=tid||ST.tenant;
+ const resp=respOf(tid).filter(r=>r.unit===u).length;
+ const token=(ST.tokens||[]).filter(t=>t.unit===u).length;
+ const keg=kegOf(tid).filter(k=>k.div===u).length;
+ const bahaya=(typeof bahayaOf==="function"?bahayaOf(tid):[]).filter(b=>b.unit===u||b.div===u).length;
+ const cyc=ST.cycles.find(c=>c.tenant===tid);
+ const siklus=cyc&&cyc.units&&cyc.units.indexOf(u)>=0?1:0;
+ return {resp,token,keg,bahaya,siklus,total:resp+token+keg+bahaya};
+}
+function unitGanti(lama,baru,tid){
+ tid=tid||ST.tenant;
+ const t=TENANTS.find(x=>x.id===tid);
+ const i=t.units.indexOf(lama);
+ if(i<0) return false;
+ t.units[i]=baru;
+ ST.responses.forEach(r=>{if(r.tenant===tid&&r.unit===lama)r.unit=baru});
+ (ST.tokens||[]).forEach(x=>{if(x.unit===lama)x.unit=baru});
+ kegAll().forEach(k=>{if(k.tenant===tid&&k.div===lama)k.div=baru});
+ if(typeof bahayaAll==="function") bahayaAll().forEach(b=>{if(b.tenant===tid){if(b.unit===lama)b.unit=baru;if(b.div===lama)b.div=baru}});
+ (ST.gameRuns||[]).forEach(g=>{if(g.div===lama)g.div=baru});
+ ST.cycles.forEach(c=>{if(c.tenant===tid&&c.units){const j=c.units.indexOf(lama);if(j>=0)c.units[j]=baru}});
+ if(ST.teamUnit===lama) ST.teamUnit=baru;
+ return true;
+}
+function page_unit_edit(){
+ const t=TENANTS.find(x=>x.id===ST.tenant);
+ const cyc=ST.cycles.find(c=>c.tenant===ST.tenant);
+ const buka=!!(cyc&&cyc.target);
+ const info=t.units.map(u=>({u,p:unitPakai(u)}));
+ const kecil=info.filter(x=>x.p.resp>0&&x.p.resp<K_MIN).length;
+ return hd("Unit kerja")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Unit terdaftar</div><div class="v">${t.units.length}</div><div class="f">${esc(t.name)}</div></div>
+  <div class="tile"><div class="lpt1">Unit dengan respons</div><div class="lpt2">${info.filter(x=>x.p.resp>0).length}</div>
+   <div class="lpt3">Sisanya belum ada pengisian</div></div>
+  <div class="tile"><div class="lpt1">Unit di bawah ambang</div><div class="lpt2">${kecil}</div>
+   <div class="lpt3">Punya respons tetapi kurang dari ${K_MIN}, angkanya disupresi</div></div>
+  <div class="tile"><div class="lpt1">Siklus</div><div class="lpt2" style="font-size:17px">${buka?"Berjalan":"Belum dibuka"}</div>
+   <div class="lpt3">${buka?"Penggantian nama tetap aman, penghapusan dibatasi":"Bebas diubah"}</div></div></div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Tambah unit</h3></div><div class="pb">
+  <div class="row" style="align-items:flex-end">
+   <div class="field" style="max-width:280px;margin-bottom:0"><label class="lbl">Nama unit kerja</label>
+    <input id="un_baru" placeholder="Misalnya Produksi C"></div>
+   <button class="primary" id="un_add">Tambah</button></div>
+  <p class="sup" style="margin-top:10px;margin-bottom:0">Memecah pekerja menjadi banyak unit kecil membuat lebih banyak sel disupresi, karena tiap unit menuntut sekurang-kurangnya ${K_MIN} responden agar angkanya boleh diterbitkan.</p></div></div>
+ <div class="panel"><div class="ph"><h3>Daftar unit</h3></div><div class="pb">
+  ${info.map((x,i)=>`<div class="mrow" style="align-items:flex-start">
+   <div class="mt"><div><label class="lbl">Nama unit</label><input id="un_n_${i}" value="${esc(x.u)}"></div>
+    <div class="ms" style="margin-top:6px">${x.p.resp} respons · ${x.p.token} token · ${x.p.keg} kegiatan · ${x.p.bahaya} entri bahaya${x.p.siklus?" · diikutkan siklus berjalan":""}</div></div>
+   <span class="pill ${x.p.resp===0?"mut":x.p.resp<K_MIN?"bad":"ok"}">${x.p.resp===0?"Belum ada respons":x.p.resp<K_MIN?"Di bawah ambang":"Dapat diterbitkan"}</span>
+   <div class="row"><button data-uns="${i}">Simpan nama</button>
+    <button data-und="${i}" ${x.p.total?"disabled":""}>Hapus</button></div></div>`).join("")}
+  <p class="sup" style="margin-top:12px;margin-bottom:0">Mengganti nama unit aman kapan saja, karena namanya diteruskan ke respons, token, kegiatan, daftar bahaya, dan daftar unit pada siklus. Menghapus unit hanya mungkin bila belum ada data yang merujuknya.</p></div></div>
+ <div class="grid2">
+  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang perlu diputuskan sebelum memecah unit</h4>
+   <ul class="ivl">
+    <li class="org">Unit harus mencerminkan pengaturan kerja yang nyata, bukan struktur jabatan, karena yang diukur pajanan dari cara kerja diatur</li>
+    <li class="org">Unit dengan kurang dari ${K_MIN} pekerja tidak akan pernah bisa diterbitkan angkanya, jadi lebih baik digabung</li>
+    <li class="org">Mengganti nama unit di tengah siklus mengubah label, bukan angkanya, dan itu tercatat pada jejak audit</li>
+    <li>Penggabungan dua unit belum tersedia, untuk sekarang ganti nama salah satunya lalu pindahkan datanya secara manual</li></ul></div>
+  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Siapa yang berwenang</h4>
+   <div class="kvl">
+    <div><span class="kk">Menetapkan nama unit</span><span class="vv">Admin Perusahaan</span></div>
+    <div><span class="kk">Memilih unit yang diikutkan siklus</span><span class="vv">Admin Perusahaan, pada halaman siklus</span></div>
+    <div><span class="kk">Menetapkan ambang penerbitan</span><span class="vv">Admin Platform, tidak dapat diubah perusahaan</span></div>
+    <div><span class="kk">Melihat angka per unit</span><span class="vv">Admin Perusahaan, penyusun laporan, penelaah</span></div>
+   </div></div></div>`;
+}
+function bind_unit_edit(){
+ const t=TENANTS.find(x=>x.id===ST.tenant);
+ const v=id=>{const e=$("#"+id);return e?e.value.trim():""};
+ const simpan=async(p,d)=>{await ledgerPush("admin.perusahaan@"+ST.tenant,"Unit kerja diubah, "+p,d||{});
+  toast("Tersimpan");render()};
+ const a=$("#un_add"); if(a) a.onclick=()=>{
+  const n=v("un_baru");
+  if(!n){toast("Nama unit belum diisi");return}
+  if(t.units.some(u=>u.toLowerCase()===n.toLowerCase())){toast("Nama unit itu sudah ada");return}
+  if(t.units.length>=20){toast("Maksimum dua puluh unit");return}
+  t.units.push(n); simpan("penambahan",{unit:n})};
+ document.querySelectorAll("[data-uns]").forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.uns, lama=t.units[i], baru=v("un_n_"+i);
+  if(!baru){toast("Nama unit tidak boleh kosong");return}
+  if(baru===lama){toast("Tidak ada perubahan");return}
+  if(t.units.some((u,j)=>j!==i&&u.toLowerCase()===baru.toLowerCase())){toast("Nama unit itu sudah ada");return}
+  const p=unitPakai(lama);
+  unitGanti(lama,baru);
+  simpan("penggantian nama",{dari:lama,menjadi:baru,respons:p.resp,token:p.token})});
+ document.querySelectorAll("[data-und]").forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.und, u=t.units[i];
+  if(t.units.length<=1){toast("Sekurang-kurangnya satu unit harus tersisa");return}
+  const p=unitPakai(u);
+  if(p.total){toast("Unit masih dirujuk data, tidak dapat dihapus");return}
+  t.units.splice(i,1);
+  ST.cycles.forEach(c=>{if(c.tenant===ST.tenant&&c.units)c.units=c.units.filter(x=>x!==u)});
+  if(ST.teamUnit===u) ST.teamUnit=t.units[0];
+  simpan("penghapusan",{unit:u})});
+}
+(function(){
+ const i=NAV.admin_tenant.findIndex(e=>e[0]==="t_cycle");
+ const item=["unit_edit","Unit kerja"];
+ if(i>=0) NAV.admin_tenant.splice(i+1,0,item); else NAV.admin_tenant.push(item);
+})();
+/* ===================================================================
+   Lapisan ketiga puluh dua: pengelolaan akun
+   Admin Platform membuat seluruh akun, termasuk Admin Perusahaan dan
+   Direksi. Admin Perusahaan membuat akun di lingkup perusahaannya
+   sendiri, dan tidak dapat membuat akun peran penelaah independen.
+=================================================================== */
+const ROLE_PLATFORM=["admin_tenant","direksi","penyusun","pekerja","auditor_smk3","assurance","pjk3","platform"];
+const ROLE_TENANT=["pekerja","penyusun"];
+const ROLE_MANDIRI=["assurance","auditor_smk3"];
+function usersInit(){
+ if(ST.users) return ST.users;
+ ST.users=(typeof AKUN!=="undefined"?AKUN:[]).map(u=>({
+  id:u.id,nama:u.panjang||u.nama,mail:u.mail,pwd:u.pwd,role:u.role,
+  tenant:"T1",unit:"",jabatan:"",aktif:true,oleh:"Bawaan purwarupa"}));
+ return ST.users;
+}
+function userNo(){return "US"+String(usersInit().length+1).padStart(3,"0")}
+function userSinkron(u){
+ const i=ACCOUNTS.findIndex(a=>a.id===u.id);
+ const rec={id:u.id,name:u.nama,role:u.role,tenant:u.tenant,unit:u.unit,
+  org:(TENANTS.find(t=>t.id===u.tenant)||{}).name||"",
+  desc:u.jabatan||ROLE_LABEL[u.role]||"",
+  perm:"Hak akses mengikuti peran "+(ROLE_LABEL[u.role]||u.role)+"."};
+ if(i>=0) ACCOUNTS[i]=rec; else ACCOUNTS.push(rec);
+}
+function userTambah(d){
+ const l=usersInit();
+ if(l.some(x=>x.mail.toLowerCase()===d.mail.toLowerCase())) return "Surel itu sudah terpakai";
+ if(!d.nama) return "Nama belum diisi";
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.mail)) return "Surel tidak berbentuk surel";
+ if(!d.pwd||d.pwd.length<8) return "Kata sandi sekurang-kurangnya delapan huruf";
+ const u=Object.assign({id:userNo(),aktif:true,unit:"",jabatan:""},d);
+ l.push(u); userSinkron(u);
+ return null;
+}
+function userData(u){
+ const resp=ST.responses.filter(r=>r.pseudoOleh===u.id).length;
+ const ledger=ST.ledger.filter(e=>String(e.actor||"").indexOf(u.mail)>=0).length;
+ return resp+ledger;
+}
+/* masuk memakai daftar akun yang dikelola */
+const _bgU=bindGate;
+bindGate=function(){
+ _bgU();
+ const go=$("#lg_go");
+ if(go) go.onclick=()=>{
+  const m=(($("#lg_mail")||{}).value||"").trim().toLowerCase();
+  const s=(($("#lg_pass")||{}).value||"");
+  if(!m){toast("Surel belum diisi");return}
+  if(!s){toast("Kata sandi belum diisi");return}
+  const u=usersInit().find(x=>x.mail.toLowerCase()===m);
+  if(u){
+   if(!u.aktif){toast("Akun ini dinonaktifkan");return}
+   if(u.pwd!==s){toast("Kata sandi tidak cocok");return}
+   userSinkron(u); login(u.id); return;
+  }
+  const role=Object.keys(ACC_MAIL).find(r=>ACC_MAIL[r].toLowerCase()===m);
+  if(!role){toast("Surel tidak dikenali");return}
+  login(ACCOUNTS.find(a=>a.role===role).id);
+ };
+};
+/* unit pekerja dipakai sebagai nilai awal pertanyaan latar */
+const _svyInit=svyInit;
+svyInit=function(){
+ _svyInit();
+ if(ST.user&&ST.user.unit) ST.svy.demog.unit=ST.user.unit;
+};
+/* ---------- halaman bersama ---------- */
+function akunForm(peran,tenantTetap){
+ const t=TENANTS.find(x=>x.id===(tenantTetap||ST.tenant));
+ return `<div class="grid2" style="gap:12px">
+  <div class="field"><label class="lbl">Nama lengkap</label><input id="ak_nama" placeholder="Nama pekerja atau pejabat"></div>
+  <div class="field"><label class="lbl">Surel</label><input id="ak_mail" placeholder="nama@perusahaan.co.id"></div>
+  <div class="field"><label class="lbl">Kata sandi awal</label><input id="ak_pwd" placeholder="Sekurang-kurangnya delapan huruf"></div>
+  <div class="field"><label class="lbl">Peran</label><select id="ak_role">
+   ${peran.map(r=>`<option value="${r}">${esc(ROLE_LABEL[r]||r)}</option>`).join("")}</select></div>
+  ${tenantTetap?`<input type="hidden" id="ak_tenant" value="${tenantTetap}">`
+   :`<div class="field"><label class="lbl">Perusahaan</label><select id="ak_tenant">
+    ${TENANTS.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join("")}</select></div>`}
+  <div class="field"><label class="lbl">Unit kerja, untuk pekerja</label><select id="ak_unit">
+   <option value="">Tidak ditetapkan</option>
+   ${t.units.map(u=>`<option value="${esc(u)}">${esc(u)}</option>`).join("")}</select></div>
+  <div class="field" style="grid-column:span 2"><label class="lbl">Jabatan, opsional</label><input id="ak_jab" placeholder="Misalnya Operator lini dua"></div>
+ </div>`;
+}
+function akunDaftar(list,bolehHapus){
+ if(!list.length) return `<p style="margin:0;color:var(--ink-3)">Belum ada akun.</p>`;
+ return list.map((u,i)=>`<div class="mrow" style="align-items:flex-start">
+  <div class="mt"><div class="mn">${esc(u.nama)}</div>
+   <div class="ms">${esc(u.mail)} · ${esc(ROLE_LABEL[u.role]||u.role)}${u.unit?" · "+esc(u.unit):""}${u.jabatan?" · "+esc(u.jabatan):""}</div>
+   <div class="ms" style="margin-top:4px">Perusahaan ${esc((TENANTS.find(t=>t.id===u.tenant)||{}).name||"—")} · dibuat oleh ${esc(u.oleh||"—")}</div></div>
+  <span class="pill ${u.aktif?"ok":"mut"}">${u.aktif?"Aktif":"Nonaktif"}</span>
+  <div class="row">
+   <button data-akt="${u.id}">${u.aktif?"Nonaktifkan":"Aktifkan"}</button>
+   <button data-akr="${u.id}">Setel ulang sandi</button>
+   ${bolehHapus?`<button data-akd="${u.id}">Hapus</button>`:""}</div></div>`).join("");
+}
+/* ---------- Admin Perusahaan ---------- */
+function page_akun_tenant(){
+ const t=TENANTS.find(x=>x.id===ST.tenant);
+ const list=usersInit().filter(u=>u.tenant===ST.tenant&&ROLE_TENANT.indexOf(u.role)>=0);
+ const perUnit=t.units.map(u=>({u,n:list.filter(x=>x.unit===u).length}));
+ return hd("Akun perusahaan")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Akun dikelola</div><div class="v">${list.length}</div><div class="f">${esc(t.name)}</div></div>
+  <div class="tile"><div class="lpt1">Aktif</div><div class="lpt2">${list.filter(u=>u.aktif).length}</div><div class="lpt3">Dapat masuk portal</div></div>
+  <div class="tile"><div class="lpt1">Belum ditetapkan unitnya</div><div class="lpt2">${list.filter(u=>!u.unit).length}</div>
+   <div class="lpt3">Unit dipakai sebagai nilai awal pertanyaan latar</div></div>
+  <div class="tile"><div class="lpt1">Peran yang dapat Anda buat</div><div class="lpt2">${ROLE_TENANT.length}</div>
+   <div class="lpt3">${ROLE_TENANT.map(r=>ROLE_LABEL[r]).join(" dan ")}</div></div></div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Tambah akun</h3></div><div class="pb">
+  ${akunForm(ROLE_TENANT,ST.tenant)}
+  <button class="primary" id="ak_add">Buat akun</button></div></div>
+ <div class="panel"><div class="ph"><h3>Daftar akun</h3></div><div class="pb">${akunDaftar(list,true)}</div></div>
+ <div class="grid2">
+  <div class="panel"><div class="ph"><h3>Sebaran akun per unit</h3></div><div class="pb">
+   ${perUnit.map(x=>`<div class="mrow"><div class="mt"><div class="mn">${esc(x.u)}</div></div>
+    <div class="mval">${x.n}</div>
+    <span class="pill ${x.n>=K_MIN?"ok":x.n?"warn":"mut"}">${x.n>=K_MIN?"Cukup untuk penerbitan":x.n?"Di bawah ambang":"Belum ada akun"}</span></div>`).join("")}
+   <p class="sup" style="margin-top:10px;margin-bottom:0">Jumlah akun bukan jumlah responden. Angka unit tetap disupresi bila yang benar-benar mengisi kurang dari ${K_MIN}.</p></div></div>
+  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang tidak dapat Anda buat, dan alasannya</h4>
+   <div class="kvl">
+    <div><span class="kk">Admin Perusahaan dan Direksi</span><span class="vv">Dibuat Admin Platform</span></div>
+    <div><span class="kk">Praktisi assurance dan Auditor SMK3</span><span class="vv">Tidak boleh dibuat pihak yang ditelaah</span></div>
+    <div><span class="kk">Admin Platform</span><span class="vv">Di luar lingkup perusahaan</span></div>
+   </div>
+   <p style="margin:12px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Akun penelaah tidak diterbitkan perusahaan karena penelaah yang akunnya diberikan pihak yang ditelaah tidak dapat disebut independen, dan kesimpulan assurance-nya kehilangan nilai.</p></div></div>`;
+}
+function bind_akun_tenant(){bindAkun(ROLE_TENANT,ST.tenant)}
+/* ---------- Admin Platform ---------- */
+function page_akun_platform(){
+ const list=usersInit();
+ const perRole=ROLE_PLATFORM.map(r=>({r,n:list.filter(u=>u.role===r).length}));
+ return hd("Semua akun")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Akun terdaftar</div><div class="v">${list.length}</div><div class="f">Seluruh perusahaan dan peran</div></div>
+  <div class="tile"><div class="lpt1">Aktif</div><div class="lpt2">${list.filter(u=>u.aktif).length}</div><div class="lpt3">Dapat masuk portal</div></div>
+  <div class="tile"><div class="lpt1">Peran terisi</div><div class="lpt2">${perRole.filter(x=>x.n>0).length} / ${ROLE_PLATFORM.length}</div>
+   <div class="lpt3">${perRole.filter(x=>x.n===0).map(x=>ROLE_LABEL[x.r]).join(", ")||"Semua peran terisi"}</div></div>
+  <div class="tile"><div class="lpt1">Peran penelaah</div><div class="lpt2">${list.filter(u=>ROLE_MANDIRI.indexOf(u.role)>=0).length}</div>
+   <div class="lpt3">Perlu pemisahan penerbitan akun</div></div></div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Tambah akun</h3></div><div class="pb">
+  ${akunForm(ROLE_PLATFORM,null)}
+  <button class="primary" id="ak_add">Buat akun</button>
+  <p class="sup" style="margin-top:10px;margin-bottom:0">Unit kerja hanya dipakai bila perannya pekerja. Daftar unit yang tampil mengikuti perusahaan yang sedang dipilih di bilah atas.</p></div></div>
+ <div class="panel"><div class="ph"><h3>Daftar akun</h3></div><div class="pb">${akunDaftar(list,true)}</div></div>
+ <div class="grid2">
+  <div class="panel"><div class="ph"><h3>Jumlah akun per peran</h3></div><div class="pb">
+   ${perRole.map(x=>`<div class="mrow"><div class="mt"><div class="mn">${esc(ROLE_LABEL[x.r]||x.r)}</div></div>
+    <div class="mval">${x.n}</div>
+    <span class="pill ${ROLE_MANDIRI.indexOf(x.r)>=0?"warn":x.n?"ok":"mut"}">${ROLE_MANDIRI.indexOf(x.r)>=0?"Perlu pemisahan":x.n?"Terisi":"Kosong"}</span></div>`).join("")}
+   </div></div>
+  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Celah pemisahan tugas yang masih terbuka</h4>
+   <p style="margin:0;font-size:13px;color:var(--ink-2);line-height:1.68">Admin Platform saat ini menerbitkan akun praktisi assurance dan auditor SMK3, sekaligus menetapkan tabel norma dan menerbitkan berkas bukti. Pihak yang menerbitkan akun penelaah sebaiknya bukan pihak yang membangun angkanya.</p>
+   <ul class="ivl" style="margin-top:10px">
+    <li class="org">Pilihan pertama, pendaftaran mandiri penelaah dengan verifikasi asosiasi profesi</li>
+    <li class="org">Pilihan kedua, penerbitan akun penelaah dipindah ke kementerian sebagai pemilik platform</li>
+    <li>Selama belum dipisah, keterangan ini wajib dinyatakan pada berkas bukti</li></ul></div></div>`;
+}
+function bind_akun_platform(){bindAkun(ROLE_PLATFORM,null)}
+/* ---------- pengikat bersama ---------- */
+function bindAkun(peran,tenantTetap){
+ const v=id=>{const e=$("#"+id);return e?e.value.trim():""};
+ const a=$("#ak_add"); if(a) a.onclick=async()=>{
+  const role=v("ak_role");
+  if(peran.indexOf(role)<0){toast("Peran itu tidak dapat Anda buat");return}
+  const d={nama:v("ak_nama"),mail:v("ak_mail").toLowerCase(),pwd:v("ak_pwd"),role,
+   tenant:tenantTetap||v("ak_tenant")||ST.tenant,
+   unit:role==="pekerja"?v("ak_unit"):"",jabatan:v("ak_jab"),
+   oleh:ROLE_LABEL[ST.user.role]+" "+ST.user.name};
+  const salah=userTambah(d);
+  if(salah){toast(salah);return}
+  await ledgerPush((ST.user.role==="platform"?"admin.platform":"admin.perusahaan@"+ST.tenant),
+   "Akun baru diterbitkan",{peran:role,perusahaan:d.tenant,unit:d.unit||"tidak ditetapkan"});
+  toast("Akun dibuat");render()};
+ document.querySelectorAll("[data-akt]").forEach(b=>b.onclick=async()=>{
+  const u=usersInit().find(x=>x.id===b.dataset.akt); if(!u)return;
+  if(ST.user&&ST.user.id===u.id){toast("Tidak dapat menonaktifkan akun yang sedang dipakai");return}
+  u.aktif=!u.aktif; userSinkron(u);
+  await ledgerPush("admin","Status akun diubah",{akun:u.mail,aktif:u.aktif});
+  render()});
+ document.querySelectorAll("[data-akr]").forEach(b=>b.onclick=async()=>{
+  const u=usersInit().find(x=>x.id===b.dataset.akr); if(!u)return;
+  const baru=prompt("Kata sandi baru untuk "+u.mail+", sekurang-kurangnya delapan huruf");
+  if(!baru)return;
+  if(baru.length<8){toast("Kata sandi terlalu pendek");return}
+  u.pwd=baru;
+  await ledgerPush("admin","Kata sandi akun disetel ulang",{akun:u.mail});
+  toast("Kata sandi disetel ulang");render()});
+ document.querySelectorAll("[data-akd]").forEach(b=>b.onclick=async()=>{
+  const l=usersInit(), i=l.findIndex(x=>x.id===b.dataset.akd);
+  if(i<0)return;
+  const u=l[i];
+  if(ST.user&&ST.user.id===u.id){toast("Tidak dapat menghapus akun yang sedang dipakai");return}
+  if(userData(u)){toast("Akun sudah punya jejak data, nonaktifkan saja");return}
+  l.splice(i,1);
+  const j=ACCOUNTS.findIndex(x=>x.id===u.id); if(j>=0) ACCOUNTS.splice(j,1);
+  await ledgerPush("admin","Akun dihapus",{akun:u.mail});
+  toast("Akun dihapus");render()});
+}
+(function(){
+ const sisip=(r,setelah,item)=>{
+  if(!NAV[r])return;
+  const i=NAV[r].findIndex(e=>e[0]===setelah);
+  if(i>=0) NAV[r].splice(i+1,0,item); else NAV[r].push(item);
+ };
+ sisip("admin_tenant","unit_edit",["akun_tenant","Akun perusahaan"]);
+ sisip("platform","p_tenant",["akun_platform","Semua akun"]);
+})();
+/* ===================================================================
+   Lapisan ketiga puluh tiga: penyederhanaan
+   Menu dipangkas kembali ke rantai tujuan awal: mengukur, membaca,
+   melindungi, membuktikan. Permainan tidak dikurangi.
+   Halaman yang dikeluarkan tidak dihapus, hanya tidak lagi muncul di
+   menu. Untuk memunculkannya kembali, tambahkan namanya pada daftar
+   peran yang sesuai di bawah.
+=================================================================== */
+NAV.pekerja=[
+ ["Kelompok","Asesmen"],["svy","Isi asesmen"],["myrep","Laporan saya"],["riwayat","Riwayat saya"],
+ ["Kelompok","Permainan"],["game_mw","Mister White"],["game_roda","Roda diskusi tim"],
+ ["game_sama","Satu Kesamaan"],["game_kursi","Kursi Panas"],["game_papan","Papan peringkat"]];
+NAV.admin_tenant=[
+ ["Kelompok","Penyiapan"],["mulai","Langkah penyiapan"],["t_cycle","Siklus dan token"],
+ ["unit_edit","Unit kerja"],["akun_tenant","Akun perusahaan"],["entri","Data pendamping"],
+ ["Kelompok","Hasil"],["iwh_company","Laporan perusahaan"],["iwh_team","Laporan tim"],
+ ["t_disag","Disagregasi"],["dq","Mutu respons"],
+ ["Kelompok","Tindak lanjut"],["iwh_interven","Tindakan disarankan"],["keg","Log kegiatan"],["bahaya","Daftar bahaya"],
+ ["Kelompok","Bukti"],["ep","Berkas bukti"],["ledger","Jejak audit"],
+ ["Kelompok","Isi permainan"],["roda_edit","Pertanyaan roda"],["bank_kata","Bank kata"]];
+NAV.penyusun=[
+ ["Kelompok","Kebutuhan data"],["std","Peta kebutuhan data"],["entri","Data pendamping"],["rate","Indikator terhitung"],
+ ["Kelompok","Dasar pengungkapan"],["matr","Materialitas ganda"],["target","Metrik dan target"],
+ ["Kelompok","Bahan laporan"],["gri","Bukti pendukung GRI 403"],["ep","Berkas bukti"]];
+NAV.assurance=[
+ ["Kelompok","Penugasan"],["isae","Prosedur ISAE 3000"],["concl","Temuan dan kesimpulan"],
+ ["Kelompok","Bahan telaah"],["ep","Berkas bukti"],["ledger","Jejak audit"],["dq","Mutu respons"],["dpia","DPIA"],
+ ["Kelompok","Dasar penyajian"],["period","Batas dan periode"],["komparatif","Komparatif"]];
+NAV.auditor_smk3=[
+ ["Kelompok","Telaah"],["iso","Kesesuaian ISO 45003"],["pmk","Laporan faktor psikologi"],
+ ["Kelompok","Bukti pendukung"],["bahaya","Daftar bahaya"],["ep","Berkas bukti"]];
+NAV.direksi=[
+ ["Kelompok","Statistik"],["board","Dasbor"],["iwh_company","Laporan perusahaan"],
+ ["Kelompok","Keputusan"],["ctl","Tindakan pengendalian"],["matr","Materialitas"],["target","Metrik dan target"]];
+NAV.pjk3=[
+ ["Kelompok","Klien"],["pjk","Klien terkelola"],["iwh_company","Laporan klien"],["ep","Berkas bukti"]];
+NAV.platform=[
+ ["Kelompok","Akun dan perusahaan"],["akun_platform","Semua akun"],["p_tenant","Perusahaan terdaftar"],
+ ["Kelompok","Instrumen"],["p_items","Bank butir"],["p_norm","Tabel norma"],
+ ["Kelompok","Kendali"],["itgc","Paket ITGC"],["ledger","Jejak audit"],["dpia","DPIA"],
+ ["Kelompok","Situs"],["lp_edit","Kelola situs"]];
+HOME.pekerja="svy"; HOME.admin_tenant="mulai"; HOME.penyusun="std"; HOME.assurance="isae";
+HOME.auditor_smk3="iso"; HOME.direksi="board"; HOME.pjk3="pjk"; HOME.platform="akun_platform";
+MTAB.pekerja=[["svy","Asesmen","pena"],["myrep","Laporan","grafik"],["game_mw","Permainan","dadu"],["riwayat","Riwayat","daftar"]];
+MTAB.admin_tenant=[["mulai","Mulai","rumah"],["iwh_company","Laporan","grafik"],["keg","Kegiatan","daftar"],["ep","Bukti","berkas"]];
+MTAB.penyusun=[["std","Kebutuhan","daftar"],["entri","Data","pena"],["rate","Indikator","grafik"],["ep","Bukti","berkas"]];
+MTAB.assurance=[["isae","Prosedur","daftar"],["concl","Kesimpulan","periksa"],["ep","Bukti","berkas"],["ledger","Jejak","grafik"]];
+MTAB.auditor_smk3=[["iso","ISO 45003","periksa"],["pmk","Permenaker","berkas"],["bahaya","Bahaya","daftar"],["ep","Bukti","berkas"]];
+MTAB.direksi=[["board","Dasbor","grafik"],["iwh_company","Laporan","daftar"],["matr","Materialitas","periksa"],["target","Target","pena"]];
+MTAB.pjk3=[["pjk","Klien","gedung"],["iwh_company","Laporan","grafik"],["ep","Bukti","berkas"]];
+MTAB.platform=[["akun_platform","Akun","orang"],["p_tenant","Perusahaan","gedung"],["p_items","Bank butir","daftar"],["lp_edit","Situs","gir"]];
+/* materialitas tetap dapat diisi, pintunya dari halaman hasil materialitas */
+(function(){
+ const _m=page_matr;
+ page_matr=function(){
+  return _m().replace('<button class="ghost" data-go="dm_edar">Status peredaran</button>',
+   '<button class="ghost" data-go="dm_edar">Status peredaran</button><button class="ghost" data-go="dm_form">Isi formulir</button>');
+ };
+})();
+/* ===================================================================
+   Lapisan ketiga puluh empat: pengaturan dipisah dari pekerjaan harian
+   Empat halaman yang dipakai sekali saat penyiapan dikumpulkan di satu
+   pintu, sehingga tidak lagi muncul pada menu sehari-hari.
+=================================================================== */
+const SETELAN=[
+ {p:"unit_edit",n:"Unit kerja",d:"Nama unit menentukan disagregasi, ambang supresi, dan penerbitan token",
+  nilai:()=>{const t=TENANTS.find(x=>x.id===ST.tenant);return t.units.length+" unit"}},
+ {p:"akun_tenant",n:"Akun perusahaan",d:"Akun pekerja dan penyusun laporan di lingkup perusahaan ini",
+  nilai:()=>{const l=(typeof usersInit==="function"?usersInit():[]).filter(u=>u.tenant===ST.tenant&&ROLE_TENANT.indexOf(u.role)>=0);
+   return l.length+" akun, "+l.filter(u=>u.aktif).length+" aktif"}},
+ {p:"roda_edit",n:"Pertanyaan roda diskusi",d:"Pertanyaan pemancing diskusi beserta dimensi yang dibahas",
+  nilai:()=>rodaOf().length+" pertanyaan"},
+ {p:"bank_kata",n:"Bank kata permainan",d:"Pasangan kata untuk Mister White",
+  nilai:()=>kataOf().length+" pasangan"}
+];
+function page_setelan(){
+ const t=TENANTS.find(x=>x.id===ST.tenant);
+ return hd("Pengaturan")+
+ `<div class="grid2">${SETELAN.map(s=>`<div class="card2">
+  <div class="spread"><h4 style="font-family:Montserrat;font-size:15px;margin:0">${esc(s.n)}</h4>
+   <span class="pill mut">${esc(s.nilai())}</span></div>
+  <p style="margin:8px 0 0;font-size:13px;color:var(--ink-2);line-height:1.6">${esc(s.d)}</p>
+  <div class="row" style="margin-top:12px"><button class="primary" data-go="${s.p}">Buka</button></div></div>`).join("")}</div>
+ <div class="card2" style="margin-top:16px"><div class="kvl">
+  <div><span class="kk">Perusahaan</span><span class="vv">${esc(t.name)}</span></div>
+  <div><span class="kk">Dipakai saat</span><span class="vv">Penyiapan awal, lalu sesekali saja</span></div>
+  <div><span class="kk">Di luar wewenang Anda</span><span class="vv">Bank butir, tabel norma, dan ambang penerbitan</span></div>
+ </div></div>`;
+}
+/* tombol kembali pada keempat halaman itu */
+(function(){
+ const balik='<div class="row noprint" style="margin-bottom:14px"><button data-go="setelan">Kembali ke pengaturan</button></div>';
+ SETELAN.forEach(s=>{
+  const nama="page_"+s.p, asli=window[nama];
+  if(typeof asli!=="function") return;
+  window[nama]=function(){
+   const h=asli();
+   const i=h.indexOf("</div>");
+   return i<0?balik+h:h.slice(0,i+6)+balik+h.slice(i+6);
+  };
+ });
+})();
+/* keempatnya tetap tampil di menu, halaman Pengaturan menjadi pintu tambahan
+   berisi status ringkas, bukan satu-satunya jalan masuk */
+NAV.admin_tenant=NAV.admin_tenant
+ .filter(e=>["unit_edit","akun_tenant","roda_edit","bank_kata"].indexOf(e[0])<0)
+ .filter(e=>!(e[0]==="Kelompok"&&e[1]==="Isi permainan"))
+ .concat([["Kelompok","Pengaturan"],
+  ["akun_tenant","Akun perusahaan"],["unit_edit","Unit kerja"],
+  ["roda_edit","Pertanyaan roda"],["bank_kata","Bank kata"],["setelan","Ringkasan pengaturan"]]);
+/* ===================================================================
+   Lapisan ketiga puluh lima: penamaan ulang peran dan kendali penuh
+   Admin Perusahaan menjadi HR, Admin Platform menjadi Superadmin.
+   Superadmin dapat membuka seluruh fitur pada peran apa pun melalui
+   mode peran, dan setiap masuk maupun keluar mode itu dicatat.
+=================================================================== */
+ROLE_LABEL.admin_tenant="HR";
+ROLE_LABEL.platform="Superadmin";
+ISTILAH.push([/Admin Perusahaan/g,"HR"]);
+ISTILAH.push([/admin perusahaan/g,"HR"]);
+ISTILAH.push([/admin\.perusahaan@/g,"hr@"]);
+ISTILAH.push([/Admin Platform/g,"Superadmin"]);
+ISTILAH.push([/admin\.platform/g,"superadmin"]);
+ACC_KET.admin_tenant="Menjalankan siklus, mengelola akun dan unit, menerbitkan bukti";
+ACC_KET.platform="Kendali penuh atas instrumen, norma, akun, situs, dan seluruh peran";
+/* ---------- mode peran ---------- */
+const SUPER_PERAN=["pekerja","admin_tenant","penyusun","direksi","assurance","auditor_smk3","pjk3","platform"];
+function superAktif(){return !!ST.asSuper}
+function page_super(){
+ const list=(typeof usersInit==="function"?usersInit():[]);
+ return hd("Kontrol semua peran")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Peran tersedia</div><div class="v">${SUPER_PERAN.length}</div><div class="f">Seluruh fitur dapat dibuka dari sini</div></div>
+  <div class="tile"><div class="lpt1">Perusahaan aktif</div><div class="lpt2" style="font-size:16px">${esc((TENANTS.find(t=>t.id===ST.tenant)||{}).name||"")}</div>
+   <div class="lpt3">Mode peran mengikuti perusahaan ini</div></div>
+  <div class="tile"><div class="lpt1">Akun terdaftar</div><div class="lpt2">${list.length}</div><div class="lpt3">Dikelola di halaman Semua akun</div></div>
+  <div class="tile"><div class="lpt1">Jejak</div><div class="lpt2">${ST.ledger.length}</div><div class="lpt3">Masuk dan keluar mode peran dicatat</div></div></div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Buka fitur peran</h3></div><div class="pb">
+  <div class="grid2">${SUPER_PERAN.map(r=>{
+   const n=(NAV[r]||[]).filter(e=>e[0]!=="Kelompok").length;
+   const akun=list.filter(u=>u.role===r).length;
+   return `<div class="card2">
+    <div class="spread"><h4 style="font-family:Montserrat;font-size:15px;margin:0">${esc(ROLE_LABEL[r]||r)}</h4>
+     <span class="pill mut">${n} halaman</span></div>
+    <div class="ms" style="margin-top:6px">${akun} akun terdaftar pada peran ini</div>
+    <div class="row" style="margin-top:12px"><button class="primary" data-sup="${r}">Buka mode ${esc(ROLE_LABEL[r]||r)}</button></div></div>`}).join("")}</div>
+  </div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Batas yang tetap berlaku pada mode peran</h4>
+  <ul class="ivl">
+   <li class="org">Ambang penerbitan ${K_MIN} tetap berlaku, mode peran tidak membuka jawaban perorangan</li>
+   <li class="org">Laporan pribadi pekerja tetap hanya terbuka pada sesi responden yang bersangkutan</li>
+   <li class="org">Kesimpulan assurance yang dibentuk dari mode peran tercatat sebagai dibuat Superadmin, bukan praktisi independen</li>
+   <li>Masuk dan keluar mode peran tercatat pada jejak audit beserta perannya</li></ul></div>`;
+}
+function bind_super(){
+ document.querySelectorAll("[data-sup]").forEach(b=>b.onclick=async()=>{
+  const r=b.dataset.sup;
+  const tiru=ACCOUNTS.find(a=>a.role===r);
+  if(!tiru){toast("Belum ada akun contoh pada peran itu");return}
+  ST.superBackup=ST.user; ST.asSuper=true;
+  ST.user=Object.assign({},tiru,{tenant:ST.tenant});
+  ST.page=HOME[r]||((NAV[r]||[]).find(e=>e[0]!=="Kelompok")||[])[0];
+  await ledgerPush("superadmin","Superadmin membuka mode peran",{peran:r,perusahaan:ST.tenant});
+  toast("Mode "+(ROLE_LABEL[r]||r)+" terbuka");render();window.scrollTo(0,0)});
+}
+/* bilah atas menampilkan mode peran beserta jalan keluarnya */
+const _shellS=shell;
+shell=function(body){
+ let h=_shellS(body);
+ if(superAktif()){
+  h=h.replace('<span class="sp"></span>',
+   '<span class="sp"></span><span class="pill warn">Mode '+esc(ROLE_LABEL[ST.user.role]||ST.user.role)+
+   '</span><button class="ghost" id="supKeluar" style="font-size:12px">Kembali ke Superadmin</button>');
+ }
+ return h;
+};
+const _bindS=bindShell;
+bindShell=function(){
+ _bindS();
+ const k=$("#supKeluar");
+ if(k) k.onclick=async()=>{
+  const dari=ST.user.role;
+  ST.user=ST.superBackup||ACCOUNTS.find(a=>a.role==="platform");
+  ST.asSuper=false; ST.superBackup=null; ST.page="super";
+  await ledgerPush("superadmin","Superadmin keluar dari mode peran",{peran:dari});
+  render();window.scrollTo(0,0)};
+};
+(function(){
+ const i=NAV.platform.findIndex(e=>e[0]==="akun_platform");
+ const item=["super","Kontrol semua peran"];
+ if(i>=0) NAV.platform.splice(i,0,item); else NAV.platform.push(item);
+ HOME.platform="super";
+ if(MTAB.platform) MTAB.platform=[["super","Semua peran","gir"]].concat(MTAB.platform.slice(0,3));
+})();
+/* ===================================================================
+   Lapisan ketiga puluh enam: pemetaan akun ke divisi
+   HR memetakan akun perusahaannya ke unit kerja, termasuk memindahkan
+   akun yang sudah ada. Superadmin menerbitkan akun HR untuk banyak
+   perusahaan, dan daftar unit pada formulirnya mengikuti perusahaan
+   yang dipilih, bukan perusahaan yang sedang aktif di bilah atas.
+=================================================================== */
+function akunBaris(u,opt){
+ opt=opt||{};
+ const t=TENANTS.find(x=>x.id===u.tenant)||{units:[]};
+ const unitPilih=u.role==="pekerja"?`<div style="flex:0 0 210px">
+   <label class="lbl">Unit kerja</label>
+   <select id="au_${u.id}">
+    <option value="">Belum ditetapkan</option>
+    ${(t.units||[]).map(x=>`<option value="${esc(x)}" ${u.unit===x?"selected":""}>${esc(x)}</option>`).join("")}</select>
+   </div>`:"";
+ return `<div class="mrow" style="align-items:flex-start">
+  <div class="mt"><div class="mn">${esc(u.nama)}</div>
+   <div class="ms">${esc(u.mail)} · ${esc(ROLE_LABEL[u.role]||u.role)}${u.jabatan?" · "+esc(u.jabatan):""}</div>
+   <div class="ms" style="margin-top:4px">${esc((TENANTS.find(x=>x.id===u.tenant)||{}).name||"—")}${u.role==="pekerja"?(u.unit?" · "+esc(u.unit):" · belum dipetakan ke unit"):""}</div></div>
+  ${unitPilih}
+  <span class="pill ${u.aktif?"ok":"mut"}">${u.aktif?"Aktif":"Nonaktif"}</span>
+  <div class="row">
+   ${u.role==="pekerja"?`<button data-aku="${u.id}">Simpan unit</button>`:""}
+   <button data-akt="${u.id}">${u.aktif?"Nonaktifkan":"Aktifkan"}</button>
+   <button data-akr="${u.id}">Setel sandi</button>
+   ${opt.hapus?`<button data-akd="${u.id}">Hapus</button>`:""}</div></div>`;
+}
+/* ---------- HR ---------- */
+page_akun_tenant = function(){
+ const t=TENANTS.find(x=>x.id===ST.tenant);
+ const list=usersInit().filter(u=>u.tenant===ST.tenant&&ROLE_TENANT.indexOf(u.role)>=0);
+ const pekerja=list.filter(u=>u.role==="pekerja");
+ const belum=pekerja.filter(u=>!u.unit);
+ const perUnit=t.units.map(u=>({u,n:pekerja.filter(x=>x.unit===u).length}));
+ return hd("Akun perusahaan")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Akun dikelola</div><div class="v">${list.length}</div><div class="f">${esc(t.name)}</div></div>
+  <div class="tile"><div class="lpt1">Sudah dipetakan ke unit</div><div class="lpt2">${pekerja.length-belum.length} / ${pekerja.length}</div>
+   <div class="lpt3">Hanya akun pekerja yang punya unit</div></div>
+  <div class="tile"><div class="lpt1">Unit tanpa akun</div><div class="lpt2">${perUnit.filter(x=>x.n===0).length}</div>
+   <div class="lpt3">Dari ${t.units.length} unit terdaftar</div></div>
+  <div class="tile"><div class="lpt1">Peran yang dapat Anda buat</div><div class="lpt2">${ROLE_TENANT.length}</div>
+   <div class="lpt3">${ROLE_TENANT.map(r=>ROLE_LABEL[r]).join(" dan ")}</div></div></div>
+ ${belum.length?`<div class="panel" style="margin-top:16px"><div class="ph"><h3>Belum dipetakan ke unit</h3>
+   <span class="pill bad">${belum.length} akun</span></div><div class="pb">
+   ${belum.map(u=>akunBaris(u,{hapus:false})).join("")}</div></div>`:""}
+ <div class="panel" style="margin-top:16px"><div class="ph"><h3>Tambah akun</h3></div><div class="pb">
+  ${akunForm(ROLE_TENANT,ST.tenant)}
+  <button class="primary" id="ak_add">Buat akun</button></div></div>
+ <div class="panel"><div class="ph"><h3>Pemetaan per unit</h3></div><div class="pb">
+  ${t.units.map(un=>{
+   const isi=pekerja.filter(x=>x.unit===un);
+   return `<div style="padding:12px 0;border-bottom:1px solid var(--line)">
+    <div class="spread"><div class="mn" style="font-family:Montserrat;font-weight:600">${esc(un)}</div>
+     <span class="pill ${isi.length>=K_MIN?"ok":isi.length?"warn":"mut"}">${isi.length} akun</span></div>
+    ${isi.length?`<div class="opts" style="margin-top:8px">${isi.map(x=>`<span class="opt" style="pointer-events:none">${esc(x.nama)}</span>`).join("")}</div>`
+     :`<div class="ms" style="margin-top:6px">Belum ada akun pada unit ini</div>`}</div>`}).join("")}
+  <p class="sup" style="margin-top:12px;margin-bottom:0">Jumlah akun bukan jumlah responden. Angka unit tetap disupresi bila yang benar-benar mengisi kurang dari ${K_MIN}.</p></div></div>
+ <div class="panel"><div class="ph"><h3>Seluruh akun perusahaan ini</h3></div><div class="pb">
+  ${list.length?list.map(u=>akunBaris(u,{hapus:true})).join(""):`<p style="margin:0;color:var(--ink-3)">Belum ada akun.</p>`}</div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Batas wewenang Anda</h4>
+  <div class="kvl">
+   <div><span class="kk">Anda mengurus</span><span class="vv">Akun pekerja dan penyusun laporan, pemetaan unit, isi permainan</span></div>
+   <div><span class="kk">Superadmin mengurus</span><span class="vv">Akun HR dan Direksi, bank butir, tabel norma, ambang penerbitan</span></div>
+   <div><span class="kk">Tidak diterbitkan perusahaan</span><span class="vv">Akun praktisi assurance dan auditor SMK3</span></div>
+  </div></div>`;
+};
+/* ---------- Superadmin ---------- */
+page_akun_platform = function(){
+ const list=usersInit();
+ const pilih=ST.akunTenant||ST.tenant;
+ const t=TENANTS.find(x=>x.id===pilih)||TENANTS[0];
+ const perTenant=TENANTS.map(x=>({t:x,
+  hr:list.filter(u=>u.tenant===x.id&&u.role==="admin_tenant").length,
+  dir:list.filter(u=>u.tenant===x.id&&u.role==="direksi").length,
+  staf:list.filter(u=>u.tenant===x.id&&ROLE_TENANT.indexOf(u.role)>=0).length}));
+ return hd("Semua akun")+
+ `<div class="tiles">
+  <div class="kpi accent"><div class="k">Akun terdaftar</div><div class="v">${list.length}</div><div class="f">Seluruh perusahaan dan peran</div></div>
+  <div class="tile"><div class="lpt1">Perusahaan sudah punya HR</div><div class="lpt2">${perTenant.filter(x=>x.hr>0).length} / ${TENANTS.length}</div>
+   <div class="lpt3">${perTenant.filter(x=>x.hr===0).map(x=>x.t.name).join(", ")||"Semua sudah ada"}</div></div>
+  <div class="tile"><div class="lpt1">Aktif</div><div class="lpt2">${list.filter(u=>u.aktif).length}</div><div class="lpt3">Dapat masuk portal</div></div>
+  <div class="tile"><div class="lpt1">Peran penelaah</div><div class="lpt2">${list.filter(u=>ROLE_MANDIRI.indexOf(u.role)>=0).length}</div>
+   <div class="lpt3">Perlu pemisahan penerbitan akun</div></div></div>
+ <div class="panel" style="margin-top:18px"><div class="ph"><h3>Akun per perusahaan</h3></div><div class="pb">
+  ${perTenant.map(x=>`<div class="mrow"><div class="mt"><div class="mn">${esc(x.t.name)}</div>
+   <div class="ms">${x.t.units.length} unit kerja · ${x.staf} akun pekerja dan penyusun</div></div>
+   <span class="pill ${x.hr?"ok":"bad"}">${x.hr} HR</span>
+   <span class="pill ${x.dir?"ok":"mut"}">${x.dir} Direksi</span>
+   <button data-akp="${x.t.id}">Buat akun untuk perusahaan ini</button></div>`).join("")}
+  </div></div>
+ <div class="panel"><div class="ph"><h3>Tambah akun</h3>
+   <span class="pill mut">Perusahaan terpilih ${esc(t.name)}</span></div><div class="pb">
+  <div class="grid2" style="gap:12px">
+   <div class="field"><label class="lbl">Nama lengkap</label><input id="ak_nama" placeholder="Nama pejabat atau pekerja"></div>
+   <div class="field"><label class="lbl">Surel</label><input id="ak_mail" placeholder="nama@perusahaan.co.id"></div>
+   <div class="field"><label class="lbl">Kata sandi awal</label><input id="ak_pwd" placeholder="Sekurang-kurangnya delapan huruf"></div>
+   <div class="field"><label class="lbl">Peran</label><select id="ak_role">
+    ${ROLE_PLATFORM.map(r=>`<option value="${r}">${esc(ROLE_LABEL[r]||r)}</option>`).join("")}</select></div>
+   <div class="field"><label class="lbl">Perusahaan</label><select id="ak_tenant">
+    ${TENANTS.map(x=>`<option value="${x.id}" ${x.id===pilih?"selected":""}>${esc(x.name)}</option>`).join("")}</select></div>
+   <div class="field"><label class="lbl">Unit kerja, untuk pekerja</label><select id="ak_unit">
+    <option value="">Tidak ditetapkan</option>
+    ${t.units.map(u=>`<option value="${esc(u)}">${esc(u)}</option>`).join("")}</select></div>
+   <div class="field" style="grid-column:span 2"><label class="lbl">Jabatan, opsional</label><input id="ak_jab" placeholder="Misalnya Kepala HSE"></div>
+  </div>
+  <button class="primary" id="ak_add">Buat akun</button>
+  <p class="sup" style="margin-top:10px;margin-bottom:0">Daftar unit mengikuti perusahaan yang dipilih di atas. Mengganti perusahaan memuat ulang daftar unitnya.</p></div></div>
+ <div class="panel"><div class="ph"><h3>Daftar akun</h3></div><div class="pb">
+  ${list.map(u=>akunBaris(u,{hapus:true})).join("")}</div></div>
+ <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Pembagian urusan</h4>
+  <div class="kvl">
+   <div><span class="kk">Superadmin</span><span class="vv">Menerbitkan akun HR dan Direksi untuk setiap perusahaan</span></div>
+   <div><span class="kk">HR</span><span class="vv">Akun pekerja dan penyusun, pemetaan unit, isi permainan, siklus asesmen</span></div>
+   <div><span class="kk">Belum dipisah</span><span class="vv">Akun praktisi assurance dan auditor SMK3 masih diterbitkan Superadmin</span></div>
+  </div></div>`;
+};
+/* ---------- pengikat tambahan ---------- */
+const _bindAkun=bindAkun;
+bindAkun=function(peran,tenantTetap){
+ _bindAkun(peran,tenantTetap);
+ /* pemetaan akun ke unit */
+ document.querySelectorAll("[data-aku]").forEach(b=>b.onclick=async()=>{
+  const u=usersInit().find(x=>x.id===b.dataset.aku); if(!u)return;
+  const sel=$("#au_"+u.id); if(!sel)return;
+  const lama=u.unit||"belum ditetapkan";
+  u.unit=sel.value; userSinkron(u);
+  await ledgerPush(ST.user.role==="platform"?"superadmin":"hr@"+ST.tenant,
+   "Akun dipetakan ke unit kerja",{akun:u.mail,dari:lama,menjadi:u.unit||"belum ditetapkan"});
+  toast(u.unit?("Dipetakan ke "+u.unit):"Pemetaan unit dilepas");render()});
+ /* pilihan perusahaan memuat ulang daftar unit */
+ const ts=$("#ak_tenant");
+ if(ts&&!tenantTetap) ts.onchange=()=>{ST.akunTenant=ts.value;render()};
+ document.querySelectorAll("[data-akp]").forEach(b=>b.onclick=()=>{
+  ST.akunTenant=b.dataset.akp; render();
+  const f=$("#ak_nama"); if(f&&f.focus) f.focus()});
+};
 /* =================== pemetaan halaman =================== */
 function pageHTML(){
  const f=window["page_"+ST.page];
