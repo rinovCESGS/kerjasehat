@@ -733,6 +733,71 @@ tbody tr:hover td{background:#FCFBFE}
  .grid2:has(> .field) > .field[style*="span 2"]{grid-column:auto!important}
 }
 
+/* ---------- tahun pelaporan ---------- */
+.ks-year{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 4px 0 12px;border:1px solid var(--line-2);
+ border-radius:10px;background:#fff;font-size:12.5px;color:var(--ink-3);font-weight:600;cursor:pointer}
+.ks-year:hover{border-color:var(--violet)}
+.ks-year svg{width:16px;height:16px;stroke:var(--pink);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ks-year select{height:32px;border:none;box-shadow:none;padding:0 30px 0 6px;font-weight:700;color:var(--indigo);background-color:transparent;font-size:13.5px}
+.ks-year select:focus{box-shadow:none}
+.ks-year:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(91,43,196,.14)}
+.ks-h1-yr{display:inline-block;vertical-align:middle;margin-left:12px;font-family:var(--fb);font-size:13px;font-weight:700;
+ color:var(--pink-d);background:var(--pink-50);border-radius:999px;padding:4px 11px;position:relative;top:-3px}
+.ks-yearbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#FFF7E8;border:1px solid #F3D9A4;color:#6B4A0B;
+ border-radius:12px;padding:11px 14px;margin-bottom:20px;font-size:13.5px}
+.ks-yearbar svg{width:18px;height:18px;stroke:#A16207;fill:none;stroke-width:1.9;flex:0 0 18px}
+.ks-yearbar span{flex:1 1 280px}
+.ks-yearbar button{background:#fff;border-color:#E7C27A;color:#6B4A0B;padding:6px 12px}
+.ks-yearbar button:hover{border-color:#A16207;color:#6B4A0B}
+.ks-actionbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ks-ab-yr{margin-left:auto;font-size:12.5px;color:var(--ink-3);font-weight:600}
+input[type=date]{cursor:text}
+@media(max-width:900px){
+ .ks-year span{display:none}
+ .ks-year{padding-left:9px;height:36px}
+ .ks-ab-yr{display:none}
+}
+
+/* ---------- header ungu gelap dan hero beranda penuh ---------- */
+:root{--hdr:#1A0F48}
+.topbar{background:var(--hdr);border-bottom:none;color:#fff;backdrop-filter:none}
+.ks-crumb{color:rgba(255,255,255,.62)}
+.ks-crumb b{color:#fff}
+.ks-crumb svg{stroke:rgba(255,255,255,.4)}
+.topbar .ks-tenant{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff}
+.topbar .ks-tenant svg{stroke:#FF9EC0}
+.topbar .ks-year{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:rgba(255,255,255,.7)}
+.topbar .ks-year:hover{border-color:rgba(255,255,255,.4)}
+.topbar .ks-year:focus-within{border-color:#FF9EC0;box-shadow:0 0 0 3px rgba(255,158,192,.25)}
+.topbar .ks-year svg{stroke:#FF9EC0}
+.topbar .ks-year select{color:#fff;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")}
+.topbar select option{color:var(--ink);background:#fff}
+.topbar select:not(.ks-year select){background-color:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#fff}
+.topbar .top-av{box-shadow:0 0 0 2px rgba(255,255,255,.22)}
+.topbar .mnav{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff}
+/* blok merek di rail menyambung dengan header */
+.rail{border-right:none;box-shadow:inset -1px 0 0 var(--line)}
+.brand{background:var(--hdr);height:64px;padding:0 20px;margin-bottom:10px}
+.brand .bt{color:#fff;-webkit-text-fill-color:#fff}
+.brand .bs{color:rgba(255,255,255,.62)}
+.brand .ks-mark{background:#fff;color:var(--pink)}
+/* hero beranda dari tepi ke tepi, menempel di bawah header */
+.page:has(> .ks-welcome){max-width:none;padding-top:0;padding-left:0;padding-right:0}
+.page:has(> .ks-welcome) > :not(.ks-welcome){width:calc(100% - 72px);max-width:1188px;margin-left:auto;margin-right:auto}
+.page > .ks-welcome{border-radius:0;margin:0 0 26px;min-height:260px;
+ padding:40px max(36px,calc((100% - 1188px) / 2));
+ background:linear-gradient(120deg,var(--hdr) 0%,#3B1D8F 38%,#5B2BC4 64%,#E8336A 100%)}
+.page > .ks-welcome::after{right:6%;top:-180px;width:520px;height:520px}
+.page:has(> .ks-welcome) > .ks-yearbar{margin-top:0}
+@media(max-width:900px){
+ .topbar{height:58px}
+ .page:has(> .ks-welcome){padding-left:0;padding-right:0}
+ .page:has(> .ks-welcome) > :not(.ks-welcome){width:calc(100% - 28px)}
+ .page > .ks-welcome{padding:26px 14px 22px;min-height:0;margin-bottom:18px}
+ .brand{height:64px}
+}
+
 </style>
 <script>
 window.onerror=function(m,s,l,c,e){var b=document.getElementById("booterr");
@@ -11507,6 +11572,180 @@ render=function(){
 const _ksLanding=landing;
 landing=function(){
  return _ksLanding().replace('<div class="lp-logo">','<div class="lp-logo"><span class="ks-mark">K</span>');
+};
+
+/* ===================================================================
+   Lapisan multitahun: satu pilihan tahun pelaporan di pojok kanan
+   atas. Setiap penyimpanan data dipisah per tahun, sehingga halaman
+   hanya menampilkan dan menerima isian untuk tahun yang dipilih.
+=================================================================== */
+const KS_TAHUN_INI=2026;
+const KS_TAHUN=[2026,2025,2024,2023,2022];
+const KS_KUNCI_THN=["hr","cycles","tokens","keg","bahaya","responses","mySubs","myReport","dm"];
+const KS_TANPA_TAHUN=new Set(["akun_tenant","akun_platform","unit_edit","roda_edit","bank_kata","setelan","super",
+ "p_tenant","p_items","p_norm","p_lic","lp_edit","ris_edit","instrumen","insdiag","validasi","kerangka","privasi","pref",
+ "ledger","itgc","asal","sb_undang","std","target"]);
+let KS_HR_LALU={};
+(function(){
+ ST.tahun=KS_TAHUN_INI; ST.__thn={};
+ Object.keys(HR_DEFAULT).forEach(t=>{KS_HR_LALU[t]=Object.assign({},HR_DEFAULT[t].prior||{});delete HR_DEFAULT[t].prior});
+ if(ST.hr) Object.keys(ST.hr).forEach(t=>{delete ST.hr[t].prior});
+ if(typeof bahayaAll==="function") bahayaAll();
+})();
+function ksKosong(Y){
+ const hrBaru={};
+ TENANTS.forEach(t=>{hrBaru[t.id]=Y===KS_TAHUN_INI-1?JSON.parse(JSON.stringify(KS_HR_LALU[t.id]||{})):{}});
+ return {
+  hr:hrBaru,
+  cycles:TENANTS.map(t=>({id:"C-"+Y+"-"+t.id,tenant:t.id,name:"Siklus asesmen "+Y,open:"",close:"",target:null,status:"Belum dibuka"})),
+  tokens:[],keg:[],bahaya:[],responses:[],mySubs:[],myReport:null,
+  dm:{jawaban:[],edaran:[],dibuka:Y+"-11-04",tutup:Y+"-11-25",disahkan:null}
+ };
+}
+function ksStore(Y,k){
+ if(Y===ST.tahun) return ST[k];
+ if(!ST.__thn[Y]) ST.__thn[Y]=ksKosong(Y);
+ return ST.__thn[Y][k];
+}
+function ksGantiTahun(Y){
+ Y=+Y; if(!Y||Y===ST.tahun) return;
+ const simpan={}; KS_KUNCI_THN.forEach(k=>simpan[k]=ST[k]);
+ ST.__thn[ST.tahun]=simpan;
+ const muat=ST.__thn[Y]||ksKosong(Y);
+ KS_KUNCI_THN.forEach(k=>ST[k]=muat[k]);
+ delete ST.__thn[Y];
+ ST.tahun=Y;
+}
+function ksPageBertahun(){
+ if(!ST.user||ST.user.role==="pekerja") return false;
+ const p=ST.page||"";
+ return !(KS_TANPA_TAHUN.has(p)||/^game/.test(p));
+}
+/* data pendamping per tahun, pembanding diambil dari tahun sebelumnya */
+hrOf=function(t){
+ if(!ST.hr) ST.hr={};
+ const h=ST.hr[t]||(ST.hr[t]={});
+ if(!Object.getOwnPropertyDescriptor(h,"prior"))
+  Object.defineProperty(h,"prior",{configurable:true,enumerable:false,
+   get(){const p=ksStore(ST.tahun-1,"hr");return (p&&p[t])||{}}});
+ return h;
+};
+hr=function(){return hrOf(ST.tenant)};
+kegAll=function(){
+ if(!ST.keg) ST.keg=ST.tahun===KS_TAHUN_INI?JSON.parse(JSON.stringify(KEG_SEED)):[];
+ return ST.keg;
+};
+bahayaAll=function(){
+ if(!ST.bahaya) ST.bahaya=ST.tahun===KS_TAHUN_INI?JSON.parse(JSON.stringify(BAHAYA_SEED)):[];
+ return ST.bahaya;
+};
+/* pekerja dan jalur tanpa masuk selalu memakai tahun berjalan */
+const _ksLogin=login;
+login=function(id){ksGantiTahun(KS_TAHUN_INI);return _ksLogin(id)};
+const _ksRenderThn=render;
+render=function(){
+ if(!ST.user&&ST.tahun!==KS_TAHUN_INI) ksGantiTahun(KS_TAHUN_INI);
+ if(ST.user&&ST.user.role==="pekerja"&&ST.tahun!==KS_TAHUN_INI) ksGantiTahun(KS_TAHUN_INI);
+ return _ksRenderThn();
+};
+/* pemilih tahun di pojok kanan atas */
+const _ksShellThn=shell;
+shell=function(body){
+ let h=_ksShellThn(body);
+ if(!ksPageBertahun()) return h;
+ const pilih=`<label class="ks-year" title="Tahun pelaporan"><svg viewBox="0 0 24 24">${IKON.kalender}</svg>
+  <span>Tahun pelaporan</span><select id="ks_tahun" aria-label="Tahun pelaporan">
+  ${KS_TAHUN.map(y=>`<option value="${y}" ${y===ST.tahun?"selected":""}>${y}${y===KS_TAHUN_INI?" (berjalan)":""}</option>`).join("")}</select></label>`;
+ const i=h.indexOf('<span class="top-av"');
+ return i>=0? h.slice(0,i)+pilih+h.slice(i) : h;
+};
+const _ksBindThn=bindShell;
+bindShell=function(){
+ _ksBindThn();
+ const s=$("#ks_tahun");
+ if(s) s.onchange=()=>{ksGantiTahun(s.value);render();toast("Menampilkan data tahun "+ST.tahun)};
+ document.querySelectorAll("[data-ks-thn]").forEach(b=>b.onclick=()=>{ksGantiTahun(b.dataset.ksThn);render();window.scrollTo(0,0)});
+};
+/* periode pelaporan mengikuti tahun yang dipilih */
+const _ksPageThn=pageHTML;
+pageHTML=function(){
+ const h=_ksPageThn();
+ if(!ksPageBertahun()) return h;
+ const BL="Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember";
+ return h.replace(/1 Jan sampai 31 Des 20\d\d/g,"1 Jan sampai 31 Des "+ST.tahun)
+  .replace(new RegExp("("+BL+") sampai ("+BL+") 20\\d\\d","g"),(m,a,b)=>ST.tahun===KS_TAHUN_INI?m:"Januari sampai Desember "+ST.tahun);
+};
+/* pesan simpan menyebut tahun tujuan */
+const _ksToast=toast;
+toast=function(m){
+ if(ksPageBertahun()&&/(simpan|tersimpan|tercatat|dibuka|ditutup|diterbitkan|dihitung)/i.test(String(m))&&!/tahun \d{4}/i.test(String(m)))
+  m=m+", tahun "+ST.tahun;
+ document.querySelectorAll(".toast").forEach(t=>t.remove());
+ return _ksToast(m);
+};
+/* tombol pemulihan hanya menyentuh tahun yang dipilih */
+const _ksBindEntri=bind_entri;
+bind_entri=function(){
+ _ksBindEntri();
+ const r=$("#resethr"); if(!r) return;
+ const Y=ST.tahun;
+ r.onclick=()=>{
+  if(!window.confirm("Kosongkan seluruh isian data pendamping tahun "+Y+"? Tahun lain tidak terpengaruh.")) return;
+  ST.hr[ST.tenant]={}; render();
+  toast("Isian tahun "+Y+" dikosongkan");
+ };
+};
+/* tanggal isian dibatasi pada tahun yang dipilih */
+function ksJagaTanggal(btnId,inputId,label){
+ const b=$("#"+btnId), i=$("#"+inputId); if(!b||!i) return;
+ const asli=b.onclick; if(!asli||b.dataset.ksJaga) return;
+ b.dataset.ksJaga="1";
+ b.onclick=function(e){
+  const v=String(i.value||"");
+  if(v&&v.slice(0,4)!==String(ST.tahun)){toast(label+" harus berada di tahun "+ST.tahun);i.focus();return}
+  return asli.call(this,e);
+ };
+}
+function ksRapikanTahun(){
+ const page=document.querySelector(".page"); if(!page||!ksPageBertahun()) return;
+ const Y=ST.tahun, lalu=Y!==KS_TAHUN_INI;
+ const hdEl=page.querySelector(":scope > .hd h1");
+ if(hdEl&&!hdEl.querySelector(".ks-h1-yr")) hdEl.insertAdjacentHTML("beforeend",`<span class="ks-h1-yr">${Y}</span>`);
+ const meta=page.querySelector(".ks-w-meta");
+ if(meta) meta.insertAdjacentHTML("beforeend",`<span><svg viewBox="0 0 24 24">${IKON.arsip}</svg>Tahun pelaporan ${Y}</span>`);
+ const hero=page.querySelector(":scope > .ks-welcome");
+ if(lalu&&!page.querySelector(".ks-yearbar")) (hero||page).insertAdjacentHTML(hero?"afterend":"afterbegin",
+  `<div class="ks-yearbar noprint"><svg viewBox="0 0 24 24">${IKON.kalender}</svg>
+   <span>Anda sedang membuka data tahun <b>${Y}</b>. Isian yang disimpan di halaman ini masuk ke tahun ${Y}.</span>
+   <button type="button" data-ks-thn="${KS_TAHUN_INI}">Kembali ke ${KS_TAHUN_INI}</button></div>`);
+ page.querySelectorAll(".ks-actionbar").forEach(a=>{
+  if(!a.querySelector(".ks-ab-yr")) a.insertAdjacentHTML("beforeend",`<span class="ks-ab-yr">Disimpan ke data tahun ${Y}</span>`);
+ });
+ /* angka tahun sebelumnya sebagai petunjuk pada data pendamping */
+ if(ST.page==="entri"){
+  const p=hrOf(ST.tenant).prior;
+  page.querySelectorAll("[data-hr]").forEach(i=>{
+   const v=p[i.dataset.hr];
+   i.placeholder=v==null||v===""?"":"Tahun "+(Y-1)+": "+(typeof v==="number"?v.toLocaleString("id-ID"):v);
+  });
+  const r=$("#resethr");
+  if(r) r.textContent="Kosongkan isian tahun "+Y;
+ }
+ [["kg_tgl",true],["cy_o",true],["cy_c",true],["b_tenggat",false]].forEach(([id,batas])=>{
+  const i=$("#"+id); if(!i) return;
+  i.type="date";
+  if(batas){
+   i.min=Y+"-01-01"; i.max=Y+"-12-31";
+   if(i.value&&i.value.slice(0,4)!==String(Y)) i.value=id==="cy_c"?"":(Y===KS_TAHUN_INI?today():Y+"-01-01");
+  }
+ });
+ ksJagaTanggal("kg_simpan","kg_tgl","Tanggal kegiatan");
+ ksJagaTanggal("cy_save","cy_o","Tanggal buka siklus");
+}
+const _ksRenderThn2=render;
+render=function(){
+ _ksRenderThn2();
+ try{ksRapikanTahun()}catch(e){console.error("Perapian tahun gagal",e)}
 };
 
 /* =================== boot =================== */
