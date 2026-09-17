@@ -3,30 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KERJASEHAT — Infrastruktur Bukti Risiko Psikososial</title>
+<title>KERJASEHAT, Asesmen Risiko Psikososial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --mar-900:#0A3A4A; --mar-700:#0E6376; --mar-500:#0E7490; --mar-300:#17A398; --mar-100:#E9F6F5;
-  --grad: linear-gradient(118deg,#0A3A4A 0%,#0E7490 46%,#17A398 100%);
-  --grad-soft: linear-gradient(118deg,#F3FAFA 0%,#E7F4F4 100%);
-  --ink:#12232A; --ink-2:#3E5257; --ink-3:#6E8388;
-  --line:#E4EDED; --line-2:#CBDEDE; --bg:#FFFFFF; --bg-2:#FAFDFD;
+  --mar-900:#22135A; --mar-700:#4A23A8; --mar-500:#6A2CC7; --mar-300:#E8336A; --mar-100:#FDEEF3;
+  --grad: linear-gradient(118deg,#22135A 0%,#6A2CC7 46%,#E8336A 100%);
+  --grad-soft: linear-gradient(118deg,#FAF8FD 0%,#F3EEFB 100%);
+  --ink:#1B1633; --ink-2:#4B4763; --ink-3:#7C7892;
+  --line:#ECE9F3; --line-2:#DCD6E8; --bg:#FFFFFF; --bg-2:#FAF9FD;
   --ok:#0F766E; --warn:#A16207; --bad:#B4232F; --info:#1D5FBF;
   --r:12px; --r-s:8px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
-body{font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.62;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,.mont{font-family:Montserrat,Inter,sans-serif;letter-spacing:-0.015em;margin:0}
+body{font-family:var(--fb);font-size:14px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.mont{font-family:var(--fh);letter-spacing:-0.015em;margin:0}
 h1{font-size:28px;font-weight:700;line-height:1.2}
 h2{font-size:19px;font-weight:600}
 h3{font-size:15px;font-weight:600}
 p{margin:0 0 10px}
 a{color:var(--mar-500)}
-button{font-family:Inter,sans-serif;font-size:13px;cursor:pointer;border-radius:var(--r-s);border:1px solid var(--line-2);background:#fff;color:var(--ink);padding:7px 13px;transition:background .12s,border-color .12s}
+button{font-family:var(--fb);font-size:13px;cursor:pointer;border-radius:var(--r-s);border:1px solid var(--line-2);background:#fff;color:var(--ink);padding:7px 13px;transition:background .12s,border-color .12s}
 button:hover{background:var(--mar-100);border-color:var(--mar-300)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.opt:focus-visible{outline:2px solid var(--mar-300);outline-offset:2px}
 button.primary{background:var(--grad);color:#fff;border:none;padding:8px 16px;font-weight:600}
@@ -34,7 +34,7 @@ button.primary:hover{filter:brightness(1.1)}
 button.ghost{border:none;background:transparent;color:var(--mar-500);padding:5px 8px}
 button.ghost:hover{background:var(--mar-100)}
 button:disabled{opacity:.45;cursor:not-allowed}
-input,select,textarea{font-family:Inter,sans-serif;font-size:13px;padding:8px 10px;border:1px solid var(--line-2);border-radius:var(--r-s);background:#fff;color:var(--ink);width:100%}
+input,select,textarea{font-family:var(--fb);font-size:13px;padding:8px 10px;border:1px solid var(--line-2);border-radius:var(--r-s);background:#fff;color:var(--ink);width:100%}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;font-weight:600;font-size:12px;color:var(--ink-3);padding:10px 12px;border-bottom:1px solid var(--line-2);background:var(--bg-2)}
 td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -51,14 +51,14 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .chain{display:flex;gap:0;margin-top:30px;flex-wrap:wrap;align-items:stretch}
 .chain-node{flex:1 1 150px;min-width:150px;padding:12px 14px;border-left:2px solid rgba(255,255,255,.28)}
 .chain-node:first-child{border-left:none;padding-left:0}
-.chain-node .n{font-family:Montserrat;font-weight:600;font-size:13.5px;color:#fff}
+.chain-node .n{font-family:var(--fh);font-weight:600;font-size:13.5px;color:#fff}
 .chain-node .d{font-size:11.5px;color:#EFCFD5;margin-top:3px;line-height:1.45}
 .chain-node .h{font-family:ui-monospace,monospace;font-size:10.5px;color:#D9A6AF;margin-top:6px}
 .gate-body{max-width:1140px;margin:0 auto;padding:34px 40px 60px;width:100%}
 .role-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:12px;margin-top:16px}
 .role{text-align:left;padding:15px 16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;display:block;width:100%}
 .role:hover{border-color:var(--mar-300);background:var(--bg-2)}
-.role .rn{font-family:Montserrat;font-weight:600;font-size:14.5px;color:var(--mar-700)}
+.role .rn{font-family:var(--fh);font-weight:600;font-size:14.5px;color:var(--mar-700)}
 .role .rw{font-size:12.5px;color:var(--ink-3);margin-top:4px;line-height:1.5}
 .role .rp{font-size:11.5px;color:var(--ink-2);margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
 .secttl{display:flex;align-items:baseline;gap:12px;margin-top:28px}
@@ -71,7 +71,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
  border-right:1px solid var(--line);background:var(--bg-2);display:flex;flex-direction:column;
  position:sticky;top:0;align-self:flex-start;height:100vh}
 .brand{padding:16px 16px 14px;border-bottom:1px solid var(--line)}
-.brand .bt{font-family:Montserrat;font-weight:700;font-size:16px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .bt{font-family:var(--fh);font-weight:700;font-size:16px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .brand .bs{font-size:11px;color:var(--ink-3);margin-top:2px;max-width:18ch;line-height:1.4}
 .nav{padding:10px 8px;flex:1;overflow-y:auto;overflow-x:hidden}
 .nav-g{font-size:11px;color:var(--ink-3);padding:10px 9px 5px;font-weight:600;white-space:nowrap}
@@ -81,11 +81,11 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .nav button.on{background:var(--grad);color:#fff;font-weight:600}
 .whoami{padding:12px 14px;border-top:1px solid var(--line);font-size:12px;overflow:hidden}
 .whoami .n,.whoami .r{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.whoami .n{font-weight:600;font-family:Montserrat;font-size:13px}
+.whoami .n{font-weight:600;font-family:var(--fh);font-size:13px}
 .whoami .r{color:var(--ink-3);margin-top:1px}
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
 .topbar{height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 22px;background:#fff;position:sticky;top:0;z-index:5}
-.topbar .t{font-family:Montserrat;font-weight:600;font-size:14.5px}
+.topbar .t{font-family:var(--fh);font-weight:600;font-size:14.5px}
 .topbar .sp{flex:1}
 .page{padding:24px 26px 70px;max-width:1180px;width:100%}
 .page > .hd{margin-bottom:18px}
@@ -93,7 +93,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .page > .hd .sub{color:var(--ink-2);margin-top:6px;max-width:78ch}
 
 /* ---------- pieces ---------- */
-.panel{border:1px solid var(--line);border-radius:var(--r);background:#fff;margin-bottom:18px;overflow:hidden;box-shadow:0 1px 2px rgba(10,58,74,.04)}
+.panel{border:1px solid var(--line);border-radius:var(--r);background:#fff;margin-bottom:18px;overflow:hidden;box-shadow:0 1px 2px rgba(34,19,90,.04)}
 .panel > .ph{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--bg-2)}
 .panel > .ph h3{flex:1}
 .panel > .pb{padding:18px}
@@ -108,9 +108,9 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
  .shell{display:block}
  .rail{position:fixed;left:0;top:0;bottom:0;z-index:70;width:82vw;max-width:310px;min-width:0;height:100%;
   transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
-  box-shadow:0 0 40px rgba(10,58,74,.22);background:#fff}
+  box-shadow:0 0 40px rgba(34,19,90,.22);background:#fff}
  .rail.open{transform:none}
- .scrim{display:block;position:fixed;inset:0;z-index:69;background:rgba(10,58,74,.42);
+ .scrim{display:block;position:fixed;inset:0;z-index:69;background:rgba(34,19,90,.42);
   opacity:0;pointer-events:none;transition:opacity .28s}
  .scrim.open{opacity:1;pointer-events:auto}
  .nav button{padding:12px 12px;font-size:14px;white-space:normal}
@@ -147,7 +147,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 @media(max-width:430px){.tiles{grid-template-columns:1fr}.tabbar button{font-size:9.5px}}
 .kpi{border:1px solid var(--line);border-radius:var(--r);padding:16px 17px;background:#fff}
 .kpi .k{font-size:12px;color:var(--ink-3)}
-.kpi .v{font-family:Montserrat;font-weight:700;font-size:26px;margin-top:3px;line-height:1.1}
+.kpi .v{font-family:var(--fh);font-weight:700;font-size:26px;margin-top:3px;line-height:1.1}
 .kpi .f{font-size:11.5px;color:var(--ink-3);margin-top:4px}
 .kpi.accent{background:var(--grad);border:none;color:#fff}
 .kpi.accent .k,.kpi.accent .f{color:#F2D9DE}
@@ -156,8 +156,8 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .pill.warn{background:#FCF2DF;color:var(--warn)}
 .pill.bad{background:#FBEAEA;color:var(--bad)}
 .pill.info{background:#E8EFFA;color:var(--info)}
-.pill.mut{background:#EEF4F4;color:var(--ink-3)}
-.bar{height:8px;border-radius:5px;background:#EDF5F5;overflow:hidden;margin-top:6px}
+.pill.mut{background:#F2EFF7;color:var(--ink-3)}
+.bar{height:8px;border-radius:5px;background:#F1EDF7;overflow:hidden;margin-top:6px}
 .bar > i{display:block;height:100%;background:var(--grad);border-radius:5px}
 .note{border-left:3px solid var(--mar-300);background:var(--grad-soft);padding:13px 16px;border-radius:0 var(--r-s) var(--r-s) 0;font-size:13px;margin-bottom:16px;line-height:1.6}
 .note.warn{border-left-color:var(--warn);background:#FEFAF0}
@@ -175,7 +175,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .doc{border:1px solid var(--line);border-radius:var(--r);padding:26px 30px;background:#fff;font-size:13.5px;line-height:1.65}
 .doc h2{font-size:17px;margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
 .doc h2:first-child{margin-top:0}
-.doc h4{font-family:Montserrat;font-size:13.5px;font-weight:600;margin:16px 0 5px;color:var(--mar-700)}
+.doc h4{font-family:var(--fh);font-size:13.5px;font-weight:600;margin:16px 0 5px;color:var(--mar-700)}
 .doc dl{margin:0}
 .doc .kv{display:grid;grid-template-columns:230px 1fr;gap:4px 14px;font-size:13px;margin:8px 0}
 .doc .kv > div:nth-child(odd){color:var(--ink-3)}
@@ -185,17 +185,17 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .ledger .lk{font-family:ui-monospace,monospace;font-size:10.5px;color:var(--ink-3);word-break:break-all}
 .brk{background:#FDF3F4!important}
 .sup{color:var(--ink-3);font-style:italic}
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--mar-900);color:#fff;padding:11px 20px;border-radius:24px;font-size:13px;z-index:99;box-shadow:0 6px 24px rgba(10,58,74,.28)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--mar-900);color:#fff;padding:11px 20px;border-radius:24px;font-size:13px;z-index:99;box-shadow:0 6px 24px rgba(34,19,90,.28)}
 
 /* ---------- survey ---------- */
 .svy{max-width:760px;margin:0 auto;padding:26px 24px 80px}
 .svy-top{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);padding:14px 0 12px;z-index:4;border-bottom:1px solid var(--line)}
-.prog{height:6px;background:#EDF5F5;border-radius:3px;overflow:hidden;margin-top:9px}
+.prog{height:6px;background:#F1EDF7;border-radius:3px;overflow:hidden;margin-top:9px}
 .prog > i{display:block;height:100%;background:var(--grad);transition:width .25s}
 .q{padding:18px 0;border-bottom:1px solid var(--line)}
 .q:last-child{border-bottom:none}
 .q .qt{font-size:14px;margin-bottom:11px;line-height:1.5}
-.q .qn{color:var(--mar-300);font-weight:600;margin-right:7px;font-family:Montserrat;font-size:13px}
+.q .qn{color:var(--mar-300);font-weight:600;margin-right:7px;font-family:var(--fh);font-size:13px}
 .opts{display:flex;gap:6px;flex-wrap:wrap}
 .opt{border:1px solid var(--line-2);background:#fff;border-radius:var(--r-s);padding:9px 13px;font-size:12.5px;color:var(--ink-2);flex:1 1 auto;text-align:center;min-width:88px}
 .opt:hover{border-color:var(--mar-300);background:var(--mar-100)}
@@ -203,7 +203,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .opts.s7 .opt{min-width:56px;flex:1 1 56px;padding:7px 4px}
 .svy-nav{display:flex;gap:10px;justify-content:space-between;margin-top:26px;align-items:center}
 .stepdots{display:flex;gap:5px;flex-wrap:wrap}
-.stepdots i{width:8px;height:8px;border-radius:50%;background:#DCEBEB;display:block}
+.stepdots i{width:8px;height:8px;border-radius:50%;background:#E8E2F2;display:block}
 .stepdots i.done{background:var(--mar-300)}
 .stepdots i.now{background:var(--mar-700);transform:scale(1.35)}
 .privacy{border:1px solid var(--line);border-left:3px solid var(--mar-500);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;background:var(--grad-soft);margin-bottom:18px}
@@ -213,7 +213,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 /* ---------- gerbang masuk bergaya dasbor ---------- */
 .lg{display:grid;grid-template-columns:1.12fr 1fr;min-height:100vh}
 .lg-hero{position:relative;overflow:hidden;color:#fff;padding:30px 44px 34px;
- background:linear-gradient(145deg,#072B38 0%,#0E7490 48%,#19AE9E 100%);
+ background:linear-gradient(145deg,#1A0F48 0%,#6A2CC7 48%,#E8336A 100%);
  display:flex;flex-direction:column;justify-content:space-between}
 .lg-hero::before{content:"";position:absolute;inset:0;opacity:.22;pointer-events:none;
  background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);
@@ -221,42 +221,42 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .lg-hero::after{content:"";position:absolute;right:-140px;top:-120px;width:420px;height:420px;border-radius:50%;
  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 65%);pointer-events:none}
 .lg-hero > *{position:relative;z-index:1}
-.lg-crumb{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#BCE4E2;display:flex;align-items:center;gap:9px}
+.lg-crumb{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#E3D9F7;display:flex;align-items:center;gap:9px}
 .lg-crumb i{width:7px;height:7px;border-radius:50%;background:#F2C14E;display:block;flex:0 0 auto}
-.lg-title{font-family:Montserrat;font-weight:700;text-transform:uppercase;font-size:46px;line-height:1.0;letter-spacing:-.02em;margin:0}
+.lg-title{font-family:var(--fh);font-weight:700;text-transform:uppercase;font-size:46px;line-height:1.0;letter-spacing:-.02em;margin:0}
 .lg-title span{display:block}
-.lg-title .ac{color:#8BE8C8;font-style:italic;font-weight:600}
-.lg-lede{margin-top:16px;max-width:46ch;font-size:14px;color:#DFF3F1;line-height:1.6}
+.lg-title .ac{color:#FF9EC0;font-style:italic;font-weight:600}
+.lg-lede{margin-top:16px;max-width:46ch;font-size:14px;color:#EDE7FA;line-height:1.6}
 .lg-lede b{color:#fff;font-weight:600}
 .lg-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;margin-top:34px;max-width:520px}
-.lg-stats .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#A7D8D5}
-.lg-stats .v{font-family:Montserrat;font-weight:700;font-size:23px;margin-top:3px;line-height:1.1}
-.lg-stats .s{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#8FC9C6;margin-top:3px}
-.lg-panel{background:#F5FAFA;display:flex;align-items:center;justify-content:center;padding:44px 34px;
- background-image:radial-gradient(#D6E9E8 1px,transparent 1px);background-size:20px 20px}
+.lg-stats .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#D3C6F0}
+.lg-stats .v{font-family:var(--fh);font-weight:700;font-size:23px;margin-top:3px;line-height:1.1}
+.lg-stats .s{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#C2B3E6;margin-top:3px}
+.lg-panel{background:#F8F6FC;display:flex;align-items:center;justify-content:center;padding:44px 34px;
+ background-image:radial-gradient(#E4DEEE 1px,transparent 1px);background-size:20px 20px}
 .lg-form{width:100%;max-width:404px}
-.lg-eye{font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7C9A9C;margin-bottom:12px}
+.lg-eye{font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8A85A0;margin-bottom:12px}
 .lg-tabs{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-2);border-radius:8px;overflow:hidden;background:#fff}
 .lg-tabs button{border:none;border-radius:0;background:#fff;padding:12px 8px;font-size:11.5px;font-weight:700;
  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
-.lg-tabs button.on{background:#0A3A4A;color:#fff}
+.lg-tabs button.on{background:#22135A;color:#fff}
 .lg-tabs button:hover:not(.on){background:var(--mar-100);color:var(--mar-700)}
 .lg-note{font-size:12.5px;color:var(--ink-2);margin:16px 0 18px;line-height:1.55}
 .lg-f{margin-bottom:13px}
 .lg-f label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
 .lg-f input{padding:12px 13px;border-radius:8px;background:#fff}
-.lg-cta{width:100%;background:#0A3A4A;color:#fff;border:none;border-radius:8px;padding:14px;font-size:11.5px;
+.lg-cta{width:100%;background:#22135A;color:#fff;border:none;border-radius:8px;padding:14px;font-size:11.5px;
  font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:10px}
-.lg-cta:hover{background:#0E7490}
+.lg-cta:hover{background:#6A2CC7}
 .lg-div{display:flex;align-items:center;gap:10px;margin:22px 0 12px}
-.lg-div span{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7C9A9C;white-space:nowrap}
-.lg-div i{flex:1;height:1px;background:repeating-linear-gradient(90deg,#CBDEDE 0 4px,transparent 4px 8px)}
+.lg-div span{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A85A0;white-space:nowrap}
+.lg-div i{flex:1;height:1px;background:repeating-linear-gradient(90deg,#DCD6E8 0 4px,transparent 4px 8px)}
 .lg-acct{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);
  border-radius:8px;padding:10px 12px;margin-bottom:7px}
 .lg-acct:hover{border-color:var(--mar-300);background:#fff}
 .lg-acct .av{width:31px;height:31px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
- font-family:Montserrat;font-weight:700;font-size:10.5px;color:#fff;background:var(--grad)}
-.lg-acct .nm{font-family:Montserrat;font-weight:600;font-size:12.5px;line-height:1.25}
+ font-family:var(--fh);font-weight:700;font-size:10.5px;color:#fff;background:var(--grad)}
+.lg-acct .nm{font-family:var(--fh);font-weight:600;font-size:12.5px;line-height:1.25}
 .lg-acct .em{font-size:11px;color:var(--ink-3);margin-top:1px}
 .lg-chip{position:fixed;left:14px;bottom:14px;z-index:20;background:#E6F5F2;border:1px solid #B9DED7;color:#0F766E;
  font-size:10.5px;font-weight:600;padding:5px 11px;border-radius:20px;display:flex;align-items:center;gap:7px}
@@ -271,7 +271,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 
 
 .sortopt{border:1px solid var(--line-2);background:#fff;color:var(--ink);border-radius:var(--r);
- font-family:Montserrat;font-weight:600;text-align:center}
+ font-family:var(--fh);font-weight:600;text-align:center}
 .sortopt:hover{border-color:var(--mar-300);background:var(--mar-100)}
 .sortopt:active{background:var(--mar-100);transform:scale(.985)}
 
@@ -281,16 +281,16 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
  stroke-linecap:round;stroke-linejoin:round;opacity:.85}
 .nav button.on svg{opacity:1}
 .who-av{width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;display:flex;
- align-items:center;justify-content:center;font-family:Montserrat;font-weight:700;font-size:12.5px;flex:0 0 34px}
+ align-items:center;justify-content:center;font-family:var(--fh);font-weight:700;font-size:12.5px;flex:0 0 34px}
 .whoami .row2{display:flex;align-items:center;gap:10px}
 .top-av{width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;display:flex;
- align-items:center;justify-content:center;font-family:Montserrat;font-weight:700;font-size:11.5px;flex:0 0 30px}
+ align-items:center;justify-content:center;font-family:var(--fh);font-weight:700;font-size:11.5px;flex:0 0 30px}
 .br-hero{background:linear-gradient(135deg,var(--mar-900) 0%,var(--mar-500) 52%,var(--mar-300) 100%);
  border-radius:16px;padding:26px 28px 24px;color:#fff;position:relative;overflow:hidden;margin-bottom:18px}
 .br-hero::after{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;
  background:radial-gradient(circle,rgba(255,255,255,.18),transparent 65%);pointer-events:none}
 .br-hero .eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600}
-.br-hero h1{font-family:Montserrat;font-weight:700;font-size:clamp(22px,2.6vw,31px);margin:10px 0 0;letter-spacing:-.02em}
+.br-hero h1{font-family:var(--fh);font-weight:700;font-size:clamp(22px,2.6vw,31px);margin:10px 0 0;letter-spacing:-.02em}
 .br-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .br-chips span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);
  border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:500}
@@ -300,9 +300,9 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .br-hero .row button.ghost2{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35)}
 .br-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
 .br-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px 18px 16px;
- display:flex;align-items:flex-start;justify-content:space-between;gap:12px;box-shadow:0 1px 2px rgba(10,58,74,.04)}
+ display:flex;align-items:flex-start;justify-content:space-between;gap:12px;box-shadow:0 1px 2px rgba(34,19,90,.04)}
 .br-card .lab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
-.br-card .num{font-family:Montserrat;font-weight:700;font-size:27px;line-height:1.05;margin-top:8px;letter-spacing:-.02em}
+.br-card .num{font-family:var(--fh);font-weight:700;font-size:27px;line-height:1.05;margin-top:8px;letter-spacing:-.02em}
 .br-card .num.kecil{font-size:18px;line-height:1.25}
 .br-card .cap{font-size:12px;color:var(--ink-3);margin-top:7px;line-height:1.5}
 .br-badge{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 42px}
@@ -313,7 +313,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .br-step{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .br-step:last-child{border-bottom:none}
 .br-step .no{width:26px;height:26px;border-radius:50%;flex:0 0 26px;display:flex;align-items:center;justify-content:center;
- font-family:Montserrat;font-weight:700;font-size:12px;background:var(--mar-100);color:var(--mar-700)}
+ font-family:var(--fh);font-weight:700;font-size:12px;background:var(--mar-100);color:var(--mar-700)}
 .br-step .no.ok{background:var(--grad);color:#fff}
 @media(max-width:900px){
  .br-hero{padding:22px 20px;border-radius:14px}
@@ -324,23 +324,23 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .mrow{display:flex;align-items:center;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .mrow:last-child{border-bottom:none}
 .mrow .mt{flex:1 1 200px;min-width:0}
-.mrow .mn{font-family:Montserrat;font-weight:600;font-size:13.5px;line-height:1.35}
+.mrow .mn{font-family:var(--fh);font-weight:600;font-size:13.5px;line-height:1.35}
 .mrow .ms{font-size:11.5px;color:var(--ink-3);margin-top:3px}
-.meter{height:9px;border-radius:6px;background:#EDF5F5;overflow:hidden;flex:0 0 190px;max-width:190px}
+.meter{height:9px;border-radius:6px;background:#F1EDF7;overflow:hidden;flex:0 0 190px;max-width:190px}
 .meter > i{display:block;height:100%;border-radius:6px;background:var(--grad)}
-.mval{font-family:Montserrat;font-weight:700;font-size:18px;flex:0 0 58px;text-align:right}
+.mval{font-family:var(--fh);font-weight:700;font-size:18px;flex:0 0 58px;text-align:right}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px}
 .tile{border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;background:#fff}
 .tile .t1{font-size:11.5px;color:var(--ink-3)}
-.tile .t2{font-family:Montserrat;font-weight:700;font-size:23px;margin-top:3px;line-height:1.1}
+.tile .t2{font-family:var(--fh);font-weight:700;font-size:23px;margin-top:3px;line-height:1.1}
 .tile .t3{font-size:11.5px;color:var(--ink-3);margin-top:5px;line-height:1.5}
 .kvl{font-size:13px}
 .kvl > div{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:11px 0;border-bottom:1px solid var(--line)}
 .kvl > div:last-child{border-bottom:none}
 .kvl .kk{color:var(--ink-2);flex:1}
-.kvl .vv{font-family:Montserrat;font-weight:600;white-space:nowrap}
-.card2{border:1px solid var(--line);border-radius:var(--r);padding:16px 17px;background:#fff;box-shadow:0 1px 2px rgba(10,58,74,.04)}
-.card2 h4{font-family:Montserrat;font-size:13.5px;font-weight:600;margin:0 0 8px}
+.kvl .vv{font-family:var(--fh);font-weight:600;white-space:nowrap}
+.card2{border:1px solid var(--line);border-radius:var(--r);padding:16px 17px;background:#fff;box-shadow:0 1px 2px rgba(34,19,90,.04)}
+.card2 h4{font-family:var(--fh);font-size:13.5px;font-weight:600;margin:0 0 8px}
 .ivl{margin:0;padding:0;list-style:none}
 .ivl li{position:relative;padding:7px 0 7px 18px;font-size:13px;line-height:1.55;border-bottom:1px solid var(--line)}
 .ivl li:last-child{border-bottom:none}
@@ -348,7 +348,7 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 .ivl li.org::before{background:var(--mar-700)}
 .rank{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .rank:last-child{border-bottom:none}
-.rank .no{font-family:Montserrat;font-weight:700;font-size:14px;color:var(--mar-300);flex:0 0 22px}
+.rank .no{font-family:var(--fh);font-weight:700;font-size:14px;color:var(--mar-300);flex:0 0 22px}
 @media(max-width:700px){
  .meter{flex:1 1 100%;max-width:none}
  .mval{flex:0 0 auto}
@@ -357,14 +357,383 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12p
 </style>
 </head>
 <body>
-<noscript><div style="max-width:560px;margin:80px auto;padding:28px;border:1px solid #CBDEDE;border-radius:12px;font-family:Inter,sans-serif">
+<noscript><div style="max-width:560px;margin:80px auto;padding:28px;border:1px solid #DCD6E8;border-radius:12px;font-family:var(--fb)">
 <b>JavaScript dimatikan.</b> Aplikasi ini berjalan di dalam peramban, jadi JavaScript perlu diaktifkan.</div></noscript>
-<div id="app"><div id="bootfall" style="max-width:640px;margin:90px auto;padding:34px;border:1px solid #CBDEDE;border-radius:14px;font-family:Inter,system-ui,sans-serif;color:#12232A">
- <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:20px;background:linear-gradient(118deg,#0A3A4A,#17A398);-webkit-background-clip:text;background-clip:text;color:transparent">KERJASEHAT</div>
- <div style="margin-top:10px;color:#3E5257">Memuat aplikasi.</div>
+<div id="app"><div id="bootfall" style="max-width:640px;margin:90px auto;padding:34px;border:1px solid #DCD6E8;border-radius:14px;font-family:var(--fb);color:#1B1633">
+ <div style="font-family:var(--fh);font-weight:700;font-size:20px;background:linear-gradient(118deg,#22135A,#E8336A);-webkit-background-clip:text;background-clip:text;color:transparent">KERJASEHAT</div>
+ <div style="margin-top:10px;color:#4B4763">Memuat aplikasi.</div>
  <div id="booterr" style="margin-top:16px;font-size:12.5px;color:#B4232F;white-space:pre-wrap"></div>
- <div style="margin-top:18px;font-size:12.5px;color:#6E8388">Bila pesan ini tidak hilang dalam beberapa detik, berkas kemungkinan terpotong saat diunduh. Unduh ulang berkasnya, lalu buka dengan Ctrl dan F5.</div>
+ <div style="margin-top:18px;font-size:12.5px;color:#7C7892">Bila pesan ini tidak hilang dalam beberapa detik, berkas kemungkinan terpotong saat diunduh. Unduh ulang berkasnya, lalu buka dengan Ctrl dan F5.</div>
 </div></div>
+<style id="ks-design">
+/* ===================================================================
+   Lapisan desain: latar putih, aksen indigo, ungu, dan magenta,
+   judul League Spartan, badan Arial. Diletakkan setelah #app agar
+   menimpa gaya yang dirender di dalam aplikasi.
+=================================================================== */
+:root{
+ --fh:"League Spartan",Arial,Helvetica,sans-serif;
+ --fb:Arial,Helvetica,sans-serif;
+ --indigo:#22135A; --indigo-d:#150B3D; --violet:#5B2BC4; --pink:#E8336A; --pink-d:#CC2459;
+ --pink-50:#FDEEF3; --violet-50:#F4F0FC;
+ --mar-900:#22135A; --mar-700:#4A23A8; --mar-500:#E8336A; --mar-300:#F06C95; --mar-100:#FDEEF3;
+ --grad:linear-gradient(120deg,#22135A 0%,#5B2BC4 55%,#E8336A 100%);
+ --grad-soft:linear-gradient(120deg,#FAF8FD 0%,#F6F1FC 100%);
+ --ink:#1B1633; --ink-2:#4B4763; --ink-3:#7C7892;
+ --line:#ECE9F3; --line-2:#DCD6E8; --bg:#FFFFFF; --bg-2:#FAF9FD;
+ --r:14px; --r-s:9px;
+ --sh-1:0 1px 2px rgba(34,19,90,.05);
+ --sh-2:0 12px 32px rgba(34,19,90,.08);
+}
+html,body{background:#fff;color:var(--ink)}
+body{font-family:var(--fb);font-size:14px;line-height:1.6}
+h1,h2,h3,h4,.mont{font-family:var(--fh);letter-spacing:-.005em;color:inherit}
+h1{font-weight:700} h2,h3{font-weight:600}
+a{color:var(--violet)}
+::selection{background:#F9C9D8}
+
+/* ---------- tombol ---------- */
+button{font-family:var(--fb);font-size:13.5px;font-weight:600;border-radius:var(--r-s);border:1px solid var(--line-2);
+ background:#fff;color:var(--ink);padding:8px 15px;transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
+button:hover{background:#fff;border-color:var(--violet);color:var(--violet)}
+button.primary{background:var(--pink);color:#fff;border:1px solid var(--pink);padding:9px 18px;font-weight:700;
+ box-shadow:0 6px 16px rgba(232,51,106,.22)}
+button.primary:hover{background:var(--pink-d);border-color:var(--pink-d);color:#fff;filter:none}
+button.ghost{border:none;background:transparent;color:var(--violet);padding:6px 9px;box-shadow:none}
+button.ghost:hover{background:var(--violet-50);color:var(--indigo)}
+button.ks-danger{color:#B4232F;border-color:#F0CBD1}
+button.ks-danger:hover{background:#FDF3F4;border-color:#B4232F;color:#B4232F}
+button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+:focus-visible,button:focus-visible,.opt:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+
+/* ---------- kolom isian ---------- */
+input,select,textarea{font-family:var(--fb);font-size:14px;height:42px;padding:0 13px;border:1px solid var(--line-2);
+ border-radius:var(--r-s);background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+textarea{height:auto;min-height:96px;padding:11px 13px;line-height:1.55;resize:vertical}
+select{appearance:none;-webkit-appearance:none;padding-right:36px;cursor:pointer;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C7892' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+ background-repeat:no-repeat;background-position:right 11px center;background-size:16px}
+select[multiple],select[size]{height:auto;background-image:none;padding:6px}
+input[type=checkbox],input[type=radio]{width:auto;height:auto;padding:0;accent-color:var(--pink)}
+input[type=range]{height:auto;padding:0;border:none;accent-color:var(--pink);box-shadow:none}
+input[type=color]{padding:3px;cursor:pointer}
+input[type=file]{height:auto;padding:9px}
+input:hover,select:hover,textarea:hover{border-color:#C4BAD9}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(91,43,196,.14)}
+input::placeholder,textarea::placeholder{color:#A9A3BD}
+input:disabled,select:disabled,textarea:disabled{background:var(--bg-2);color:var(--ink-3)}
+.lbl{font-size:13px;font-weight:700;color:var(--ink-2);margin-bottom:7px;display:block;line-height:1.4}
+.field{margin-bottom:18px}
+.grid2:has(> .field),.grid3:has(> .field),.grid4:has(> .field){column-gap:22px;row-gap:0}
+.ks-inp{position:relative;display:flex;align-items:center}
+.ks-inp input{padding-right:70px}
+.ks-unit{position:absolute;right:1px;top:1px;bottom:1px;display:flex;align-items:center;padding:0 12px;font-size:12.5px;
+ color:var(--ink-3);background:var(--bg-2);border-left:1px solid var(--line);border-radius:0 8px 8px 0;pointer-events:none}
+.ks-opt{font-weight:400;color:var(--ink-3);font-size:12px;margin-left:7px}
+.ks-actionbar{position:sticky;bottom:0;z-index:8;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+ border-top:1px solid var(--line);padding:14px 0;margin-top:6px}
+
+/* ---------- kerangka dasbor ---------- */
+@media(min-width:901px){
+ .rail{width:258px;min-width:258px;max-width:258px;background:#fff;border-right:1px solid var(--line)}
+ .page{padding:30px 36px 90px;max-width:1260px;margin:0 auto}
+}
+.shell{background:#fff}
+.brand{display:flex;align-items:center;gap:11px;padding:20px 20px 14px;border-bottom:none}
+.ks-mark{width:36px;height:36px;border-radius:10px;background:var(--grad);color:#fff;font-family:var(--fh);font-weight:700;
+ font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;padding-top:3px;flex:0 0 36px}
+.brand .bt{font-family:var(--fh);font-weight:700;font-size:18px;letter-spacing:.02em;background:none;color:var(--indigo);
+ -webkit-text-fill-color:var(--indigo);line-height:1.1}
+.brand .bs{font-size:11.5px;color:var(--ink-3);margin-top:2px;max-width:none}
+.nav{padding:6px 12px 18px}
+.ks-solo{margin-bottom:4px}
+.nav button{gap:11px;padding:9px 12px;border-radius:9px;color:var(--ink-2);font-size:13.5px;font-weight:500;margin-bottom:2px;position:relative}
+.nav button svg{width:18px;height:18px;flex:0 0 18px;opacity:.8}
+.nav button:hover{background:var(--bg-2);color:var(--indigo)}
+.nav button.on{background:var(--pink-50);color:var(--pink-d);font-weight:700}
+.nav button.on svg{stroke:var(--pink);opacity:1}
+.nav button.on::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--pink)}
+.nav button.ks-sec-h{display:flex;align-items:center;gap:8px;width:100%;padding:13px 12px 6px;margin:0;background:transparent;
+ font-size:11.5px;font-weight:700;letter-spacing:.03em;color:var(--ink-3);border-radius:6px}
+.nav button.ks-sec-h:hover{background:transparent;color:var(--indigo)}
+.nav button.ks-sec-h .ks-sec-l{flex:1;text-align:left}
+.ks-sec-n{font-size:11px;font-weight:700;color:var(--ink-3);background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:0 7px;line-height:17px;display:none}
+.ks-sec:not(.open) .ks-sec-n{display:inline-block}
+.ks-chev{width:14px!important;height:14px!important;flex:0 0 14px!important;stroke:currentColor;fill:none;stroke-width:2.2;transition:transform .2s;opacity:.7!important}
+.ks-sec.open .ks-chev{transform:rotate(180deg)}
+.ks-sec-b{display:none;padding-top:2px}
+.ks-sec.open .ks-sec-b{display:block}
+.whoami{margin:8px 12px 14px;padding:10px 10px 10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg-2)}
+.whoami .row2{display:flex;align-items:center;gap:10px}
+.whoami .row2 > div:nth-child(2){flex:1;min-width:0}
+.whoami .n{font-family:var(--fh);font-weight:600;font-size:14px;color:var(--ink)}
+.whoami .r{font-size:12px}
+.ks-logout{width:34px;height:34px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:9px;
+ border:1px solid var(--line);background:#fff;color:var(--ink-3);flex:0 0 34px}
+.ks-logout svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ks-logout:hover{color:var(--pink);border-color:var(--pink);background:#fff}
+.who-av,.top-av,.lg-acct .av{background:var(--grad);font-family:var(--fh);padding-top:2px}
+.topbar{height:64px;padding:0 32px;gap:12px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.97);backdrop-filter:blur(8px)}
+.ks-crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-3);min-width:0}
+.ks-crumb svg{width:14px;height:14px;stroke:#B9B3CB;fill:none;stroke-width:2;flex:0 0 14px}
+.ks-crumb b{font-family:var(--fh);font-weight:600;font-size:16px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .ks-tenant{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);color:var(--ink-2);
+ padding:6px 12px 6px 10px;font-size:12.5px;font-weight:600}
+.topbar .ks-tenant svg{width:15px;height:15px;stroke:var(--violet);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.topbar select{height:36px;font-size:13px;width:auto}
+.top-av{width:34px;height:34px;flex:0 0 34px;font-size:12px}
+.page > .hd{margin-bottom:22px}
+.page > .hd h1,.hd h1{font-size:28px;font-weight:700;color:var(--indigo);line-height:1.15}
+.hd .sub{color:var(--ink-2)}
+
+/* ---------- komponen ---------- */
+.panel{border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1);margin-bottom:20px}
+.panel > .ph{background:#fff;padding:16px 20px;border-bottom:1px solid var(--line)}
+.panel > .ph h3{font-size:16.5px;font-weight:600;color:var(--ink)}
+.panel > .pb{padding:20px}
+.grid2,.grid3{gap:18px}
+.kpi,.tile,.card2{border:1px solid var(--line);border-radius:var(--r);background:#fff;box-shadow:var(--sh-1)}
+.kpi{padding:18px 20px}
+.kpi .k{font-size:12.5px;color:var(--ink-3)}
+.kpi .v{font-family:var(--fh);font-weight:700;font-size:30px;color:var(--indigo);margin-top:6px}
+.kpi .f{font-size:12px}
+.kpi.accent{background:var(--grad);border:none;color:#fff;box-shadow:0 12px 28px rgba(91,43,196,.22)}
+.kpi.accent .v{color:#fff}
+.kpi.accent .k,.kpi.accent .f{color:rgba(255,255,255,.82)}
+.tile{padding:18px 20px}
+.tile .t1,.tile .lpt1{font-size:12.5px;color:var(--ink-3);letter-spacing:0;text-transform:none;font-weight:400}
+.tile .t2,.tile .lpt2{font-family:var(--fh);font-weight:700;font-size:28px;margin-top:6px;line-height:1.1;color:var(--indigo)}
+.tile .t3,.tile .lpt3{font-size:12px;color:var(--ink-3);margin-top:6px;line-height:1.5}
+.card2{padding:18px 20px}
+.card2 h4{font-family:var(--fh)}
+th{background:var(--bg-2);color:var(--ink-3);font-size:12px;font-weight:700;padding:11px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid var(--line)}
+tbody tr:hover td{background:#FCFBFE}
+.pill{border-radius:999px;padding:3px 10px;font-size:11.5px}
+.pill.mut{background:#F2EFF7;color:var(--ink-2)}
+.pill.info{background:var(--violet-50);color:var(--violet)}
+.tabs{gap:6px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.tabs button{padding:10px 14px;color:var(--ink-3);font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button:hover{background:transparent;color:var(--indigo)}
+.tabs button.on{color:var(--pink-d);border-bottom-color:var(--pink);font-weight:700}
+.note{border-left:3px solid var(--violet);background:var(--violet-50);border-radius:0 10px 10px 0;padding:14px 18px}
+.bar,.meter,.prog{background:#F1EDF7}
+.mrow .mn,.rank .mn{font-family:var(--fh);font-size:14.5px}
+.mval{font-family:var(--fh);color:var(--indigo)}
+.rank .no{color:var(--pink)}
+.opt{border-radius:10px;border-color:var(--line-2)}
+.opt:hover{border-color:var(--violet);background:var(--violet-50);color:var(--indigo)}
+.opt.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.stepdots i.done{background:#F6A9C1}
+.stepdots i.now{background:var(--pink)}
+.q .qn{color:var(--pink);font-family:var(--fh)}
+.toast{background:var(--indigo);border-radius:12px;font-weight:600}
+
+/* ---------- beranda ---------- */
+.ks-welcome{position:relative;overflow:hidden;border-radius:20px;background:var(--grad);color:#fff;
+ display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:30px 30px 30px 34px;margin-bottom:22px}
+.ks-welcome::after{content:"";position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;
+ background:radial-gradient(circle,rgba(255,255,255,.18),transparent 62%);pointer-events:none}
+.ks-welcome > *{position:relative;z-index:1}
+.ks-w-role{display:inline-block;font-size:12px;font-weight:700;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+ padding:4px 11px;border-radius:999px}
+.ks-welcome h1{font-family:var(--fh);font-weight:700;font-size:clamp(28px,3vw,38px);line-height:1.08;margin:14px 0 0;color:#fff}
+.ks-w-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px;font-size:13.5px;color:rgba(255,255,255,.86)}
+.ks-w-meta span{display:inline-flex;align-items:center;gap:7px}
+.ks-w-meta svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.ks-next{background:#fff;color:var(--ink);border-radius:16px;padding:18px 20px;box-shadow:0 18px 40px rgba(21,11,61,.25)}
+.ks-next-k{font-size:12px;font-weight:700;color:var(--pink)}
+.ks-next-t{font-family:var(--fh);font-weight:600;font-size:18px;line-height:1.25;margin-top:5px;color:var(--indigo)}
+.ks-prog{height:7px;border-radius:5px;background:#F1EDF7;margin-top:14px;overflow:hidden}
+.ks-prog i{display:block;height:100%;background:linear-gradient(90deg,#5B2BC4,#E8336A);border-radius:5px}
+.ks-next-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.ks-next-f{font-size:12.5px;color:var(--ink-3)}
+.ks-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.ks-stat{border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;background:#fff;box-shadow:var(--sh-1)}
+.ks-stat-top{display:flex;align-items:center;gap:10px}
+.ks-stat-i{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--violet-50);flex:0 0 36px}
+.ks-stat-i svg{width:18px;height:18px;stroke:var(--violet);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ks-stat:nth-child(2n) .ks-stat-i{background:var(--pink-50)}
+.ks-stat:nth-child(2n) .ks-stat-i svg{stroke:var(--pink)}
+.ks-stat-k{font-size:12.5px;color:var(--ink-2);font-weight:600;line-height:1.3}
+.ks-stat-v{font-family:var(--fh);font-weight:700;font-size:30px;line-height:1.05;margin-top:14px;color:var(--indigo)}
+.ks-stat-v.sm{font-size:20px;line-height:1.2}
+.ks-stat-f{font-size:12px;color:var(--ink-3);margin-top:6px;line-height:1.5}
+.ks-step{display:grid;grid-template-columns:32px 1fr auto 92px;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid var(--line)}
+.ks-step:last-child{border-bottom:none}
+.ks-step-no{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fh);
+ font-weight:700;font-size:13px;padding-top:2px;background:#F2EFF7;color:var(--ink-3)}
+.ks-step.done .ks-step-no{background:#E3F4F1;color:#0F766E}
+.ks-step.next{background:linear-gradient(90deg,#FFF6F9,#fff 60%)}
+.ks-step.next .ks-step-no{background:var(--pink);color:#fff}
+.ks-step-t{font-size:14px;color:var(--ink);font-weight:600}
+.ks-step.done .ks-step-t{color:var(--ink-3);font-weight:500}
+.ks-step-s{font-size:12px;color:var(--ink-3)}
+.ks-step.next .ks-step-s{color:var(--pink-d);font-weight:700}
+.ks-step button{justify-self:end}
+@media(max-width:1100px){.ks-stats{grid-template-columns:1fr 1fr}.ks-welcome{grid-template-columns:1fr}}
+@media(max-width:560px){.ks-stats{grid-template-columns:1fr}.ks-step{grid-template-columns:30px 1fr auto}.ks-step-s{display:none}
+ .ks-welcome{padding:22px 20px;border-radius:16px}}
+
+/* ---------- gerbang masuk ---------- */
+.ks-gate{display:grid;grid-template-columns:1.05fr 1fr;min-height:100vh;background:#fff}
+.ks-gh{position:relative;overflow:hidden;color:#fff;background:linear-gradient(135deg,#150B3D,#3B1D8F 55%,#E8336A);
+ display:flex;flex-direction:column;justify-content:space-between;padding:32px 48px 40px}
+.ks-gh-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.55}
+.ks-gh-scrim{position:absolute;inset:0;background:linear-gradient(160deg,rgba(21,11,61,.94) 0%,rgba(59,29,143,.8) 50%,rgba(232,51,106,.62) 100%)}
+.ks-gh > *:not(.ks-gh-img):not(.ks-gh-scrim){position:relative;z-index:1}
+.ks-gh-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ks-logo{display:flex;align-items:center;gap:11px;font-family:var(--fh);font-weight:700;font-size:19px;letter-spacing:.02em}
+.ks-logo .ks-mark{background:#fff;color:var(--pink)}
+.ks-gh-top button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:8px 16px}
+.ks-gh-top button:hover{background:rgba(255,255,255,.22);color:#fff;border-color:#fff}
+.ks-gh-lab{font-size:14px;font-weight:700;color:#FFB3CB;display:flex;align-items:center;gap:10px}
+.ks-gh-lab::before{content:"";width:26px;height:2px;background:var(--pink);display:block}
+.ks-gh h1{font-family:var(--fh);font-weight:700;font-size:clamp(34px,4vw,54px);line-height:1.02;margin:16px 0 0;max-width:13ch;text-transform:uppercase}
+.ks-gh p{margin:18px 0 0;max-width:46ch;font-size:15.5px;line-height:1.65;color:rgba(255,255,255,.86)}
+.ks-facts{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.2);margin-top:8px}
+.ks-facts > div{padding:18px 18px 0 0}
+.ks-facts .fk{font-size:12.5px;color:rgba(255,255,255,.7)}
+.ks-facts .fv{font-family:var(--fh);font-weight:700;font-size:21px;margin-top:4px}
+.ks-gp{display:flex;align-items:flex-start;justify-content:center;padding:56px 40px 48px;overflow-y:auto}
+.ks-form{width:100%;max-width:440px}
+.ks-form h2{font-family:var(--fh);font-weight:700;font-size:30px;color:var(--indigo);line-height:1.1}
+.ks-form .ks-sub{color:var(--ink-3);margin:8px 0 22px;font-size:14px}
+.ks-seg{display:grid;grid-template-columns:1fr 1fr;background:#F3F0F9;border-radius:12px;padding:4px;margin-bottom:22px}
+.ks-seg button{border:none;background:transparent;border-radius:9px;padding:10px;color:var(--ink-2);font-weight:700}
+.ks-seg button:hover{background:transparent;color:var(--indigo)}
+.ks-seg button.on{background:#fff;color:var(--indigo);box-shadow:0 2px 8px rgba(34,19,90,.1)}
+.ks-pw{position:relative}
+.ks-pw input{padding-right:78px}
+.ks-pw button{position:absolute;right:5px;top:5px;height:32px;padding:0 10px;border:none;background:transparent;color:var(--violet);font-size:12.5px}
+.ks-pw button:hover{background:var(--violet-50)}
+.ks-cta{width:100%;height:48px;font-size:15px;margin-top:4px;border-radius:10px}
+.ks-or{display:flex;align-items:center;gap:12px;margin:30px 0 14px;font-size:12.5px;color:var(--ink-3);font-weight:600}
+.ks-or::before,.ks-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.ks-accts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ks-gate .lg-acct{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);
+ border-radius:10px;padding:9px 10px;margin:0;min-width:0}
+.ks-gate .lg-acct:hover{border-color:var(--pink);background:#FFF8FA;color:var(--ink)}
+.ks-gate .lg-acct .av{width:30px;height:30px;font-size:11px;flex:0 0 30px}
+.ks-acc-t{display:flex;flex-direction:column;min-width:0}
+.ks-gate .lg-acct .nm{font-family:var(--fb);font-weight:700;font-size:12.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ks-gate .lg-acct .em{font-size:11.5px;font-weight:400;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.ks-staf{margin-top:10px;border:1px solid var(--line);border-radius:10px}
+.ks-staf summary{cursor:pointer;padding:11px 14px;font-size:13px;font-weight:700;color:var(--ink-2);list-style:none;display:flex;justify-content:space-between}
+.ks-staf summary::-webkit-details-marker{display:none}
+.ks-staf summary::after{content:"+";color:var(--violet);font-size:16px;line-height:1}
+.ks-staf[open] summary::after{content:"\2212"}
+.ks-staf .ks-accts{padding:0 10px 10px}
+.ks-fine{font-size:12px;color:var(--ink-3);margin-top:18px;line-height:1.55}
+@media(max-width:940px){
+ .ks-gate{grid-template-columns:1fr}
+ .ks-gh{padding:22px 22px 28px;min-height:auto}
+ .ks-gh h1{font-size:32px;margin-top:26px}
+ .ks-facts{grid-template-columns:1fr 1fr;margin-top:24px}
+ .ks-gp{padding:30px 20px 60px}
+}
+@media(max-width:480px){.ks-accts{grid-template-columns:1fr}}
+
+/* ---------- halaman depan ---------- */
+.lp{font-family:var(--fb);color:var(--ink)}
+.lp-nav{padding:20px 48px}
+.lp-nav.lpsolid{padding:12px 48px;box-shadow:0 1px 0 var(--line)}
+.lp-logo{font-family:var(--fh);font-weight:700;font-size:21px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.lp-logo .ks-mark{width:32px;height:32px;flex-basis:32px;font-size:17px;background:#fff;color:var(--pink)}
+.lp-nav.lpsolid .lp-logo .ks-mark{background:var(--grad);color:#fff}
+.lp-nav.lpsolid .lp-logo{color:var(--indigo)}
+.lp-links{justify-content:center;gap:30px}
+.lp-links a{text-transform:none;letter-spacing:0;font-size:14.5px;font-weight:600;color:rgba(255,255,255,.88)}
+.lp-links a:hover,.lp-nav.lpsolid .lp-links a:hover{color:#FF9EC0}
+.lp-nav.lpsolid .lp-links a{color:var(--ink-2)}
+.lp-nav.lpsolid .lp-links a:hover{color:var(--pink)}
+.lp-btn{font-family:var(--fb);text-transform:none;letter-spacing:0;font-size:14px;font-weight:700;border-radius:999px;padding:12px 24px}
+.lp-btn:hover{transform:translateY(-1px)}
+.lp-btn.lpsolid,.lp-nav.lpsolid .lp-btn.lpsolid{background:var(--pink);color:#fff;box-shadow:0 8px 20px rgba(232,51,106,.3)}
+.lp-btn.lpgrad{background:var(--pink);color:#fff;box-shadow:0 10px 26px rgba(232,51,106,.34)}
+.lp-btn.lpgrad:hover,.lp-btn.lpsolid:hover{background:var(--pink-d)}
+.lp-btn.lpghost{border:1.5px solid rgba(255,255,255,.6)}
+.lp-btn.lpbig{padding:16px 30px;font-size:15px}
+.lp-hero{min-height:90vh;padding:150px 48px 0;overflow:visible;justify-content:flex-end}
+.lp-hero-bg{background:linear-gradient(120deg,#150B3D 0%,#3B1D8F 55%,#E8336A 100%)}
+.lp-hero-bg::after,.lp-blob,.lp-scroll{display:none}
+.lp-hero-img{overflow:hidden}
+.lp-hero-scrim{background:linear-gradient(100deg,rgba(21,11,61,.96) 0%,rgba(46,22,120,.86) 42%,rgba(106,44,199,.55) 72%,rgba(232,51,106,.42) 100%)}
+.lp-eyebrow{font-size:14px;letter-spacing:.02em;text-transform:none;color:#FFB3CB;font-weight:700}
+.lp-eyebrow i{background:var(--pink);width:28px}
+.lp-h1{font-family:var(--fh);font-weight:700;font-size:clamp(40px,6.2vw,84px);line-height:.96;letter-spacing:-.005em;max-width:18ch;margin-top:18px}
+.lp-h1 span:nth-child(2){color:#fff;font-style:normal;font-weight:700}
+.lp-sub{font-size:17px;line-height:1.65;color:rgba(255,255,255,.86);max-width:50ch}
+.lp-cta{margin-top:34px}
+.lp-strip{margin:64px 0 -64px;background:#fff;border:none;border-radius:20px;box-shadow:0 24px 60px rgba(34,19,90,.18);overflow:hidden}
+.lp-strip > div{padding:26px 30px;border-right:1px solid var(--line)}
+.lp-strip > div:last-child{border-right:none}
+.lp-strip div div{padding:0;border:none}
+.lp-strip .lpn{font-family:var(--fh);font-weight:700;font-size:44px;line-height:1;color:var(--pink)}
+.lp-strip div:nth-child(2n) .lpn{color:var(--violet)}
+.lp-strip .lpl{font-size:13.5px;letter-spacing:0;text-transform:none;color:var(--ink-2);margin-top:8px}
+.lp-hero + section{padding-top:164px}
+.lp-sec,.lp-ris,.lp-final{padding-top:104px;padding-bottom:104px}
+.lp-lab{font-size:14px;letter-spacing:.02em;text-transform:none;color:var(--pink);font-weight:700;display:flex;align-items:center;gap:10px}
+.lp-lab::before{content:"";width:26px;height:2px;background:currentColor;display:block}
+.lp-final .lp-lab{justify-content:center}
+.lp-h2{font-family:var(--fh);font-weight:700;font-size:clamp(28px,3.4vw,46px);line-height:1.06;letter-spacing:-.005em;color:var(--indigo)}
+.lp-accH{text-transform:none;font-size:clamp(28px,3.4vw,46px)}
+.lp-ris .rdef{border-left-color:var(--pink);color:var(--ink)}
+.lp-rantai .rno,.lp-col .cno{font-family:var(--fh);color:var(--pink)}
+.lp-rantai h3,.lp-col .cbody h3,.lp-rhuk h4,.lp-card .lpt2{font-family:var(--fh);color:var(--indigo)}
+.lp-col .cbody h3{text-transform:none;font-size:clamp(22px,2.3vw,30px)}
+.lp-col .clab{text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink-2)}
+.lp-col:hover .plus{background:var(--pink);border-color:var(--pink)}
+.lp-rantai .arrow{background:var(--pink)}
+.lp-rnum > div{background:#fff;border:1px solid var(--line);box-shadow:var(--sh-2);border-radius:16px}
+.lp-rnum .rn{font-family:var(--fh);color:var(--violet)}
+.lp-rnum > div:nth-child(2n) .rn{color:var(--pink)}
+.lp-rhuk > div{border-radius:14px}
+.lp-flow{background:linear-gradient(120deg,#150B3D 0%,#2E1678 50%,#5B2BC4 100%)}
+.lp-flow::before{background:var(--pink);opacity:.22;animation:none}
+.lp-flow .lp-h2{color:#fff}
+.lp-flow .lp-lab{color:#FFB3CB!important}
+.lp-tab{text-transform:none;letter-spacing:0;font-size:13.5px}
+.lp-tab.lpon{background:var(--pink);border-color:var(--pink);color:#fff}
+.lp-panel .lpbig2{font-family:var(--fh)}
+.lp-panel .lpbig2 em{color:#FF9EC0}
+.lp-panel h3{font-family:var(--fh)}
+.lp-gal .lpg{border-radius:18px}
+.lp-gal .lpcap{background:linear-gradient(transparent,rgba(21,11,61,.88));font-family:var(--fh);font-size:16px}
+.lp-final{background:linear-gradient(120deg,#FAF8FD 0%,#FDF1F6 100%)}
+.lp-foot{background:#150B3D}
+.lp-foot h4{font-family:var(--fb);text-transform:none;letter-spacing:0;font-size:14px;color:#FFB3CB}
+.lp-foot p,.lp-foot a{color:rgba(255,255,255,.78)}
+.lp-foot a:hover{color:#FF9EC0}
+.lp-foot .lpbar{color:rgba(255,255,255,.55)}
+@media(max-width:980px){
+ .lp-nav,.lp-nav.lpsolid{padding:12px 20px}
+ .lp-hero{padding:110px 20px 0;min-height:auto}
+ .lp-strip{margin:44px 0 -48px;grid-template-columns:1fr 1fr}
+ .lp-strip > div{padding:18px 18px;border-bottom:1px solid var(--line)}
+ .lp-strip div div{border:none}
+ .lp-strip .lpn{font-size:32px}
+ .lp-hero + section{padding-top:110px}
+ .lp-sec,.lp-ris,.lp-final{padding-top:64px;padding-bottom:64px}
+}
+
+/* ---------- ponsel ---------- */
+@media(max-width:900px){
+ .topbar{height:58px;padding:0 12px}
+ .ks-crumb span,.ks-crumb svg{display:none}
+ .topbar .ks-tenant{display:none}
+ .page{padding:18px 14px calc(90px + env(safe-area-inset-bottom))}
+ .page > .hd h1,.hd h1{font-size:23px}
+ .tabbar button.on,.tabbar button.on svg{color:var(--pink);stroke:var(--pink)}
+ .ks-actionbar{position:static;background:transparent;backdrop-filter:none;border-top:none;padding:6px 0 0}
+ .ks-actionbar > button.primary{position:fixed;left:14px;right:14px;bottom:calc(74px + env(safe-area-inset-bottom));z-index:55;
+  height:48px;font-size:14.5px;box-shadow:0 10px 28px rgba(232,51,106,.38)}
+ .page:has(.ks-actionbar){padding-bottom:calc(160px + env(safe-area-inset-bottom))}
+ .grid2:has(> .field) > .field[style*="span 2"]{grid-column:auto!important}
+}
+
+</style>
 <script>
 window.onerror=function(m,s,l,c,e){var b=document.getElementById("booterr");
  if(b) b.textContent="Kesalahan: "+m+" (baris "+l+")"+((e&&e.stack)?"\n"+String(e.stack).split("\n").slice(0,3).join("\n"):"");
@@ -1177,9 +1546,9 @@ function page_t_cycle(){
 }
 function bind_t_cycle(){
  const c=$("#qr"); if(c){const x=c.getContext("2d");const r=mulberry32(4242);x.fillStyle="#fff";x.fillRect(0,0,132,132);
-  x.fillStyle="#6E1626";for(let i=0;i<22;i++)for(let j=0;j<22;j++){if(r()<0.46)x.fillRect(i*6,j*6,6,6)}
+  x.fillStyle="#3B1D8F";for(let i=0;i<22;i++)for(let j=0;j<22;j++){if(r()<0.46)x.fillRect(i*6,j*6,6,6)}
   x.fillStyle="#fff";x.fillRect(0,0,48,48);x.fillRect(84,0,48,48);x.fillRect(0,84,48,48);
-  x.fillStyle="#4A0E1B";[[6,6],[90,6],[6,90]].forEach(p=>{x.fillRect(p[0],p[1],36,36);x.fillStyle="#fff";x.fillRect(p[0]+6,p[1]+6,24,24);x.fillStyle="#4A0E1B";x.fillRect(p[0]+12,p[1]+12,12,12);x.fillStyle="#4A0E1B"})}
+  x.fillStyle="#22135A";[[6,6],[90,6],[6,90]].forEach(p=>{x.fillRect(p[0],p[1],36,36);x.fillStyle="#fff";x.fillRect(p[0]+6,p[1]+6,24,24);x.fillStyle="#22135A";x.fillRect(p[0]+12,p[1]+12,12,12);x.fillStyle="#22135A"})}
  const b=$("#mktok"); if(b) b.onclick=async()=>{await ledgerPush("admin.tenant@"+ST.tenant,"Penerbitan 25 token akses anonim",{unit:"lintas unit",jumlah:25});
   toast("25 token diterbitkan dan dicatat pada jejak audit");render()};
 }
@@ -3590,7 +3959,7 @@ function page_game_sortir(){
  if(g.stage==="setup"){
   return hd("Sortir kartu, 45 detik")+
   `<div class="card2" style="margin-bottom:16px">
-   <h4 style="font-family:Montserrat;font-size:15px;margin:0 0 10px">Cara main</h4>
+   <h4 style="font-family:var(--fh);font-size:15px;margin:0 0 10px">Cara main</h4>
    <div class="kvl">
     <div><span class="kk">Yang muncul di kartu</span><span class="vv">Nama satu kegiatan</span></div>
     <div><span class="kk">Pertanyaannya</span><span class="vv">Kegiatan itu termasuk yang mana</span></div>
@@ -3615,11 +3984,11 @@ function page_game_sortir(){
      <span class="sup" style="font-size:12px"> detik</span></div>
     <div class="sup" style="font-size:12px">Rentetan ${g.streak}, terbaik ${g.best}</div></div></div>
    <div class="prog"><i id="sbar" style="width:100%"></i></div></div>
-   <div id="sflash" style="text-align:center;height:24px;font-weight:600;font-family:Montserrat;font-size:15px;margin-top:8px"></div>
+   <div id="sflash" style="text-align:center;height:24px;font-weight:600;font-family:var(--fh);font-size:15px;margin-top:8px"></div>
    <div style="text-align:center;font-size:13px;color:var(--ink-3);margin-bottom:8px">Kegiatan ini termasuk yang mana</div>
    <div style="border:1px solid var(--line-2);border-radius:14px;padding:34px 22px;text-align:center;margin:0 0 18px;
     background:var(--bg-2);min-height:132px;display:flex;align-items:center;justify-content:center">
-    <div style="font-family:Montserrat;font-weight:600;font-size:22px;line-height:1.35">${esc(c.t)}</div></div>
+    <div style="font-family:var(--fh);font-weight:600;font-size:22px;line-height:1.35">${esc(c.t)}</div></div>
    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <button data-sp="1" class="sortopt" style="padding:18px 12px;font-size:15px;line-height:1.3">Mengubah pekerjaannya
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">beban, jadwal, aturan</span></button>
@@ -3643,7 +4012,7 @@ function page_game_sortir(){
  <div class="row noprint"><button class="primary" id="ssave">Simpan ke papan peringkat</button>
   <button id="skeg">Catat sebagai kegiatan</button><button id="sagain">Main lagi</button></div>
  <div class="card2" style="margin-top:14px">
-  <h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Kenapa hanya ini yang dilatih</h4>
+  <h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Kenapa hanya ini yang dilatih</h4>
   <p style="margin:0;font-size:13px;color:var(--ink-2);line-height:1.68">Kesalahan yang paling sering terjadi pada program kesejahteraan perusahaan adalah menganggap kelas relaksasi setara dengan menata ulang beban kerja. Keduanya kegiatan yang sah, tetapi hanya yang kedua menurunkan sumber tekanannya. Sekali orang dapat memisahkan keduanya, diskusi soal mana yang dikerjakan lebih dulu menjadi jauh lebih cepat.</p>
   <p style="margin:8px 0 0;font-size:13px;color:var(--ink-3);line-height:1.68">Skor perorangan tidak disimpan. Yang masuk papan peringkat hanya angka divisi, dan kartu yang tertukar menjadi bahan materi sesi berikutnya.</p></div>`;
 }
@@ -3704,19 +4073,19 @@ function page_game_roda(){
   <div class="panel"><div class="ph"><h3>Putar roda</h3></div><div class="pb" style="text-align:center">
    <div style="position:relative;width:250px;height:250px;margin:0 auto 16px">
     <div id="rwheel" style="width:250px;height:250px;border-radius:50%;transition:transform 2.6s cubic-bezier(.17,.85,.3,1);
-     background:conic-gradient(${RODA.map((_,i)=>{const c=i%2?"#8C1D2F":"#B23044";
+     background:conic-gradient(${RODA.map((_,i)=>{const c=i%2?"#5B2BC4":"#E8336A";
       return c+" "+(i*sudutSeg)+"deg "+((i+1)*sudutSeg)+"deg"}).join(",")});
-     box-shadow:0 4px 18px rgba(74,14,27,.22);transform:rotate(${g.sudut}deg)"></div>
+     box-shadow:0 4px 18px rgba(34,19,90,.22);transform:rotate(${g.sudut}deg)"></div>
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
      <div style="width:86px;height:86px;border-radius:50%;background:#fff;border:1px solid var(--line);
-      display:flex;align-items:center;justify-content:center;font-family:Montserrat;font-weight:700;color:var(--mar-700)">${seg}</div></div>
+      display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:700;color:var(--mar-700)">${seg}</div></div>
     <div style="position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;
      border-left:9px solid transparent;border-right:9px solid transparent;border-top:16px solid var(--mar-900)"></div>
    </div>
    <button class="primary" id="rspin">Putar</button>
    ${g.hasil!=null?`<div style="margin-top:18px;border:1px solid var(--line-2);border-radius:12px;padding:18px 20px;background:var(--grad-soft)">
     <div class="sup" style="font-size:11.5px">Pertanyaan pemancing</div>
-    <div style="font-family:Montserrat;font-weight:600;font-size:17px;line-height:1.4;margin-top:6px">${esc(RODA[g.hasil].t)}</div>
+    <div style="font-family:var(--fh);font-weight:600;font-size:17px;line-height:1.4;margin-top:6px">${esc(RODA[g.hasil].t)}</div>
     <div class="sup" style="font-size:11.5px;margin-top:8px">Menyentuh dimensi ${esc(DIMS.find(d=>d.id===RODA[g.hasil].d).name)}</div></div>`
    :`<p class="sup" style="margin-top:16px;margin-bottom:0">Satu putaran mengeluarkan satu pertanyaan. Sesi yang enak biasanya tiga sampai empat putaran, sekitar 15 menit.</p>`}
    </div></div>
@@ -4088,22 +4457,22 @@ const ROLE_FRAME={
 };
 /* ---------- gaya kotak dan garis mengikuti bagan rujukan ---------- */
 const NK={
- oversight:{f:"#8C1D2F",st:"#6E1626",tc:"#FFFFFF",sc:"#F2D3D8",dash:null},
- gap:{f:"#FDF3F4",st:"#B23044",tc:"#8C1D2F",sc:"#8C1D2F",dash:"6 4"},
- board:{f:"#B23044",st:"#8C1D2F",tc:"#FFFFFF",sc:"#F7E0E4",dash:null},
- output:{f:"#F6ECEE",st:"#DCCFD3",tc:"#4A0E1B",sc:"#6E1626",dash:null},
+ oversight:{f:"#5B2BC4",st:"#3B1D8F",tc:"#FFFFFF",sc:"#F2D3D8",dash:null},
+ gap:{f:"#FDF3F4",st:"#E8336A",tc:"#5B2BC4",sc:"#5B2BC4",dash:"6 4"},
+ board:{f:"#E8336A",st:"#5B2BC4",tc:"#FFFFFF",sc:"#F7E0E4",dash:null},
+ output:{f:"#F6F1FD",st:"#E0D8EC",tc:"#22135A",sc:"#3B1D8F",dash:null},
  support:{f:"#FFFFFF",st:"#BDB2B6",tc:"#1B1418",sc:"#7B7076",dash:"5 4"},
- recipient:{f:"#FBF4F5",st:"#DCCFD3",tc:"#1B1418",sc:"#7B7076",dash:null},
- role:{f:"#4A0E1B",st:"#4A0E1B",tc:"#FFFFFF",sc:"#EFCFD5",dash:null},
- give:{f:"#F6ECEE",st:"#B23044",tc:"#4A0E1B",sc:"#6E1626",dash:null},
- deny:{f:"#FFFFFF",st:"#B23044",tc:"#8C1D2F",sc:"#8C1D2F",dash:"5 4"}
+ recipient:{f:"#FBF4F5",st:"#E0D8EC",tc:"#1B1418",sc:"#7B7076",dash:null},
+ role:{f:"#22135A",st:"#22135A",tc:"#FFFFFF",sc:"#EFCFD5",dash:null},
+ give:{f:"#F6F1FD",st:"#E8336A",tc:"#22135A",sc:"#3B1D8F",dash:null},
+ deny:{f:"#FFFFFF",st:"#E8336A",tc:"#5B2BC4",sc:"#5B2BC4",dash:"5 4"}
 };
 const EK={
- oversight:{s:"#8C1D2F",w:2.4,dash:null,arrow:"ahR"},
- gapline:{s:"#B23044",w:2,dash:"7 5",arrow:"ahR"},
- resp:{s:"#6E1626",w:1.6,dash:null,arrow:"ahD"},
+ oversight:{s:"#5B2BC4",w:2.4,dash:null,arrow:"ahR"},
+ gapline:{s:"#E8336A",w:2,dash:"7 5",arrow:"ahR"},
+ resp:{s:"#3B1D8F",w:1.6,dash:null,arrow:"ahD"},
  support:{s:"#9A8E92",w:1.2,dash:"4 4",arrow:"ahG"},
- flow:{s:"#B23044",w:1.1,dash:"2 3",arrow:"ahR"}
+ flow:{s:"#E8336A",w:1.1,dash:"2 3",arrow:"ahR"}
 };
 function wrapTxt(s,max){
  const w=String(s).split(" "),out=[];let l="";
@@ -4117,9 +4486,9 @@ function svgNode(n,opt){
  const th=tl.length*13.5, sh=sl.length*11.2;
  let y=n.y+(n.h-(th+(sh?sh+4:0)))/2+11;
  let g=`<g><rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="4" fill="${k.f}" stroke="${k.st}" stroke-width="1.4"${k.dash?` stroke-dasharray="${k.dash}"`:""}/>`;
- tl.forEach((L,i)=>{g+=`<text x="${n.x+n.w/2}" y="${y+i*13.5}" text-anchor="middle" font-family="Montserrat,Inter,sans-serif" font-size="11.5" font-weight="600" fill="${k.tc}">${esc(L)}</text>`});
+ tl.forEach((L,i)=>{g+=`<text x="${n.x+n.w/2}" y="${y+i*13.5}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="11.5" font-weight="600" fill="${k.tc}">${esc(L)}</text>`});
  y+=th+3;
- sl.forEach((L,i)=>{g+=`<text x="${n.x+n.w/2}" y="${y+i*11.2}" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.4" fill="${k.sc}">${esc(L)}</text>`});
+ sl.forEach((L,i)=>{g+=`<text x="${n.x+n.w/2}" y="${y+i*11.2}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9.4" fill="${k.sc}">${esc(L)}</text>`});
  return g+"</g>";
 }
 function svgEdge(a,b,e){
@@ -4136,34 +4505,34 @@ function svgEdge(a,b,e){
 }
 function svgDefs(){
  const mk=(id,c)=>`<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="${c}"/></marker>`;
- return `<defs>${mk("ahR","#8C1D2F")}${mk("ahD","#6E1626")}${mk("ahG","#9A8E92")}
-  <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A0E1B"/><stop offset="1" stop-color="#B23044"/></linearGradient></defs>`;
+ return `<defs>${mk("ahR","#5B2BC4")}${mk("ahD","#3B1D8F")}${mk("ahG","#9A8E92")}
+  <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22135A"/><stop offset="1" stop-color="#E8336A"/></linearGradient></defs>`;
 }
 function svgLegend(x,y,w){
- let g=`<g><rect x="${x}" y="${y}" width="${w}" height="${18+FRAME_LEGEND.length*20}" rx="4" fill="#FFFFFF" stroke="#DCCFD3"/>`;
+ let g=`<g><rect x="${x}" y="${y}" width="${w}" height="${18+FRAME_LEGEND.length*20}" rx="4" fill="#FFFFFF" stroke="#E0D8EC"/>`;
  FRAME_LEGEND.forEach((L,i)=>{
   const k=EK[L[0]], yy=y+22+i*20;
   g+=`<line x1="${x+12}" y1="${yy}" x2="${x+58}" y2="${yy}" stroke="${k.s}" stroke-width="${k.w}"${k.dash?` stroke-dasharray="${k.dash}"`:""} marker-end="url(#${k.arrow})"/>`;
-  g+=`<text x="${x+66}" y="${yy+3.6}" font-family="Inter,sans-serif" font-size="10" fill="#4A4045">${esc(L[1])}</text>`;
+  g+=`<text x="${x+66}" y="${yy+3.6}" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#4A4045">${esc(L[1])}</text>`;
  });
  return g+"</g>";
 }
 function svgNoteBox(x,y,w,h,txt,judul){
  const lines=wrapTxt(txt,Math.floor(w/5.2));
- let g=`<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="#FFFFFF" stroke="#DCCFD3"/>`;
- if(judul) g+=`<text x="${x+12}" y="${y+18}" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#8C1D2F">${esc(judul)}</text>`;
- lines.forEach((L,i)=>{g+=`<text x="${x+12}" y="${y+(judul?34:18)+i*11.6}" font-family="Inter,sans-serif" font-size="9.4" fill="#4A4045">${esc(L)}</text>`});
+ let g=`<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="#FFFFFF" stroke="#E0D8EC"/>`;
+ if(judul) g+=`<text x="${x+12}" y="${y+18}" font-family="League Spartan, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#5B2BC4">${esc(judul)}</text>`;
+ lines.forEach((L,i)=>{g+=`<text x="${x+12}" y="${y+(judul?34:18)+i*11.6}" font-family="Arial, Helvetica, sans-serif" font-size="9.4" fill="#4A4045">${esc(L)}</text>`});
  return g+"</g>";
 }
 function frameSVG(){
  const idx={}; FRAME_NODES.forEach(n=>idx[n.id]=n);
  let g=svgDefs();
- g+=`<text x="26" y="26" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#4A0E1B">Kerangka kewenangan dan pertanggungjawaban KERJASEHAT</text>`;
- g+=`<text x="26" y="44" font-family="Inter,sans-serif" font-size="9.6" fill="#7B7076">Pengawasan, tanggung jawab penetapan, dan dukungan pengembangan</text>`;
- g+=`<text x="26" y="192" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#8C1D2F">BADAN PENETAP</text>`;
- g+=`<text x="26" y="318" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#8C1D2F">LUARAN YANG DITETAPKAN</text>`;
- g+=`<text x="26" y="446" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#7B7076">DUKUNGAN PENGEMBANGAN</text>`;
- g+=`<text x="26" y="568" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#7B7076">PENERIMA BUKTI</text>`;
+ g+=`<text x="26" y="26" font-family="League Spartan, Arial, sans-serif" font-size="13" font-weight="700" fill="#22135A">Kerangka kewenangan dan pertanggungjawaban KERJASEHAT</text>`;
+ g+=`<text x="26" y="44" font-family="Arial, Helvetica, sans-serif" font-size="9.6" fill="#7B7076">Pengawasan, tanggung jawab penetapan, dan dukungan pengembangan</text>`;
+ g+=`<text x="26" y="192" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#5B2BC4">BADAN PENETAP</text>`;
+ g+=`<text x="26" y="318" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#5B2BC4">LUARAN YANG DITETAPKAN</text>`;
+ g+=`<text x="26" y="446" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#7B7076">DUKUNGAN PENGEMBANGAN</text>`;
+ g+=`<text x="26" y="568" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#7B7076">PENERIMA BUKTI</text>`;
  FRAME_EDGES.forEach(e=>{g+=svgEdge(idx[e.a],idx[e.b],e)});
  FRAME_NODES.forEach(n=>{g+=svgNode(n)});
  g+=svgNoteBox(694,78,300,90,"Fungsi pengawasan atas penetapan norma dan bank butir belum memiliki wadah terpisah dari pihak yang menjalankannya.","Kotak yang masih kosong");
@@ -4177,8 +4546,8 @@ function roleFrameSVG(role){
  const H=Math.max(nIn,nOut)*78+180;
  const center={id:"C",kind:"role",x:380,y:H/2-150,w:240,h:86,t:lbl,s:"Peran pada kerangka kewenangan"};
  let g=svgDefs();
- g+=`<text x="20" y="22" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#7B7076">YANG DITERIMA</text>`;
- g+=`<text x="740" y="22" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#8C1D2F">YANG DIHASILKAN</text>`;
+ g+=`<text x="20" y="22" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#7B7076">YANG DITERIMA</text>`;
+ g+=`<text x="740" y="22" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#5B2BC4">YANG DIHASILKAN</text>`;
  const inN=f.terima.map((t,i)=>({id:"I"+i,kind:"support",x:20,y:34+i*78,w:300,h:66,t:t[0],s:t[1]}));
  const outN=f.hasil.map((t,i)=>({id:"O"+i,kind:"give",x:680,y:34+i*78,w:300,h:66,t:t[0],s:t[1]}));
  const noY=H-96;
@@ -4186,11 +4555,11 @@ function roleFrameSVG(role){
  const noN=f.tidak.map((t,i)=>({id:"X"+i,kind:"deny",x:20+i*(noW+12),y:noY,w:noW,h:54,
   t:t[0],s:"Tidak dapat diakses peran ini"}));
  inN.forEach(n=>{g+=`<path d="M ${n.x+n.w} ${n.y+n.h/2} H ${(n.x+n.w+center.x)/2} V ${center.y+center.h/2} H ${center.x}" fill="none" stroke="#9A8E92" stroke-width="1.2" stroke-dasharray="4 4" marker-end="url(#ahG)"/>`});
- outN.forEach(n=>{g+=`<path d="M ${center.x+center.w} ${center.y+center.h/2} H ${(center.x+center.w+n.x)/2} V ${n.y+n.h/2} H ${n.x}" fill="none" stroke="#6E1626" stroke-width="1.6" marker-end="url(#ahD)"/>`});
- noN.forEach(n=>{g+=`<path d="M ${center.x+center.w/2} ${center.y+center.h} V ${noY-26} H ${n.x+n.w/2} V ${n.y}" fill="none" stroke="#B23044" stroke-width="1.4" stroke-dasharray="6 4"/>
-  <line x1="${n.x+n.w/2-7}" y1="${noY-14}" x2="${n.x+n.w/2+7}" y2="${noY-4}" stroke="#B23044" stroke-width="2"/>
-  <line x1="${n.x+n.w/2+7}" y1="${noY-14}" x2="${n.x+n.w/2-7}" y2="${noY-4}" stroke="#B23044" stroke-width="2"/>`});
- g+=`<text x="20" y="${noY-34}" font-family="Inter,sans-serif" font-size="9.4" font-weight="600" fill="#8C1D2F">BATAS AKSES YANG MELEKAT PADA ARSITEKTUR</text>`;
+ outN.forEach(n=>{g+=`<path d="M ${center.x+center.w} ${center.y+center.h/2} H ${(center.x+center.w+n.x)/2} V ${n.y+n.h/2} H ${n.x}" fill="none" stroke="#3B1D8F" stroke-width="1.6" marker-end="url(#ahD)"/>`});
+ noN.forEach(n=>{g+=`<path d="M ${center.x+center.w/2} ${center.y+center.h} V ${noY-26} H ${n.x+n.w/2} V ${n.y}" fill="none" stroke="#E8336A" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <line x1="${n.x+n.w/2-7}" y1="${noY-14}" x2="${n.x+n.w/2+7}" y2="${noY-4}" stroke="#E8336A" stroke-width="2"/>
+  <line x1="${n.x+n.w/2+7}" y1="${noY-14}" x2="${n.x+n.w/2-7}" y2="${noY-4}" stroke="#E8336A" stroke-width="2"/>`});
+ g+=`<text x="20" y="${noY-34}" font-family="Arial, Helvetica, sans-serif" font-size="9.4" font-weight="600" fill="#5B2BC4">BATAS AKSES YANG MELEKAT PADA ARSITEKTUR</text>`;
  inN.concat(outN).concat(noN).forEach(n=>{g+=svgNode(n)});
  g+=svgNode(center,{tmax:30,smax:40});
  return `<svg viewBox="0 0 1000 ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:940px;height:auto">${g}</svg>`;
@@ -5096,7 +5465,7 @@ function gate(){
    <h1 class="lg-title"><span>Asesmen</span><span class="ac">Psikososial</span><span>KERJASEHAT</span></h1>
     <div class="lg-stats">${stats.map(s=>`<div><div class="k">${esc(s[0])}</div><div class="v">${esc(s[1])}</div><div class="s">${esc(s[2])}</div></div>`).join("")}</div>
   </div>
-  <div class="lg-crumb" style="color:#8FC9C6"><i style="background:#BCE4E2"></i> Bank butir 1.3.0 · ${ITEM_INDEX.length} butir inti · ambang privasi k ${K_MIN}</div>
+  <div class="lg-crumb" style="color:#C2B3E6"><i style="background:#E3D9F7"></i> Bank butir 1.3.0 · ${ITEM_INDEX.length} butir inti · ambang privasi k ${K_MIN}</div>
  </div>
  <div class="lg-panel"><div class="lg-form">
   <div class="lg-eye" style="display:flex;justify-content:space-between;align-items:center">
@@ -5140,7 +5509,7 @@ function bindGate(){
  };
 }
 /* ---------- diagram alir komponen pertanyaan ---------- */
-const DC={mar:"#8C1D2F",dark:"#4A0E1B",mid:"#B23044",pale:"#F6ECEE",line:"#DCCFD3",
+const DC={mar:"#5B2BC4",dark:"#22135A",mid:"#E8336A",pale:"#F6F1FD",line:"#E0D8EC",
  ink:"#1B1418",grey:"#7B7076",slate:"#2A4A7B",slatePale:"#EDF1F7",gold:"#8A6410",goldPale:"#FBF4E7"};
 function dwrap(s,max){const w=String(s).split(" "),o=[];let l="";
  w.forEach(x=>{if((l+" "+x).trim().length>max){o.push(l.trim());l=x}else l+=" "+x});
@@ -5156,11 +5525,11 @@ function dbox(o){
  let y=o.y+(o.h-(th+(sh?sh+4:0)))/2+10;
  let g=`<rect x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" rx="4" fill="${f}" stroke="${st}" stroke-width="1.3"${o.dash?` stroke-dasharray="${o.dash}"`:""}/>`;
  if(o.bar) g+=`<rect x="${o.x}" y="${o.y}" width="4" height="${o.h}" rx="2" fill="${o.bar}"/>`;
- tl.forEach((L,i)=>g+=`<text x="${o.x+o.w/2}" y="${y+i*12.2}" text-anchor="middle" font-family="Montserrat" font-size="10.4" font-weight="600" fill="${tc}">${esc(L)}</text>`);
+ tl.forEach((L,i)=>g+=`<text x="${o.x+o.w/2}" y="${y+i*12.2}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="10.4" font-weight="600" fill="${tc}">${esc(L)}</text>`);
  y+=th+3;
- sl.forEach((L,i)=>g+=`<text x="${o.x+o.w/2}" y="${y+i*10.2}" text-anchor="middle" font-family="Inter" font-size="8.5" fill="${sc}">${esc(L)}</text>`);
+ sl.forEach((L,i)=>g+=`<text x="${o.x+o.w/2}" y="${y+i*10.2}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8.5" fill="${sc}">${esc(L)}</text>`);
  return g}
-function dlabel(x,y,t,c){return `<text x="${x}" y="${y}" font-family="Inter" font-size="9" font-weight="600" letter-spacing="0.06em" fill="${c||DC.grey}">${esc(t)}</text>`}
+function dlabel(x,y,t,c){return `<text x="${x}" y="${y}" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="600" letter-spacing="0.06em" fill="${c||DC.grey}">${esc(t)}</text>`}
 function dvert(x,y1,y2,c,dash){return `<path d="M ${x} ${y1} V ${y2-6}" fill="none" stroke="${c}" stroke-width="1.5"${dash?` stroke-dasharray="${dash}"`:""}/>`+dtri(x,y2,"d",c)}
 function delbow(x1,y1,x2,y2,m,c,dash){
  const d=x1===x2?`M ${x1} ${y1} V ${y2-6}`:`M ${x1} ${y1} V ${m} H ${x2} V ${y2-6}`;
@@ -5169,7 +5538,7 @@ function dhoriz(x1,x2,y,c,dash){const r=x2>x1;
  return `<path d="M ${x1} ${y} H ${r?x2-6:x2+6}" fill="none" stroke="${c}" stroke-width="1.4"${dash?` stroke-dasharray="${dash}"`:""}/>`+dtri(x2,y,r?"r":"l",c)}
 function diamond(cx,cy,w,h,t,c){
  return `<polygon points="${cx},${cy-h/2} ${cx+w/2},${cy} ${cx},${cy+h/2} ${cx-w/2},${cy}" fill="#fff" stroke="${c}" stroke-width="1.4"/>`
-  +dwrap(t,18).map((L,i,a)=>`<text x="${cx}" y="${cy+4-(a.length-1)*5.6+i*11.2}" text-anchor="middle" font-family="Montserrat" font-size="9.6" font-weight="600" fill="${c}">${esc(L)}</text>`).join("")}
+  +dwrap(t,18).map((L,i,a)=>`<text x="${cx}" y="${cy+4-(a.length-1)*5.6+i*11.2}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="9.6" font-weight="600" fill="${c}">${esc(L)}</text>`).join("")}
 
 function insDiagSVG(){
  const d=id=>DIMS.find(x=>x.id===id);
@@ -5213,10 +5582,10 @@ function insDiagSVG(){
  g+=`<rect x="1050" y="244" width="366" height="246" rx="5" fill="none" stroke="${DC.slate}" stroke-dasharray="5 4"/>`;
  g+=dlabel(1062,262,"KOMPONEN VERSI LITE",DC.slate);
  g+=dbox({x:1062,y:276,w:342,h:96,t:LITE_KEYS.length+" butir inti dari "+lb.length+" blok",
-  s:lb.map(b=>b.sid+" "+b.n).join(" · "),f:DC.slatePale,st:DC.slate,tc:DC.slate,sc:"#4A5B6E",bar:DC.slate});
+  s:lb.map(b=>b.sid+" "+b.n).join(" · "),f:DC.slatePale,st:DC.slate,tc:DC.slate,sc:"#4B4763",bar:DC.slate});
  g+=dbox({x:1062,y:392,w:246,h:84,t:"Tidak ada laporan pribadi",
   s:"Cakupan Lite tidak mencakup seluruh dimensi, sehingga laporan pribadi tidak diterbitkan. Angka utama pengungkapan tetap dari versi Full",
-  f:"#fff",st:DC.slate,tc:DC.slate,sc:"#4A5B6E",dash:"5 4"});
+  f:"#fff",st:DC.slate,tc:DC.slate,sc:"#4B4763",dash:"5 4"});
  /* ke mesin skor */
  g+=dlabel(36,516,"MESIN SKOR",DC.mar);
  fx.forEach((x,i)=>{g+=delbow(x+fw/2,372,[126,298,470,642,814][i],532,500,DC.mar)});
@@ -5243,7 +5612,7 @@ function insDiagSVG(){
  g+=dvert(558,726,762,DC.mar);
  g+=dbox({x:388,y:762,w:340,h:52,t:"Gerbang privasi",
   s:"Pseudonimisasi pada titik pengumpulan, lalu uji ambang k sebelum agregasi diterbitkan",
-  f:DC.slatePale,st:DC.slate,tc:DC.slate,sc:"#4A5B6E",bar:DC.slate});
+  f:DC.slatePale,st:DC.slate,tc:DC.slate,sc:"#4B4763",bar:DC.slate});
  g+=dvert(558,814,848,DC.slate);
  g+=diamond(558,884,210,62,"Peserta kelompok tidak kurang dari "+K_MIN,DC.slate);
  g+=dhoriz(453,300,884,DC.mid);
@@ -5268,23 +5637,23 @@ function insDiagSVG(){
  ox.forEach((x,i)=>{if(i>0) g+=delbow(558,915,x+ow/2,956,940,DC.slate)});
  /* laporan pribadi tidak melewati gerbang ambang k, karena hanya terbuka bagi responden sendiri */
  g+=`<path d="M 388 695 H 18 V 944 H 161 V 950" fill="none" stroke="${DC.mid}" stroke-width="1.4" stroke-dasharray="4 3"/>`+dtri(161,956,"d",DC.mid);
- g+=`<text x="26" y="756" font-family="Inter" font-size="8.4" fill="${DC.mid}">Tidak melewati gerbang</text>`
-   +`<text x="26" y="767" font-family="Inter" font-size="8.4" fill="${DC.mid}">ambang k, karena hanya</text>`
-   +`<text x="26" y="778" font-family="Inter" font-size="8.4" fill="${DC.mid}">terbuka bagi responden</text>`
-   +`<text x="26" y="789" font-family="Inter" font-size="8.4" fill="${DC.mid}">yang bersangkutan sendiri</text>`;
+ g+=`<text x="26" y="756" font-family="Arial, Helvetica, sans-serif" font-size="8.4" fill="${DC.mid}">Tidak melewati gerbang</text>`
+   +`<text x="26" y="767" font-family="Arial, Helvetica, sans-serif" font-size="8.4" fill="${DC.mid}">ambang k, karena hanya</text>`
+   +`<text x="26" y="778" font-family="Arial, Helvetica, sans-serif" font-size="8.4" fill="${DC.mid}">terbuka bagi responden</text>`
+   +`<text x="26" y="789" font-family="Arial, Helvetica, sans-serif" font-size="8.4" fill="${DC.mid}">yang bersangkutan sendiri</text>`;
  /* catatan */
  const nt="Alur dibaca dari atas ke bawah. Pertanyaan latar diberikan pada kedua versi karena tanpa ciri itu disagregasi dan uji ambang k tidak dapat dijalankan. Instrumen Permenaker tetap ditanam utuh pada versi Full karena laporan bagi pengawas menuntut skala 1 sampai 7 sebagaimana lampiran peraturan. Butir luaran dilaporkan responden sendiri, bukan diambil dari catatan kepegawaian, sehingga asosiasi dengan absensi dapat diuji tanpa menyentuh data individu di sistem kepegawaian.";
  const nl=dwrap(nt,118);
  g+=`<rect x="36" y="1056" width="740" height="${26+nl.length*10.8}" rx="4" fill="#fff" stroke="${DC.line}"/>`
-  +`<text x="48" y="1073" font-family="Montserrat" font-size="9.6" font-weight="600" fill="${DC.mar}">Cara membaca diagram</text>`;
- nl.forEach((L,i)=>g+=`<text x="48" y="${1088+i*10.8}" font-family="Inter" font-size="8.5" fill="${DC.ink}">${esc(L)}</text>`);
+  +`<text x="48" y="1073" font-family="League Spartan, Arial, sans-serif" font-size="9.6" font-weight="600" fill="${DC.mar}">Cara membaca diagram</text>`;
+ nl.forEach((L,i)=>g+=`<text x="48" y="${1088+i*10.8}" font-family="Arial, Helvetica, sans-serif" font-size="8.5" fill="${DC.ink}">${esc(L)}</text>`);
  const leg=[["Jalur versi Full",DC.mar,null],["Jalur versi Lite",DC.slate,null],
   ["Laporan pribadi, tidak melewati gerbang ambang k",DC.mid,"4 3"],["Keputusan atau gerbang",DC.slate,null]];
  g+=`<rect x="796" y="1056" width="620" height="${26+leg.length*18}" rx="4" fill="#fff" stroke="${DC.line}"/>`
-  +`<text x="808" y="1073" font-family="Montserrat" font-size="9.6" font-weight="600" fill="${DC.mar}">Keterangan garis</text>`;
+  +`<text x="808" y="1073" font-family="League Spartan, Arial, sans-serif" font-size="9.6" font-weight="600" fill="${DC.mar}">Keterangan garis</text>`;
  leg.forEach((L,i)=>{const y=1088+i*18;
   g+=`<path d="M 810 ${y} H 858" fill="none" stroke="${L[1]}" stroke-width="1.5"${L[2]?` stroke-dasharray="${L[2]}"`:""}/>`
-   +dtri(864,y,"r",L[1])+`<text x="874" y="${y+3.2}" font-family="Inter" font-size="8.6" fill="${DC.ink}">${esc(L[0])}</text>`});
+   +dtri(864,y,"r",L[1])+`<text x="874" y="${y+3.2}" font-family="Arial, Helvetica, sans-serif" font-size="8.6" fill="${DC.ink}">${esc(L[0])}</text>`});
  return `<svg viewBox="0 0 1440 1196" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:1180px;height:auto">${g}</svg>`;
 }
 function page_insdiag(){
@@ -5693,21 +6062,21 @@ function dmMatrixSVG(){
  /* kuadran material ganda */
  g+=`<rect x="${sx(DM_AMBANG)}" y="${sy(5)}" width="${sx(5)-sx(DM_AMBANG)}" height="${sy(DM_AMBANG)-sy(5)}" fill="var(--mar-100)"/>`;
  for(let v=1;v<=5;v++){
-  g+=`<line x1="${sx(v)}" y1="20" x2="${sx(v)}" y2="${H-pad}" stroke="#EEF5F5"/>`
-   +`<line x1="${pad}" y1="${sy(v)}" x2="${W-24}" y2="${sy(v)}" stroke="#EEF5F5"/>`
-   +`<text x="${sx(v)}" y="${H-pad+16}" text-anchor="middle" font-family="Inter" font-size="10" fill="var(--ink-3)">${v}</text>`
-   +`<text x="${pad-8}" y="${sy(v)+3.5}" text-anchor="end" font-family="Inter" font-size="10" fill="var(--ink-3)">${v}</text>`;
+  g+=`<line x1="${sx(v)}" y1="20" x2="${sx(v)}" y2="${H-pad}" stroke="#F1EDF7"/>`
+   +`<line x1="${pad}" y1="${sy(v)}" x2="${W-24}" y2="${sy(v)}" stroke="#F1EDF7"/>`
+   +`<text x="${sx(v)}" y="${H-pad+16}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="var(--ink-3)">${v}</text>`
+   +`<text x="${pad-8}" y="${sy(v)+3.5}" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="var(--ink-3)">${v}</text>`;
  }
  g+=`<line x1="${sx(DM_AMBANG)}" y1="20" x2="${sx(DM_AMBANG)}" y2="${H-pad}" stroke="var(--mar-300)" stroke-width="1.6" stroke-dasharray="5 4"/>`
   +`<line x1="${pad}" y1="${sy(DM_AMBANG)}" x2="${W-24}" y2="${sy(DM_AMBANG)}" stroke="var(--mar-300)" stroke-width="1.6" stroke-dasharray="5 4"/>`
-  +`<text x="${W-28}" y="${sy(DM_AMBANG)-7}" text-anchor="end" font-family="Inter" font-size="9.5" fill="var(--mar-500)">Ambang materialitas ${fmt(DM_AMBANG)}</text>`
-  +`<text x="${(pad+W-24)/2}" y="${H-14}" text-anchor="middle" font-family="Montserrat" font-size="11" font-weight="600" fill="var(--ink-2)">Materialitas finansial, pengaruh pada perusahaan</text>`
-  +`<text x="16" y="${(20+H-pad)/2}" text-anchor="middle" font-family="Montserrat" font-size="11" font-weight="600" fill="var(--ink-2)" transform="rotate(-90 16 ${(20+H-pad)/2})">Materialitas dampak, pengaruh pada orang</text>`;
+  +`<text x="${W-28}" y="${sy(DM_AMBANG)-7}" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9.5" fill="var(--mar-500)">Ambang materialitas ${fmt(DM_AMBANG)}</text>`
+  +`<text x="${(pad+W-24)/2}" y="${H-14}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="11" font-weight="600" fill="var(--ink-2)">Materialitas finansial, pengaruh pada perusahaan</text>`
+  +`<text x="16" y="${(20+H-pad)/2}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="11" font-weight="600" fill="var(--ink-2)" transform="rotate(-90 16 ${(20+H-pad)/2})">Materialitas dampak, pengaruh pada orang</text>`;
  h.forEach(x=>{
   const cx=sx(clamp(x.fin,1,5)), cy=sy(clamp(x.dampak,1,5));
-  const c=x.md&&x.mf?"var(--mar-700)":x.md||x.mf?"var(--mar-300)":"#9DB3B3";
+  const c=x.md&&x.mf?"var(--mar-700)":x.md||x.mf?"var(--mar-300)":"#A9A3BD";
   g+=`<circle cx="${cx}" cy="${cy}" r="9" fill="${c}" opacity=".9"/>`
-   +`<text x="${cx}" y="${cy+3.4}" text-anchor="middle" font-family="Montserrat" font-size="8.6" font-weight="700" fill="#fff">${x.t.id.slice(1)}</text>`;
+   +`<text x="${cx}" y="${cy+3.4}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="8.6" font-weight="700" fill="#fff">${x.t.id.slice(1)}</text>`;
  });
  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;height:auto">${g}</svg>`;
 }
@@ -6135,21 +6504,21 @@ dmMatrixSVG = function(){
  let g=`<rect x="${pad}" y="20" width="${W-pad-24}" height="${H-pad-20}" fill="#fff" stroke="var(--line)"/>`;
  g+=`<rect x="${sx(A)}" y="${sy(5)}" width="${sx(5)-sx(A)}" height="${sy(A)-sy(5)}" fill="var(--mar-100)"/>`;
  for(let v=1;v<=5;v++){
-  g+=`<line x1="${sx(v)}" y1="20" x2="${sx(v)}" y2="${H-pad}" stroke="#EEF5F5"/>`
-   +`<line x1="${pad}" y1="${sy(v)}" x2="${W-24}" y2="${sy(v)}" stroke="#EEF5F5"/>`
-   +`<text x="${sx(v)}" y="${H-pad+16}" text-anchor="middle" font-family="Inter" font-size="10" fill="var(--ink-3)">${v}</text>`
-   +`<text x="${pad-8}" y="${sy(v)+3.5}" text-anchor="end" font-family="Inter" font-size="10" fill="var(--ink-3)">${v}</text>`;
+  g+=`<line x1="${sx(v)}" y1="20" x2="${sx(v)}" y2="${H-pad}" stroke="#F1EDF7"/>`
+   +`<line x1="${pad}" y1="${sy(v)}" x2="${W-24}" y2="${sy(v)}" stroke="#F1EDF7"/>`
+   +`<text x="${sx(v)}" y="${H-pad+16}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="var(--ink-3)">${v}</text>`
+   +`<text x="${pad-8}" y="${sy(v)+3.5}" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="var(--ink-3)">${v}</text>`;
  }
  g+=`<line x1="${sx(A)}" y1="20" x2="${sx(A)}" y2="${H-pad}" stroke="var(--mar-300)" stroke-width="1.6" stroke-dasharray="5 4"/>`
   +`<line x1="${pad}" y1="${sy(A)}" x2="${W-24}" y2="${sy(A)}" stroke="var(--mar-300)" stroke-width="1.6" stroke-dasharray="5 4"/>`
-  +`<text x="${W-28}" y="${sy(A)-7}" text-anchor="end" font-family="Inter" font-size="9.5" fill="var(--mar-500)">Ambang materialitas ${fmt(c.ambang)}</text>`
-  +`<text x="${(pad+W-24)/2}" y="${H-14}" text-anchor="middle" font-family="Montserrat" font-size="11" font-weight="600" fill="var(--ink-2)">Materialitas finansial, pengaruh pada perusahaan</text>`
-  +`<text x="16" y="${(20+H-pad)/2}" text-anchor="middle" font-family="Montserrat" font-size="11" font-weight="600" fill="var(--ink-2)" transform="rotate(-90 16 ${(20+H-pad)/2})">Materialitas dampak, pengaruh pada orang</text>`;
+  +`<text x="${W-28}" y="${sy(A)-7}" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9.5" fill="var(--mar-500)">Ambang materialitas ${fmt(c.ambang)}</text>`
+  +`<text x="${(pad+W-24)/2}" y="${H-14}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="11" font-weight="600" fill="var(--ink-2)">Materialitas finansial, pengaruh pada perusahaan</text>`
+  +`<text x="16" y="${(20+H-pad)/2}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="11" font-weight="600" fill="var(--ink-2)" transform="rotate(-90 16 ${(20+H-pad)/2})">Materialitas dampak, pengaruh pada orang</text>`;
  h.forEach(x=>{
   const cx=sx(clamp(x.fin,1,5)), cy=sy(clamp(x.dampak,1,5));
-  const col=x.md&&x.mf?"var(--mar-700)":x.md||x.mf?"var(--mar-300)":"#9DB3B3";
+  const col=x.md&&x.mf?"var(--mar-700)":x.md||x.mf?"var(--mar-300)":"#A9A3BD";
   g+=`<circle cx="${cx}" cy="${cy}" r="9" fill="${col}" opacity=".9"/>`
-   +`<text x="${cx}" y="${cy+3.4}" text-anchor="middle" font-family="Montserrat" font-size="8.6" font-weight="700" fill="#fff">${esc(String(x.t.id).replace(/[^0-9]/g,"")||x.t.id)}</text>`;
+   +`<text x="${cx}" y="${cy+3.4}" text-anchor="middle" font-family="League Spartan, Arial, sans-serif" font-size="8.6" font-weight="700" fill="#fff">${esc(String(x.t.id).replace(/[^0-9]/g,"")||x.t.id)}</text>`;
  });
  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;height:auto">${g}</svg>`;
 };
@@ -6444,7 +6813,7 @@ bindShell=function(){
 /* ---------- keadaan kosong ---------- */
 function kosong(judul,isi,aksi){
  return `<div class="card2" style="text-align:center;padding:46px 28px;max-width:620px;margin:8px auto">
-  <div style="font-family:Montserrat;font-weight:600;font-size:17px;color:var(--mar-700)">${esc(judul)}</div>
+  <div style="font-family:var(--fh);font-weight:600;font-size:17px;color:var(--mar-700)">${esc(judul)}</div>
   <div style="color:var(--ink-2);margin-top:9px;font-size:13.5px;line-height:1.6">${isi}</div>
   ${aksi?`<div class="row" style="justify-content:center;margin-top:20px">${aksi}</div>`:""}
  </div>`;
@@ -6709,7 +7078,7 @@ const LPTXT={
 const LAY={
  urutan:["akses","alur","gal","final"],
  tampil:{akses:true,alur:true,gal:true,final:true},
- tema:{d1:"#072B38",d2:"#0E7490",d3:"#19AE9E",mint:"#8BE8C8",gold:"#F2C14E"},
+ tema:{d1:"#1A0F48",d2:"#6A2CC7",d3:"#E8336A",mint:"#FF9EC0",gold:"#F2C14E"},
  lebar:1240, judul:"KERJASEHAT",
  nav:[{l:"Akses",s:"lpAkses"},{l:"Cara kerja",s:"lpAlur"},{l:"Penerapan",s:"lpGal"},{l:"Kontak",s:"lpFoot"}]
 };
@@ -6727,27 +7096,27 @@ function lpStrip(){
 }
 const LP_CSS=`
 <style>
-.lp{--d0:#041E28;--d1:#0A3A4A;--d2:#0E7490;--d3:#19AE9E;--mint:#8BE8C8;--gold:#F2C14E;
- font-family:Inter,system-ui,sans-serif;color:#12232A;background:#fff}
+.lp{--d0:#120936;--d1:#22135A;--d2:#6A2CC7;--d3:#E8336A;--mint:#FF9EC0;--gold:#F2C14E;
+ font-family:var(--fb);color:#1B1633;background:#fff}
 .lp *{box-sizing:border-box}
 .lp-nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:26px;
  padding:16px 40px;transition:background .3s,padding .3s,box-shadow .3s}
-.lp-nav.lpsolid{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);padding:11px 40px;box-shadow:0 1px 0 #E4EDED}
-.lp-logo{font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#fff}
+.lp-nav.lpsolid{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);padding:11px 40px;box-shadow:0 1px 0 #ECE9F3}
+.lp-logo{font-family:var(--fh);font-weight:700;font-size:18px;letter-spacing:-.02em;color:#fff}
 .lp-nav.lpsolid .lp-logo{color:var(--d1)}
 .lp-links{display:flex;gap:22px;flex:1}
 .lp-links a{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.82);
  text-decoration:none;font-weight:500;cursor:pointer}
-.lp-nav.lpsolid .lp-links a{color:#3E5257}
+.lp-nav.lpsolid .lp-links a{color:#4B4763}
 .lp-links a:hover{color:var(--mint)}
 .lp-nav.lpsolid .lp-links a:hover{color:var(--d2)}
 .lp-btn{border:none;border-radius:999px;padding:11px 22px;font-size:12.5px;font-weight:700;letter-spacing:.07em;
- text-transform:uppercase;cursor:pointer;transition:transform .18s,box-shadow .18s,background .2s;font-family:Inter}
+ text-transform:uppercase;cursor:pointer;transition:transform .18s,box-shadow .18s,background .2s;font-family:var(--fb)}
 .lp-btn:hover{transform:translateY(-2px)}
 .lp-btn.lpsolid{background:#fff;color:var(--d1)}
 .lp-nav.lpsolid .lp-btn.lpsolid{background:linear-gradient(118deg,var(--d1),var(--d3));color:#fff}
 .lp-btn.lpgrad{background:linear-gradient(118deg,var(--d1) 0%,var(--d2) 48%,var(--d3) 100%);color:#fff;
- box-shadow:0 8px 24px rgba(14,116,144,.32)}
+ box-shadow:0 8px 24px rgba(232,51,106,.32)}
 .lp-btn.lpghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
 .lp-btn.lpghost:hover{border-color:#fff;background:rgba(255,255,255,.1)}
 .lp-btn.lpbig{padding:15px 30px;font-size:13px}
@@ -6767,26 +7136,26 @@ const LP_CSS=`
 @keyframes lpF2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,-50px) scale(1.1)}}
 @keyframes lpF3{0%,100%{transform:translate(0,0)}33%{transform:translate(60px,-40px)}66%{transform:translate(-50px,30px)}}
 .lp-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat}
-.lp-hero-scrim{position:absolute;inset:0;background:linear-gradient(100deg,var(--d0) 0%,rgba(4,30,40,.72) 42%,rgba(4,30,40,.18) 100%)}
+.lp-hero-scrim{position:absolute;inset:0;background:linear-gradient(100deg,var(--d0) 0%,rgba(18,9,54,.72) 42%,rgba(18,9,54,.18) 100%)}
 .lp-hero-in{position:relative;z-index:2;max-width:1240px;margin:0 auto;width:100%}
 .lp-eyebrow{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);
  display:flex;align-items:center;gap:10px;opacity:0;animation:lpUp .8s .1s forwards}
 .lp-eyebrow i{width:30px;height:2px;background:var(--gold);display:block}
-.lp-h1{font-family:Montserrat;font-weight:700;font-size:clamp(34px,5.6vw,72px);line-height:1.02;
+.lp-h1{font-family:var(--fh);font-weight:700;font-size:clamp(34px,5.6vw,72px);line-height:1.02;
  letter-spacing:-.03em;margin:16px 0 0;max-width:19ch;text-transform:uppercase}
 .lp-h1 span{display:block;opacity:0;animation:lpUp .9s forwards}
 .lp-h1 span:nth-child(1){animation-delay:.18s}
 .lp-h1 span:nth-child(2){animation-delay:.3s;color:var(--mint);font-style:italic;font-weight:600}
 .lp-h1 span:nth-child(3){animation-delay:.42s}
 @keyframes lpUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-.lp-sub{margin-top:20px;max-width:52ch;font-size:15.5px;line-height:1.6;color:#DFF3F1;opacity:0;animation:lpUp .9s .54s forwards}
+.lp-sub{margin-top:20px;max-width:52ch;font-size:15.5px;line-height:1.6;color:#EDE7FA;opacity:0;animation:lpUp .9s .54s forwards}
 .lp-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;opacity:0;animation:lpUp .9s .66s forwards}
 .lp-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;border-top:1px solid rgba(255,255,255,.2);
  opacity:0;animation:lpUp 1s .8s forwards}
 .lp-strip div{padding:18px 20px 4px;border-right:1px solid rgba(255,255,255,.14)}
 .lp-strip div:last-child{border-right:none}
-.lp-strip .lpn{font-family:Montserrat;font-weight:700;font-size:30px;line-height:1}
-.lp-strip .lpl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#A7D8D5;margin-top:7px}
+.lp-strip .lpn{font-family:var(--fh);font-weight:700;font-size:30px;line-height:1}
+.lp-strip .lpl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#D3C6F0;margin-top:7px}
 .lp-scroll{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;
  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);text-align:center}
 .lp-scroll i{display:block;width:1px;height:34px;background:linear-gradient(#fff,transparent);margin:8px auto 0;animation:lpPulse 2s ease-in-out infinite}
@@ -6794,23 +7163,23 @@ const LP_CSS=`
 
 .lp-sec{padding:96px 40px;max-width:1240px;margin:0 auto}
 .lp-lab{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--d2);font-weight:600}
-.lp-h2{font-family:Montserrat;font-weight:700;font-size:clamp(25px,3.2vw,40px);line-height:1.12;
+.lp-h2{font-family:var(--fh);font-weight:700;font-size:clamp(25px,3.2vw,40px);line-height:1.12;
  letter-spacing:-.025em;margin:12px 0 0;max-width:24ch}
 .rv{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
 .rv.lpon{opacity:1;transform:none}
 .lp-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
-.lp-card{border:1px solid #E4EDED;border-radius:16px;overflow:hidden;background:#fff;cursor:pointer;
+.lp-card{border:1px solid #ECE9F3;border-radius:16px;overflow:hidden;background:#fff;cursor:pointer;
  transition:transform .28s,box-shadow .28s,border-color .28s;display:flex;flex-direction:column}
-.lp-card:hover{transform:translateY(-8px);box-shadow:0 18px 44px rgba(10,58,74,.13);border-color:var(--d3)}
-.lp-card .lpart{height:164px;position:relative;overflow:hidden;background:linear-gradient(140deg,#E7F4F4,#F3FAFA)}
+.lp-card:hover{transform:translateY(-8px);box-shadow:0 18px 44px rgba(34,19,90,.13);border-color:var(--d3)}
+.lp-card .lpart{height:164px;position:relative;overflow:hidden;background:linear-gradient(140deg,#F3EEFB,#FAF8FD)}
 .lp-card .lpart svg,.lp-card .lpart img{width:100%;height:100%;object-fit:cover;display:block}
 .lp-card:hover .lpart svg,.lp-card:hover .lpart img{transform:scale(1.05);transition:transform .5s}
-.lp-card .lpno{position:absolute;top:12px;left:14px;font-family:Montserrat;font-weight:700;font-size:12px;
- color:#fff;background:rgba(10,58,74,.72);padding:3px 9px;border-radius:999px;letter-spacing:.06em}
+.lp-card .lpno{position:absolute;top:12px;left:14px;font-family:var(--fh);font-weight:700;font-size:12px;
+ color:#fff;background:rgba(34,19,90,.72);padding:3px 9px;border-radius:999px;letter-spacing:.06em}
 .lp-card .lpbd{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column}
 .lp-card .lpt1{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--d3);font-weight:700}
-.lp-card .lpt2{font-family:Montserrat;font-weight:600;font-size:17px;margin-top:7px;line-height:1.25}
-.lp-card .lpt3{font-size:13px;color:#3E5257;margin-top:9px;line-height:1.6;flex:1}
+.lp-card .lpt2{font-family:var(--fh);font-weight:600;font-size:17px;margin-top:7px;line-height:1.25}
+.lp-card .lpt3{font-size:13px;color:#4B4763;margin-top:9px;line-height:1.6;flex:1}
 .lp-card .lpgo{margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--d2)}
 
 .lp-flow{background:linear-gradient(135deg,var(--d0),var(--d1) 45%,var(--d2));color:#fff;padding:96px 40px;position:relative;overflow:hidden}
@@ -6819,30 +7188,30 @@ const LP_CSS=`
 .lp-flow-in{position:relative;max-width:1240px;margin:0 auto}
 .lp-tabs{display:flex;gap:8px;margin-top:34px;flex-wrap:wrap}
 .lp-tab{border:1px solid rgba(255,255,255,.28);background:transparent;color:rgba(255,255,255,.7);
- border-radius:999px;padding:9px 20px;font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;font-family:Inter}
+ border-radius:999px;padding:9px 20px;font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;font-family:var(--fb)}
 .lp-tab.lpon{background:#fff;color:var(--d1);border-color:#fff}
 .lp-panel{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;margin-top:40px;align-items:center}
-.lp-panel .lpbig2{font-family:Montserrat;font-weight:700;font-size:clamp(56px,9vw,108px);line-height:.92;letter-spacing:-.04em}
+.lp-panel .lpbig2{font-family:var(--fh);font-weight:700;font-size:clamp(56px,9vw,108px);line-height:.92;letter-spacing:-.04em}
 .lp-panel .lpbig2 em{font-style:normal;font-size:.34em;color:var(--mint);margin-left:10px;letter-spacing:0}
-.lp-panel h3{font-family:Montserrat;font-weight:600;font-size:23px;margin:0 0 12px}
-.lp-panel p{color:#DFF3F1;font-size:14.5px;line-height:1.65;margin:0 0 8px;max-width:46ch}
+.lp-panel h3{font-family:var(--fh);font-weight:600;font-size:23px;margin:0 0 12px}
+.lp-panel p{color:#EDE7FA;font-size:14.5px;line-height:1.65;margin:0 0 8px;max-width:46ch}
 .lp-panel .lpart{border-radius:16px;overflow:hidden;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14)}
 .lp-panel .lpart svg,.lp-panel .lpart img{width:100%;display:block;height:300px;object-fit:cover}
 
 
 .lp-accHead{max-width:520px}
 .lp-accH{text-transform:uppercase;letter-spacing:-.015em;font-size:clamp(22px,2.7vw,34px)}
-.lp-acc{display:flex;margin-top:40px;border-top:1px solid #E4EDED;align-items:flex-start}
-.lp-col{flex:0 0 118px;min-width:0;border-left:1px solid #E4EDED;padding:24px 22px 30px;cursor:pointer;
+.lp-acc{display:flex;margin-top:40px;border-top:1px solid #ECE9F3;align-items:flex-start}
+.lp-col{flex:0 0 118px;min-width:0;border-left:1px solid #ECE9F3;padding:24px 22px 30px;cursor:pointer;
  transition:flex .55s cubic-bezier(.2,.8,.2,1),background .3s}
 .lp-col:first-child{border-left:none;padding-left:0}
 .lp-col.lpon{flex:1 1 auto;background:transparent}
 /* menyorot salah satu kolom menutup yang lain, tanpa perlu diklik */
 .lp-acc:hover .lp-col{flex:0 0 118px;background:transparent}
 .lp-acc .lp-col:hover{flex:1 1 auto;background:transparent}
-.lp-col .cno{font-family:Montserrat;font-weight:700;font-size:15px;color:var(--d1)}
+.lp-col .cno{font-family:var(--fh);font-weight:700;font-size:15px;color:var(--d1)}
 .lp-col .clab{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--d2);margin-top:9px;font-weight:700;line-height:1.5}
-.lp-col .plus{width:46px;height:46px;border-radius:50%;border:1px solid #CBDEDE;align-items:center;
+.lp-col .plus{width:46px;height:46px;border-radius:50%;border:1px solid #DCD6E8;align-items:center;
  justify-content:center;margin-top:26px;font-size:22px;color:var(--d2);background:#fff;transition:background .25s,color .25s,transform .25s}
 .lp-col:hover .plus{background:var(--d2);color:#fff;transform:rotate(90deg)}
 .lp-col .cbody{opacity:0;visibility:hidden;max-height:0;overflow:hidden;
@@ -6854,29 +7223,29 @@ const LP_CSS=`
 .lp-col.lpon .plus{display:none}
 .lp-acc:hover .lp-col .plus{display:flex}
 .lp-acc .lp-col:hover .plus{display:none}
-.lp-col .cbody h3{font-family:Montserrat;font-weight:700;text-transform:uppercase;letter-spacing:-.02em;
+.lp-col .cbody h3{font-family:var(--fh);font-weight:700;text-transform:uppercase;letter-spacing:-.02em;
  font-size:clamp(19px,2.1vw,28px);line-height:1.1;margin:16px 0 0;color:var(--d1)}
-.lp-col .cbody p{font-size:13.5px;color:#3E5257;line-height:1.72;margin:13px 0 0;max-width:62ch}
-.lp-col .cbody p:first-of-type{color:#12232A;font-size:14.5px}
-.lp-col .cart{margin-top:24px;border-radius:14px;overflow:hidden;height:270px;background:linear-gradient(140deg,#E7F4F4,#F3FAFA)}
+.lp-col .cbody p{font-size:13.5px;color:#4B4763;line-height:1.72;margin:13px 0 0;max-width:62ch}
+.lp-col .cbody p:first-of-type{color:#1B1633;font-size:14.5px}
+.lp-col .cart{margin-top:24px;border-radius:14px;overflow:hidden;height:270px;background:linear-gradient(140deg,#F3EEFB,#FAF8FD)}
 .lp-col .cart svg,.lp-col .cart img{width:100%;height:100%;object-fit:cover;display:block}
 .lp-gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
-.lp-gal .lpg{border-radius:16px;overflow:hidden;position:relative;height:250px;background:linear-gradient(140deg,#E7F4F4,#F3FAFA)}
+.lp-gal .lpg{border-radius:16px;overflow:hidden;position:relative;height:250px;background:linear-gradient(140deg,#F3EEFB,#FAF8FD)}
 .lp-gal .lpg svg,.lp-gal .lpg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
 .lp-gal .lpg:hover svg,.lp-gal .lpg:hover img{transform:scale(1.06)}
 .lp-gal .lpcap{position:absolute;left:0;right:0;bottom:0;padding:34px 18px 16px;color:#fff;
- background:linear-gradient(transparent,rgba(4,30,40,.82));font-family:Montserrat;font-weight:600;font-size:14.5px}
+ background:linear-gradient(transparent,rgba(18,9,54,.82));font-family:var(--fh);font-weight:600;font-size:14.5px}
 
-.lp-final{padding:96px 40px;text-align:center;background:#F3FAFA}
+.lp-final{padding:96px 40px;text-align:center;background:#FAF8FD}
 .lp-final .lp-h2{margin:12px auto 0;max-width:30ch}
 .lp-final .lp-cta{justify-content:center;margin-top:28px;animation:none;opacity:1}
-.lp-foot{background:linear-gradient(135deg,var(--d0),var(--d1) 60%,#0E6376);color:#fff;padding:56px 40px 26px}
+.lp-foot{background:linear-gradient(135deg,var(--d0),var(--d1) 60%,#4A23A8);color:#fff;padding:56px 40px 26px}
 .lp-foot-in{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:38px}
-.lp-foot h4{font-family:Montserrat;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8FC9C6;margin:0 0 12px}
-.lp-foot p,.lp-foot a{font-size:13px;color:#DFF3F1;line-height:1.7;text-decoration:none;display:block}
+.lp-foot h4{font-family:var(--fh);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C2B3E6;margin:0 0 12px}
+.lp-foot p,.lp-foot a{font-size:13px;color:#EDE7FA;line-height:1.7;text-decoration:none;display:block}
 .lp-foot a:hover{color:var(--mint);cursor:pointer}
 .lp-foot .lpbar{max-width:1240px;margin:36px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.16);
- display:flex;justify-content:space-between;gap:16px;font-size:11.5px;color:#8FC9C6;flex-wrap:wrap}
+ display:flex;justify-content:space-between;gap:16px;font-size:11.5px;color:#C2B3E6;flex-wrap:wrap}
 @media(max-width:980px){
  .lp-nav,.lp-nav.lpsolid{padding:12px 20px}.lp-links{display:none}
  .lp-hero{padding:100px 20px 28px;min-height:88vh}
@@ -6884,7 +7253,7 @@ const LP_CSS=`
  .lp-strip{grid-template-columns:1fr 1fr}
  .lp-strip div{border-bottom:1px solid rgba(255,255,255,.14)}
  .lp-acc{flex-direction:column;border-top:none}
- .lp-col{flex:auto;border-left:none;border-top:1px solid #E4EDED;padding:20px 0}
+ .lp-col{flex:auto;border-left:none;border-top:1px solid #ECE9F3;padding:20px 0}
  .lp-col:first-child{border-top:none}
  .lp-col .cart{height:200px}
  .lp-col .cbody,.lp-acc:hover .lp-col .cbody{opacity:1;visibility:visible;max-height:none;overflow:visible}
@@ -6898,59 +7267,59 @@ const LP_CSS=`
 </style>`;
 /* ---------- ilustrasi SVG beranimasi ---------- */
 function artKios(){return `<svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
- <rect width="320" height="170" fill="#E7F4F4"/>
- <circle cx="268" cy="34" r="46" fill="#19AE9E" opacity=".16"/>
- <rect x="112" y="34" width="96" height="112" rx="9" fill="#0A3A4A"/>
+ <rect width="320" height="170" fill="#F3EEFB"/>
+ <circle cx="268" cy="34" r="46" fill="#E8336A" opacity=".16"/>
+ <rect x="112" y="34" width="96" height="112" rx="9" fill="#22135A"/>
  <rect x="122" y="46" width="76" height="66" rx="5" fill="#fff"/>
- ${[0,1,2,3].map(i=>[0,1,2,3].map(j=>`<rect x="${130+j*14}" y="${54+i*14}" width="10" height="10" rx="1.5" fill="${(i+j)%3?"#0E7490":"#19AE9E"}" opacity="${0.35+((i*4+j)%5)*0.13}"><animate attributeName="opacity" values="${0.3+((i+j)%3)*0.2};1;${0.3+((i+j)%3)*0.2}" dur="${3+((i*4+j)%4)}s" repeatCount="indefinite"/></rect>`).join("")).join("")}
- <rect x="136" y="120" width="48" height="6" rx="3" fill="#19AE9E"/>
- <circle cx="62" cy="86" r="19" fill="#0E7490"/><rect x="45" y="108" width="34" height="42" rx="15" fill="#0E7490"/>
- <circle cx="252" cy="96" r="16" fill="#8BE8C8"/><rect x="238" y="114" width="28" height="36" rx="13" fill="#8BE8C8"/>
- <g><path d="M86 92 L104 92" stroke="#19AE9E" stroke-width="2.4" stroke-dasharray="4 4">
+ ${[0,1,2,3].map(i=>[0,1,2,3].map(j=>`<rect x="${130+j*14}" y="${54+i*14}" width="10" height="10" rx="1.5" fill="${(i+j)%3?"#6A2CC7":"#E8336A"}" opacity="${0.35+((i*4+j)%5)*0.13}"><animate attributeName="opacity" values="${0.3+((i+j)%3)*0.2};1;${0.3+((i+j)%3)*0.2}" dur="${3+((i*4+j)%4)}s" repeatCount="indefinite"/></rect>`).join("")).join("")}
+ <rect x="136" y="120" width="48" height="6" rx="3" fill="#E8336A"/>
+ <circle cx="62" cy="86" r="19" fill="#6A2CC7"/><rect x="45" y="108" width="34" height="42" rx="15" fill="#6A2CC7"/>
+ <circle cx="252" cy="96" r="16" fill="#FF9EC0"/><rect x="238" y="114" width="28" height="36" rx="13" fill="#FF9EC0"/>
+ <g><path d="M86 92 L104 92" stroke="#E8336A" stroke-width="2.4" stroke-dasharray="4 4">
   <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.4s" repeatCount="indefinite"/></path></g>
 </svg>`}
 function artTim(){return `<svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
- <rect width="320" height="170" fill="#F3FAFA"/>
- <circle cx="40" cy="30" r="52" fill="#0E7490" opacity=".12"/>
- <ellipse cx="160" cy="124" rx="104" ry="20" fill="#0A3A4A" opacity=".1"/>
- <rect x="64" y="104" width="192" height="14" rx="7" fill="#0A3A4A"/>
- ${[[96,74,"#0E7490"],[134,66,"#19AE9E"],[176,70,"#0A3A4A"],[216,78,"#8BE8C8"]].map((p,i)=>
+ <rect width="320" height="170" fill="#FAF8FD"/>
+ <circle cx="40" cy="30" r="52" fill="#6A2CC7" opacity=".12"/>
+ <ellipse cx="160" cy="124" rx="104" ry="20" fill="#22135A" opacity=".1"/>
+ <rect x="64" y="104" width="192" height="14" rx="7" fill="#22135A"/>
+ ${[[96,74,"#6A2CC7"],[134,66,"#E8336A"],[176,70,"#22135A"],[216,78,"#FF9EC0"]].map((p,i)=>
  `<g><circle cx="${p[0]}" cy="${p[1]}" r="14" fill="${p[2]}"><animate attributeName="cy" values="${p[1]};${p[1]-5};${p[1]}" dur="${3.2+i*0.6}s" repeatCount="indefinite"/></circle>
   <rect x="${p[0]-12}" y="${p[1]+16}" width="24" height="30" rx="11" fill="${p[2]}" opacity=".85"/></g>`).join("")}
- <rect x="126" y="24" width="68" height="28" rx="14" fill="#fff" stroke="#CBDEDE"/>
- <circle cx="146" cy="38" r="3.4" fill="#19AE9E"><animate attributeName="opacity" values=".3;1;.3" dur="1.5s" repeatCount="indefinite"/></circle>
- <circle cx="160" cy="38" r="3.4" fill="#19AE9E"><animate attributeName="opacity" values=".3;1;.3" dur="1.5s" begin=".3s" repeatCount="indefinite"/></circle>
- <circle cx="174" cy="38" r="3.4" fill="#19AE9E"><animate attributeName="opacity" values=".3;1;.3" dur="1.5s" begin=".6s" repeatCount="indefinite"/></circle>
+ <rect x="126" y="24" width="68" height="28" rx="14" fill="#fff" stroke="#DCD6E8"/>
+ <circle cx="146" cy="38" r="3.4" fill="#E8336A"><animate attributeName="opacity" values=".3;1;.3" dur="1.5s" repeatCount="indefinite"/></circle>
+ <circle cx="160" cy="38" r="3.4" fill="#E8336A"><animate attributeName="opacity" values=".3;1;.3" dur="1.5s" begin=".3s" repeatCount="indefinite"/></circle>
+ <circle cx="174" cy="38" r="3.4" fill="#E8336A"><animate attributeName="opacity" values=".3;1;.3" dur="1.5s" begin=".6s" repeatCount="indefinite"/></circle>
 </svg>`}
 function artDasbor(){return `<svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
- <rect width="320" height="170" fill="#E7F4F4"/>
- <rect x="30" y="26" width="260" height="118" rx="10" fill="#fff" stroke="#CBDEDE"/>
- <rect x="44" y="40" width="72" height="8" rx="4" fill="#0A3A4A"/>
+ <rect width="320" height="170" fill="#F3EEFB"/>
+ <rect x="30" y="26" width="260" height="118" rx="10" fill="#fff" stroke="#DCD6E8"/>
+ <rect x="44" y="40" width="72" height="8" rx="4" fill="#22135A"/>
  ${[[44,64,34],[44,84,62],[44,104,46]].map((b,i)=>
- `<g><rect x="${b[0]}" y="${b[1]}" width="120" height="9" rx="4.5" fill="#EDF5F5"/>
+ `<g><rect x="${b[0]}" y="${b[1]}" width="120" height="9" rx="4.5" fill="#F1EDF7"/>
   <rect x="${b[0]}" y="${b[1]}" width="0" height="9" rx="4.5" fill="url(#lg${i})">
   <animate attributeName="width" values="0;${b[2]*1.6}" dur="1.6s" begin="${i*0.25}s" fill="freeze"/></rect></g>`).join("")}
- <defs>${[0,1,2].map(i=>`<linearGradient id="lg${i}" x1="0" x2="1"><stop offset="0" stop-color="#0A3A4A"/><stop offset="1" stop-color="#19AE9E"/></linearGradient>`).join("")}</defs>
- ${[0,1,2,3,4,5].map(i=>`<rect x="${186+i*16}" y="${124-(8+((i*37)%46))}" width="10" height="${8+((i*37)%46)}" rx="3" fill="${i%2?"#0E7490":"#19AE9E"}">
+ <defs>${[0,1,2].map(i=>`<linearGradient id="lg${i}" x1="0" x2="1"><stop offset="0" stop-color="#22135A"/><stop offset="1" stop-color="#E8336A"/></linearGradient>`).join("")}</defs>
+ ${[0,1,2,3,4,5].map(i=>`<rect x="${186+i*16}" y="${124-(8+((i*37)%46))}" width="10" height="${8+((i*37)%46)}" rx="3" fill="${i%2?"#6A2CC7":"#E8336A"}">
   <animate attributeName="height" values="4;${8+((i*37)%46)}" dur="1.2s" begin="${0.2+i*0.12}s" fill="freeze"/>
   <animate attributeName="y" values="120;${124-(8+((i*37)%46))}" dur="1.2s" begin="${0.2+i*0.12}s" fill="freeze"/></rect>`).join("")}
 </svg>`}
 function artPeriksa(){return `<svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
- <rect width="320" height="170" fill="#F3FAFA"/>
- <circle cx="278" cy="140" r="56" fill="#19AE9E" opacity=".14"/>
- <rect x="86" y="22" width="126" height="126" rx="8" fill="#fff" stroke="#CBDEDE"/>
- ${[0,1,2,3,4].map(i=>`<g><rect x="102" y="${40+i*20}" width="${64-((i*13)%26)}" height="7" rx="3.5" fill="#DCEBEB"/>
-  <path d="M182 ${43+i*20} l4 5 l8 -10" stroke="#19AE9E" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0">
+ <rect width="320" height="170" fill="#FAF8FD"/>
+ <circle cx="278" cy="140" r="56" fill="#E8336A" opacity=".14"/>
+ <rect x="86" y="22" width="126" height="126" rx="8" fill="#fff" stroke="#DCD6E8"/>
+ ${[0,1,2,3,4].map(i=>`<g><rect x="102" y="${40+i*20}" width="${64-((i*13)%26)}" height="7" rx="3.5" fill="#E8E2F2"/>
+  <path d="M182 ${43+i*20} l4 5 l8 -10" stroke="#E8336A" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0">
   <animate attributeName="opacity" values="0;1" dur=".4s" begin="${0.5+i*0.28}s" fill="freeze"/></path></g>`).join("")}
- <g><circle cx="58" cy="70" r="24" fill="none" stroke="#0A3A4A" stroke-width="5"/>
-  <line x1="74" y1="88" x2="94" y2="110" stroke="#0A3A4A" stroke-width="6" stroke-linecap="round"/>
+ <g><circle cx="58" cy="70" r="24" fill="none" stroke="#22135A" stroke-width="5"/>
+  <line x1="74" y1="88" x2="94" y2="110" stroke="#22135A" stroke-width="6" stroke-linecap="round"/>
   <animateTransform attributeName="transform" type="translate" values="0 0;10 8;0 0" dur="5s" repeatCount="indefinite"/></g>
 </svg>`}
 function artHero(){return `<svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
  <rect width="600" height="340" fill="none"/>
- ${[...Array(9)].map((_,i)=>`<circle cx="${40+i*68}" cy="${170+Math.sin(i)*70}" r="${5+i%4*3}" fill="#8BE8C8" opacity=".5">
+ ${[...Array(9)].map((_,i)=>`<circle cx="${40+i*68}" cy="${170+Math.sin(i)*70}" r="${5+i%4*3}" fill="#FF9EC0" opacity=".5">
   <animate attributeName="cy" values="${170+Math.sin(i)*70};${150+Math.sin(i)*70};${170+Math.sin(i)*70}" dur="${4+i%5}s" repeatCount="indefinite"/></circle>`).join("")}
- <path d="M20 250 Q150 150 300 210 T580 130" stroke="#19AE9E" stroke-width="2" fill="none" opacity=".5" stroke-dasharray="1200" stroke-dashoffset="1200">
+ <path d="M20 250 Q150 150 300 210 T580 130" stroke="#E8336A" stroke-width="2" fill="none" opacity=".5" stroke-dasharray="1200" stroke-dashoffset="1200">
   <animate attributeName="stroke-dashoffset" values="1200;0" dur="3.4s" fill="freeze"/></path>
 </svg>`}
 const LP_KARTU=[
@@ -7027,7 +7396,7 @@ function secFinal(){return `<section class="lp-final">
    <h2 class="lp-h2">${esc(LPTXT.finalH)}</h2>
    <div class="lp-cta">
     <button class="lp-btn lpgrad lpbig" id="lpAsesmen3">${esc(LPTXT.finalCta1)}</button>
-    <button class="lp-btn lpbig" id="lpDaftar" style="background:#0A3A4A;color:#fff">${esc(LPTXT.finalCta2)}</button></div></div>
+    <button class="lp-btn lpbig" id="lpDaftar" style="background:#22135A;color:#fff">${esc(LPTXT.finalCta2)}</button></div></div>
  </section>`}
 function layUrut(){
  const f={akses:secAkses,alur:secAlur,gal:secGal,final:secFinal};
@@ -7197,7 +7566,7 @@ function page_lp_edit(){
   const kunci=["akses","alur","gal","final"];
   body=`<div class="grid2">
    <div class="panel"><div class="ph"><h3>Urutan dan tampilan seksi</h3></div><div class="pb">
-    ${LAY.urutan.map((k,i)=>`<div class="mrow"><div class="lpno" style="font-family:Montserrat;font-weight:700;color:var(--mar-300);flex:0 0 22px">${i+1}</div>
+    ${LAY.urutan.map((k,i)=>`<div class="mrow"><div class="lpno" style="font-family:var(--fh);font-weight:700;color:var(--mar-300);flex:0 0 22px">${i+1}</div>
      <div class="mt"><div class="mn">${esc(SEC_NAMA[k]||k)}</div>
       <div class="ms">Penanda seksi ${esc(k)}</div></div>
      <span class="pill ${LAY.tampil[k]?"ok":"mut"}">${LAY.tampil[k]?"Tampil":"Disembunyikan"}</span>
@@ -7390,7 +7759,7 @@ function bind_lp_edit(){
   LAY.lebar=clamp(parseInt(v("c_lebar"),10)||1240,900,1800);
   LAY.judul=v("c_judul")||"KERJASEHAT"; simpan("warna dan lebar")};
  const rtm=$("#r_tema"); if(rtm) rtm.onclick=()=>{
-  LAY.tema={d1:"#072B38",d2:"#0E7490",d3:"#19AE9E",mint:"#8BE8C8",gold:"#F2C14E"};
+  LAY.tema={d1:"#1A0F48",d2:"#6A2CC7",d3:"#E8336A",mint:"#FF9EC0",gold:"#F2C14E"};
   LAY.lebar=1240; simpan("warna bawaan")};
  document.querySelectorAll("[data-nsave]").forEach(b=>b.onclick=()=>{
   const i=+b.dataset.nsave; LAY.nav[i]={l:v("n_l_"+i)||"Tautan",s:v("n_s_"+i)}; simpan("tautan navigasi")});
@@ -7522,8 +7891,8 @@ function liteBar(t,total){return `<div class="prog" style="max-width:780px;margi
 function liteBungkus(isi){
  return `<div style="min-height:100vh;background:var(--bg-2)">
   <div style="background:var(--grad);color:#fff;padding:16px 26px;display:flex;align-items:center;gap:14px">
-   <div style="font-family:Montserrat;font-weight:700;font-size:16px">KERJASEHAT</div>
-   <div style="flex:1;font-size:12px;color:#CDEDEA">Asesmen cepat, ${VERSI.lite.butir()} pertanyaan</div>
+   <div style="font-family:var(--fh);font-weight:700;font-size:16px">KERJASEHAT</div>
+   <div style="flex:1;font-size:12px;color:#F9D9E4">Asesmen cepat, ${VERSI.lite.butir()} pertanyaan</div>
    <button id="lt_keluar" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4)">Keluar</button></div>
   <div style="max-width:820px;margin:0 auto;padding:26px 22px 80px">${isi}</div></div>`;
 }
@@ -7534,7 +7903,7 @@ function page_lite(){
  if(L.step===0){
   return liteBungkus(liteBar(0,total)+
   `<div class="card2" style="max-width:640px;margin:0 auto">
-   <h2 style="font-family:Montserrat;font-size:21px;margin:0 0 14px">Asesmen cepat</h2>
+   <h2 style="font-family:var(--fh);font-size:21px;margin:0 0 14px">Asesmen cepat</h2>
    <div class="kvl" style="margin-bottom:16px">
     <div><span class="kk">Jumlah pertanyaan</span><span class="vv">${VERSI.lite.butir()}</span></div>
     <div><span class="kk">Perkiraan waktu</span><span class="vv">${VERSI.lite.menit}</span></div>
@@ -7574,7 +7943,7 @@ function page_lite(){
   ["D11a","Iklim keselamatan psikososial"],["D1a","Beban dan tempo kerja"],["D3b","Konflik peran"],["D5b","Dukungan penyelia"]];
  return liteBungkus(liteBar(4,total)+
  `<div class="card2" style="margin-bottom:16px">
-  <h2 style="font-family:Montserrat;font-size:21px;margin:0 0 6px">Bacaan singkat Anda</h2>
+  <h2 style="font-family:var(--fh);font-size:21px;margin:0 0 6px">Bacaan singkat Anda</h2>
   <div class="sup" style="font-size:12.5px">Kode Anda ${esc(r.pseudo||"")}. Halaman ini hanya ada pada sesi ini.</div></div>
  <div class="panel"><div class="pb">
   ${blok.map(b=>{const sub=DIMS.flatMap(d=>d.subs).find(s=>s.id===b[0]);
@@ -7584,13 +7953,13 @@ function page_lite(){
     <div class="mval">${fmt(v)}</div><span class="pill ${c}">${lbl}</span></div>`}).join("")}
   </div></div>
  <div class="grid2">
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cakupan bacaan ini</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Cakupan bacaan ini</h4>
    <div class="kvl">
     <div><span class="kk">Hal yang diukur</span><span class="vv">8 dari ${DIMS.flatMap(d=>d.subs).length} blok</span></div>
     <div><span class="kk">Laporan pribadi lengkap</span><span class="vv">Versi Full, perlu masuk dengan surel</span></div>
     <div><span class="kk">Masuk ke angka perusahaan</span><span class="vv">${L.tenant?"Ya, "+esc(TENANTS.find(x=>x.id===L.tenant).name):"Tidak, tanpa kode akses"}</span></div>
    </div></div>
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Langkah berikutnya</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Langkah berikutnya</h4>
    <ul class="ivl">
     <li class="org">Bawa hal yang bertanda prioritas ke forum konsultasi pekerja</li>
     <li>Hubungi klinik atau dokter perusahaan bila keluhan mengganggu kegiatan sehari-hari</li>
@@ -7782,29 +8151,29 @@ const RISIKO={
 const RIS_CSS=`<style>
 .lp-ris{background:#fff;padding:96px 40px}
 .lp-ris .lp-ris-in{max-width:${LAY.lebar}px;margin:0 auto}
-.lp-ris .rdef{font-size:16px;line-height:1.75;color:#12232A;max-width:78ch;margin-top:22px;
+.lp-ris .rdef{font-size:16px;line-height:1.75;color:#1B1633;max-width:78ch;margin-top:22px;
  padding-left:18px;border-left:3px solid var(--d3)}
-.lp-rantai{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:46px;border-top:1px solid #E4EDED}
-.lp-rantai > div{padding:26px 26px 30px;border-left:1px solid #E4EDED;position:relative}
+.lp-rantai{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:46px;border-top:1px solid #ECE9F3}
+.lp-rantai > div{padding:26px 26px 30px;border-left:1px solid #ECE9F3;position:relative}
 .lp-rantai > div:first-child{border-left:none;padding-left:0}
-.lp-rantai .rno{font-family:Montserrat;font-weight:700;font-size:13px;color:var(--d3);letter-spacing:.08em}
-.lp-rantai h3{font-family:Montserrat;font-weight:600;font-size:18px;margin:10px 0 0;line-height:1.28;color:#0A3A4A}
-.lp-rantai p{font-size:13.5px;line-height:1.72;color:#3E5257;margin:12px 0 0}
+.lp-rantai .rno{font-family:var(--fh);font-weight:700;font-size:13px;color:var(--d3);letter-spacing:.08em}
+.lp-rantai h3{font-family:var(--fh);font-weight:600;font-size:18px;margin:10px 0 0;line-height:1.28;color:#22135A}
+.lp-rantai p{font-size:13.5px;line-height:1.72;color:#4B4763;margin:12px 0 0}
 .lp-rantai .arrow{position:absolute;right:-9px;top:34px;width:18px;height:18px;border-radius:50%;
  background:var(--d3);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;z-index:2}
 .lp-rnum{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
-.lp-rnum > div{background:linear-gradient(140deg,#F3FAFA,#E7F4F4);border-radius:14px;padding:22px 20px}
-.lp-rnum .rn{font-family:Montserrat;font-weight:700;font-size:clamp(22px,2.4vw,31px);line-height:1.04;color:#0A3A4A;letter-spacing:-.02em}
-.lp-rnum .rl{font-size:12.5px;line-height:1.6;color:#3E5257;margin-top:10px}
-.lp-rnum .rs{font-size:10.5px;line-height:1.5;color:#6E8388;margin-top:10px;padding-top:9px;border-top:1px solid #D7E7E7}
+.lp-rnum > div{background:linear-gradient(140deg,#FAF8FD,#F3EEFB);border-radius:14px;padding:22px 20px}
+.lp-rnum .rn{font-family:var(--fh);font-weight:700;font-size:clamp(22px,2.4vw,31px);line-height:1.04;color:#22135A;letter-spacing:-.02em}
+.lp-rnum .rl{font-size:12.5px;line-height:1.6;color:#4B4763;margin-top:10px}
+.lp-rnum .rs{font-size:10.5px;line-height:1.5;color:#7C7892;margin-top:10px;padding-top:9px;border-top:1px solid #E4DEEE}
 .lp-rhuk{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px}
-.lp-rhuk > div{border:1px solid #E4EDED;border-radius:12px;padding:17px 18px}
-.lp-rhuk h4{font-family:Montserrat;font-weight:600;font-size:14px;margin:0;color:#0E7490}
-.lp-rhuk p{font-size:12.8px;line-height:1.65;color:#3E5257;margin:7px 0 0}
+.lp-rhuk > div{border:1px solid #ECE9F3;border-radius:12px;padding:17px 18px}
+.lp-rhuk h4{font-family:var(--fh);font-weight:600;font-size:14px;margin:0;color:#6A2CC7}
+.lp-rhuk p{font-size:12.8px;line-height:1.65;color:#4B4763;margin:7px 0 0}
 @media(max-width:980px){
  .lp-ris{padding:64px 20px}
  .lp-rantai{grid-template-columns:1fr;border-top:none}
- .lp-rantai > div{border-left:none;border-top:1px solid #E4EDED;padding:20px 0}
+ .lp-rantai > div{border-left:none;border-top:1px solid #ECE9F3;padding:20px 0}
  .lp-rantai > div:first-child{border-top:none}
  .lp-rantai .arrow{display:none}
  .lp-rnum{grid-template-columns:1fr 1fr}
@@ -7986,7 +8355,7 @@ function page_roda_edit(){
  <div class="panel"><div class="ph"><h3>Daftar pertanyaan</h3>
    <span class="pill mut">Urutan tidak menentukan, roda memilih acak</span></div><div class="pb">
   ${d.map((r,i)=>`<div class="mrow" style="align-items:flex-start">
-   <div class="lpno" style="font-family:Montserrat;font-weight:700;color:var(--mar-300);flex:0 0 26px">${i+1}</div>
+   <div class="lpno" style="font-family:var(--fh);font-weight:700;color:var(--mar-300);flex:0 0 26px">${i+1}</div>
    <div class="mt"><div><label class="lbl">Pertanyaan</label><input id="rd_t_${i}" value="${esc(r.t)}"></div></div>
    <div style="flex:0 0 220px"><label class="lbl">Dimensi</label><select id="rd_d_${i}">
     ${DIMS.map(x=>`<option value="${x.id}" ${r.d===x.id?"selected":""}>${x.id} · ${esc(x.name)}</option>`).join("")}</select></div>
@@ -7998,7 +8367,7 @@ function page_roda_edit(){
     <div class="mval">${x.n}</div>
     <span class="pill ${x.n>=2?"ok":x.n===1?"warn":"bad"}">${x.n>=2?"Cukup":x.n===1?"Satu saja":"Belum ada"}</span></div>`).join("")}
    </div></div>
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Tindakan</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Tindakan</h4>
    <ul class="ivl">
     <li class="org">Memulihkan daftar bawaan mengganti seluruh pertanyaan perusahaan ini</li>
     <li class="org">Pertanyaan tanpa dimensi tidak dapat disimpan, karena sesinya tidak dapat ditautkan ke bukti konsultasi</li>
@@ -8289,14 +8658,14 @@ function lvPeta(){
    <div class="grid3">${[1,2,3].map(k=>{
     const n=bi*3+k, buka=lvTerbuka(n), bt=lvBintang(n);
     return `<div class="card2" style="${buka?"":"opacity:.55"}">
-     <div class="spread"><div style="font-family:Montserrat;font-weight:700;font-size:15px">Tingkat ${n}</div>
+     <div class="spread"><div style="font-family:var(--fh);font-weight:700;font-size:15px">Tingkat ${n}</div>
       <div style="letter-spacing:2px;color:${bt?"var(--mar-300)":"var(--line-2)"}">${"★".repeat(bt)}${"☆".repeat(3-bt)}</div></div>
      <div class="sup" style="font-size:12px;margin-top:6px">${esc(b.d)}${lvWaktu(n)?" · "+lvWaktu(n)+" detik per soal":""}</div>
      <button class="${buka?"primary":""}" data-lvgo="${n}" ${buka?"":"disabled"} style="margin-top:12px;width:100%">
       ${buka?(bt?"Main lagi":"Mulai"):"Terkunci"}</button></div>`}).join("")}</div>
   </div></div>`).join("")}
  <div class="card2" style="margin-top:16px">
-  <h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang dicatat dan tidak dicatat</h4>
+  <h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Yang dicatat dan tidak dicatat</h4>
   <div class="kvl">
    <div><span class="kk">Dicatat</span><span class="vv">Skor pengetahuan tingkat divisi</span></div>
    <div><span class="kk">Tidak dicatat</span><span class="vv">Nilai perorangan dan jawaban per soal</span></div>
@@ -8335,11 +8704,11 @@ function lvMain(){
    <span class="sup" style="font-size:12px"> detik</span></div>`:""}
    <div class="sup" style="font-size:12px">Benar ${L.benar}</div></div></div>
   <div class="prog"><i style="width:${L.idx/soal.length*100}%"></i></div></div>
-  <div id="lvflash" style="text-align:center;height:24px;font-weight:600;font-family:Montserrat;font-size:15px;margin-top:8px"></div>
+  <div id="lvflash" style="text-align:center;height:24px;font-weight:600;font-family:var(--fh);font-size:15px;margin-top:8px"></div>
   <div style="text-align:center;font-size:13px;color:var(--ink-3);margin-bottom:8px">${esc(b.d)}</div>
   <div style="border:1px solid var(--line-2);border-radius:14px;padding:26px 20px;text-align:center;margin:0 0 18px;
    background:var(--bg-2);min-height:112px;display:flex;align-items:center;justify-content:center">
-   <div style="font-family:Montserrat;font-weight:600;font-size:18px;line-height:1.45;max-width:52ch">${esc(s.s)}</div></div>
+   <div style="font-family:var(--fh);font-weight:600;font-size:18px;line-height:1.45;max-width:52ch">${esc(s.s)}</div></div>
   ${pilihan}
   <div class="svy-nav"><span class="sup">Salah tidak mengurangi</span><button id="lvquit">Keluar</button></div></div>`;
 }
@@ -8432,7 +8801,7 @@ function lvBersih(){if(ST.lvTick){clearInterval(ST.lvTick);ST.lvTick=null}}
    dua belas tingkat dengan sasaran skor yang menaik.
 =================================================================== */
 const BB_N=8;
-const BB_WARNA=["#0E7490","#17A398","#0A3A4A","#3FB6A8","#0E6376","#6ED0C0"];
+const BB_WARNA=["#6A2CC7","#E8336A","#22135A","#F0648F","#4A23A8","#F7A1BE"];
 const BB_BENTUK=[
  {n:"1",c:[[0,0]],k:1},
  {n:"2 tegak",c:[[0,0],[1,0]],k:1},
@@ -8538,22 +8907,22 @@ function bbBuka(l){return l===1||bbProg(l-1)>0}
 /* ---------- tampilan ---------- */
 const BB_CSS=`<style>
 .bbwrap{max-width:460px;margin:0 auto}
-.bbg{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;background:#EDF5F5;padding:8px;border-radius:14px}
+.bbg{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;background:#F1EDF7;padding:8px;border-radius:14px}
 .bbg > button{aspect-ratio:1;border:none;border-radius:6px;background:#fff;padding:0;min-width:0;
- box-shadow:inset 0 0 0 1px #E4EDED;transition:transform .1s,background .12s}
+ box-shadow:inset 0 0 0 1px #ECE9F3;transition:transform .1s,background .12s}
 .bbg > button.isi{box-shadow:none}
 .bbg > button.sah{background:#DBF0EC;box-shadow:inset 0 0 0 1.6px var(--mar-300)}
 .bbg > button.sah:active{transform:scale(.9)}
 .bbtray{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
 .bbp{border:1px solid var(--line-2);border-radius:12px;padding:10px;background:#fff;display:flex;
  align-items:center;justify-content:center;min-height:92px}
-.bbp.on{border-color:var(--mar-300);background:var(--mar-100);box-shadow:0 0 0 2px rgba(23,163,152,.18)}
+.bbp.on{border-color:var(--mar-300);background:var(--mar-100);box-shadow:0 0 0 2px rgba(232,51,106,.18)}
 .bbp.mati{opacity:.28}
 .bbp .mini{display:grid;gap:3px}
 .bbp .mini i{width:14px;height:14px;border-radius:3px;display:block}
 .bbhud{display:flex;gap:10px;align-items:flex-end;justify-content:space-between;margin-bottom:10px}
-.bbhud .sk{font-family:Montserrat;font-weight:700;font-size:30px;line-height:1}
-.bbflash{height:22px;text-align:center;font-family:Montserrat;font-weight:600;font-size:14px;color:var(--mar-500)}
+.bbhud .sk{font-family:var(--fh);font-weight:700;font-size:30px;line-height:1}
+.bbflash{height:22px;text-align:center;font-family:var(--fh);font-weight:600;font-size:14px;color:var(--mar-500)}
 </style>`;
 function bbMini(p,skala){
  const mr=Math.max(...p.c.map(x=>x[0]))+1, mc=Math.max(...p.c.map(x=>x[1]))+1;
@@ -8583,7 +8952,7 @@ function bbPeta(){
   <div class="grid4">${[...Array(12).keys()].map(i=>{
    const l=i+1, buka=bbBuka(l), b=bbProg(l);
    return `<div class="card2" style="${buka?"":"opacity:.55"}">
-    <div class="spread"><div style="font-family:Montserrat;font-weight:700;font-size:15px">Tingkat ${l}</div>
+    <div class="spread"><div style="font-family:var(--fh);font-weight:700;font-size:15px">Tingkat ${l}</div>
      <div style="letter-spacing:2px;color:${b?"var(--mar-300)":"var(--line-2)"}">${"★".repeat(b)}${"☆".repeat(3-b)}</div></div>
 
     <button class="${buka?"primary":""}" data-bbgo="${l}" ${buka?"":"disabled"} style="margin-top:12px;width:100%">${buka?(b?"Main lagi":"Mulai"):"Terkunci"}</button></div>`}).join("")}</div>
@@ -8726,7 +9095,7 @@ function kgAtur(){
     <button class="sortopt ${K.mode==="tanpa"?"on":""}" data-kgm="tanpa" style="padding:14px">Tanpa kata
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">yang ganjil tidak menerima kata sama sekali</span></button></div></div>
   <button class="primary" id="kgmulai">Bagikan kata</button></div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Cara main</h4>
   <ul class="ivl">${KG_ATURAN.map(x=>`<li class="org">${esc(x)}</li>`).join("")}</ul>
   <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Semua pemain menerima satu kata rahasia, kecuali satu atau dua orang yang menerima kata berbeda atau tidak menerima kata. Lewat petunjuk satu kata bergilir, kelompok menebak siapa yang katanya berbeda. Yang ganjil menang bila tidak tertebak, atau bila tertebak tetapi berhasil menyebut kata warga.</p></div>`;
 }
@@ -8736,12 +9105,12 @@ function kgBagiHal(){
  `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
   ${K.lihat?`
    <div class="sup" style="font-size:12.5px">Kata Anda</div>
-   <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+   <div style="font-family:var(--fh);font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
     ${K.kata[i]?esc(K.kata[i]):"Tidak ada kata"}</div>
    <div class="sup" style="font-size:12.5px">${K.kata[i]?"Ingat, jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
    <button class="primary" id="kgnext" style="margin-top:22px;width:100%">${i<K.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai diskusi"}</button>`
   :`
-   <div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
+   <div style="font-family:var(--fh);font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
    <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
    <button class="primary" id="kglihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
  </div>
@@ -8751,14 +9120,14 @@ function kgDiskusi(){
  const K=ST.kg;
  return hd("Giliran petunjuk")+
  `<div class="card2" style="max-width:560px;margin:0 auto">
-  <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
+  <div class="spread"><div style="font-family:var(--fh);font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
    <span class="pill mut">Ronde ${K.ronde}</span></div>
   <div class="opts" style="margin-top:12px">${K.urutan.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. Pemain ${p}</span>`).join("")}</div>
   <p style="margin:14px 0 0;font-size:13px;color:var(--ink-2);line-height:1.65">Satu kata saja per orang. Setelah semua menyebut, boleh satu putaran kedua bila kelompok masih ragu.</p>
   <div class="row" style="margin-top:16px"><button class="primary" id="kgtuduh" style="flex:1">Kelompok siap menebak</button></div>
  </div>
  <div class="card2" style="max-width:560px;margin:14px auto 0">
-  <h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang tidak dilakukan</h4>
+  <h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Yang tidak dilakukan</h4>
   <ul class="ivl">
    <li class="org">Tidak menyinggung sifat, kinerja, atau kebiasaan kerja orang</li>
    <li class="org">Tidak ada pemain yang dikeluarkan, ronde selesai bersama</li>
@@ -8769,7 +9138,7 @@ function kgTuduh(){
  const K=ST.kg;
  return hd("Tebakan kelompok")+
  `<div class="card2" style="max-width:560px;margin:0 auto">
-  <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang katanya berbeda</div>
+  <div style="font-family:var(--fh);font-weight:600;font-size:16px">Siapa yang katanya berbeda</div>
   <div class="sup" style="font-size:12.5px;margin-top:4px">Satu tebakan untuk seluruh kelompok</div>
   <div class="opts" style="margin-top:14px">${[...Array(K.n).keys()].map(i=>`<button class="opt ${K.tuduh===i+1?"on":""}" data-kgt="${i+1}">Pemain ${i+1}</button>`).join("")}</div>
   <button class="primary" id="kgbuka" ${K.tuduh?"":"disabled"} style="margin-top:16px;width:100%">Buka kartu</button></div>`;
@@ -8917,7 +9286,7 @@ function sbAtur(){
     <button class="opt ${S.pakaiHR?"on":""}" data-sbhr="1">Ya</button>
     <button class="opt ${S.pakaiHR?"":"on"}" data-sbhr="0">Tidak</button></div></div>
   <button class="primary" id="sbmulai">Bagikan kata</button></div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Cara main</h4>
   <div class="kvl">
    <div><span class="kk">${esc(L.staff)}</span><span class="vv">${esc(L.ket.staff)}</span></div>
    <div><span class="kk">${esc(L.ceo)}</span><span class="vv">${esc(L.ket.ceo)}</span></div>
@@ -8940,11 +9309,11 @@ function sbBagiHal(){
  `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
   ${S.lihat?`
    <div class="sup" style="font-size:12.5px">Kata Anda</div>
-   <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+   <div style="font-family:var(--fh);font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
     ${S.kata[i]?esc(S.kata[i]):"Tidak ada kata"}</div>
    <div class="sup" style="font-size:12.5px">${S.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
    <button class="primary" id="sbnext" style="margin-top:22px;width:100%">${i<S.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai ronde 1"}</button>`
-  :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
+  :`<div style="font-family:var(--fh);font-weight:600;font-size:19px">Perangkat ada di pemain ${i}</div>
    <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
    <button class="primary" id="sblihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
  </div>
@@ -8960,7 +9329,7 @@ function sbPetunjuk(){
  const S=ST.sb, hidup=sbHidup(), urut=S.urutan.filter(p=>hidup.indexOf(p)>=0);
  return hd("Ronde "+S.ronde+", giliran petunjuk")+
  `<div class="card2" style="max-width:560px;margin:0 auto">
-  <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
+  <div class="spread"><div style="font-family:var(--fh);font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
    <span class="pill mut">${hidup.length} masih di ruangan</span></div>
   <div class="opts" style="margin-top:12px">${urut.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. Pemain ${p}</span>`).join("")}</div>
   ${S.keluar.length?`<div class="kvl" style="margin-top:12px">${S.keluar.map((x,i)=>`<div><span class="kk">Ronde ${i+1}</span>
@@ -8973,7 +9342,7 @@ function sbVote(){
  const S=ST.sb, hidup=sbHidup();
  return hd("Ronde "+S.ronde+", pilihan kelompok")+
  `<div class="card2" style="max-width:560px;margin:0 auto">
-  <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang keluar ruangan ronde ini</div>
+  <div style="font-family:var(--fh);font-weight:600;font-size:16px">Siapa yang keluar ruangan ronde ini</div>
   <div class="sup" style="font-size:12.5px;margin-top:4px">Satu pilihan untuk seluruh kelompok</div>
   <div class="opts" style="margin-top:14px">${hidup.map(i=>`<button class="opt ${S.vote===i?"on":""}" data-sbv="${i}">Pemain ${i}</button>`).join("")}</div>
   <button class="primary" id="sbbuka" ${S.vote?"":"disabled"} style="margin-top:16px;width:100%">Buka kartunya</button></div>`;
@@ -8984,7 +9353,7 @@ function sbUngkap(){
  return hd("Pemain "+u.p+" keluar ruangan")+
  `<div class="card2" style="max-width:560px;margin:0 auto;text-align:center;padding:30px 24px">
   <div class="sup" style="font-size:12.5px">Perannya</div>
-  <div style="font-family:Montserrat;font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
+  <div style="font-family:var(--fh);font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
   <div class="sup" style="font-size:12.5px">${esc(u.kata?("katanya "+u.kata):"tidak menerima kata")}</div>
   ${u.tebak?`
    <div class="field" style="max-width:320px;margin:20px auto 0;text-align:left">
@@ -9110,7 +9479,7 @@ function page_bank_kata(){
   <p class="sup" style="margin-top:10px;margin-bottom:0">Pasangan yang baik adalah dua benda serumpun, cukup dekat agar petunjuknya bisa tertukar, cukup beda agar bisa dikenali.</p></div></div>
  <div class="panel"><div class="ph"><h3>Daftar pasangan</h3></div><div class="pb">
   ${b.map((p,i)=>`<div class="mrow" style="align-items:flex-start">
-   <div class="lpno" style="font-family:Montserrat;font-weight:700;color:var(--mar-300);flex:0 0 26px">${i+1}</div>
+   <div class="lpno" style="font-family:var(--fh);font-weight:700;color:var(--mar-300);flex:0 0 26px">${i+1}</div>
    <div class="mt"><div class="grid2" style="gap:10px">
     <div><label class="lbl">Kata staf</label><input id="bk_a_${i}" value="${esc(p[0])}"></div>
     <div><label class="lbl">Kata berbeda</label><input id="bk_b_${i}" value="${esc(p[1])}"></div></div></div>
@@ -9235,7 +9604,7 @@ function page_sb_undang(){
      <button class="opt ${U.hr?"":"on"}" data-sbuh="0">Tidak</button></div></div></div>
   </div></div>
  <div class="panel"><div class="ph"><h3>Kode undangan</h3>
-   <span class="pill accent" style="font-family:Montserrat;font-weight:700;letter-spacing:2px">${esc(U.kode)}</span></div><div class="pb">
+   <span class="pill accent" style="font-family:var(--fh);font-weight:700;letter-spacing:2px">${esc(U.kode)}</span></div><div class="pb">
   <div class="field"><label class="lbl">Teks undangan, kirim lewat pesan</label>
    <textarea id="sbuteks" rows="3" readonly>${esc(und)}</textarea></div>
   <div class="row"><button class="primary" id="sbusalin">Salin teks undangan</button>
@@ -9246,7 +9615,7 @@ function page_sb_undang(){
    <div><span class="kk">Yang berbeda dan tanpa kata</span><span class="vv">Tidak ditampilkan di layar ini</span></div>
   </div>`:`<p class="sup" style="margin-top:12px;margin-bottom:0">Perlu sekurang-kurangnya empat pemain.</p>`}
   </div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara memakainya</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Cara memakainya</h4>
   <div class="kvl">
    <div><span class="kk">1</span><span class="vv">Susun daftar pemain, lalu salin teks undangan</span></div>
    <div><span class="kk">2</span><span class="vv">Kirim teks itu ke grup, semua orang membuka berkas aplikasi yang sama</span></div>
@@ -9274,7 +9643,7 @@ function sbGabungHal(){
    const h=sbPeranUndangan(b,kataOf()), i=U.pilih;
    return `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
     <div class="sup" style="font-size:12.5px">${esc(b.nama[i])}, kata Anda</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
+    <div style="font-family:var(--fh);font-weight:700;font-size:34px;margin:12px 0 4px;color:var(--mar-700)">
      ${h.kata[i]?esc(h.kata[i]):"Tidak ada kata"}</div>
     <div class="sup" style="font-size:12.5px">${h.kata[i]?"Jangan sebut kata ini":"Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
     <div class="kvl" style="margin-top:20px;text-align:left">
@@ -9406,7 +9775,7 @@ function smAtur(){
   ${S.mode==="kesamaan"?`<div class="field"><label class="lbl">Sasaran kesamaan</label>
    <div class="opts">${[3,5,8].map(x=>`<button class="opt ${S.target===x?"on":""}" data-smt="${x}">${x}</button>`).join("")}</div></div>`:""}
   <button class="primary" id="smmulai" ${S.n>=3?"":"disabled"}>Mulai</button></div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan yang berlaku pada kedua mode</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Aturan yang berlaku pada kedua mode</h4>
   <ul class="ivl">
    <li class="org">Tidak ada pemenang, tidak ada yang kalah, dan tidak ada yang dikeluarkan</li>
    <li class="org">Tidak ada jawaban yang dinilai salah, kelompok sendiri yang menyepakati</li>
@@ -9420,13 +9789,13 @@ function smKesamaan(){
  `<div style="max-width:560px;margin:0 auto">
   <div class="spread" style="margin-bottom:10px">
    <div><div class="sup" style="font-size:12px">Kesamaan ditemukan</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:28px;line-height:1">${S.skor} / ${S.target}</div></div>
+    <div style="font-family:var(--fh);font-weight:700;font-size:28px;line-height:1">${S.skor} / ${S.target}</div></div>
    <div style="text-align:right"><span class="mono" id="smtimer" style="font-size:26px;font-weight:700">60,0</span>
     <span class="sup" style="font-size:12px"> detik</span></div></div>
   <div class="prog" style="margin-bottom:14px"><i style="width:${clamp(S.skor/S.target*100,0,100)}%"></i></div>
   <div style="border:1px solid var(--line-2);border-radius:14px;padding:38px 24px;text-align:center;background:var(--bg-2);
    min-height:150px;display:flex;align-items:center;justify-content:center">
-   <div style="font-family:Montserrat;font-weight:600;font-size:21px;line-height:1.4">${esc(S.prompt)}</div></div>
+   <div style="font-family:var(--fh);font-weight:600;font-size:21px;line-height:1.4">${esc(S.prompt)}</div></div>
   <div class="grid2" style="gap:10px;margin-top:16px">
    <button class="sortopt" id="smdapat" style="padding:16px">Dapat, semua setuju</button>
    <button class="sortopt" id="smlewat" style="padding:16px">Lewati kartu ini</button></div>
@@ -9440,13 +9809,13 @@ function smApresiasi(){
  `<div style="max-width:560px;margin:0 auto">
   <div class="spread" style="margin-bottom:10px">
    <div><div class="sup" style="font-size:12px">Subjek</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">${esc(pnama(S.subjek))}</div></div>
+    <div style="font-family:var(--fh);font-weight:700;font-size:26px;line-height:1">${esc(pnama(S.subjek))}</div></div>
    <div style="text-align:right"><div class="sup" style="font-size:12px">Belum kebagian</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:20px">${belum}</div></div></div>
+    <div style="font-family:var(--fh);font-weight:700;font-size:20px">${belum}</div></div></div>
   <div class="prog" style="margin-bottom:14px"><i style="width:${(S.n-belum)/S.n*100}%"></i></div>
   <div style="border:1px solid var(--line-2);border-radius:14px;padding:38px 24px;text-align:center;background:var(--bg-2);
    min-height:150px;display:flex;align-items:center;justify-content:center">
-   <div style="font-family:Montserrat;font-weight:600;font-size:20px;line-height:1.45">Sebutkan ${esc(S.prompt)}</div></div>
+   <div style="font-family:var(--fh);font-weight:600;font-size:20px;line-height:1.45">Sebutkan ${esc(S.prompt)}</div></div>
   <div class="grid2" style="gap:10px;margin-top:16px">
    <button class="sortopt" id="smselesai" style="padding:16px">Sudah, lanjut orang berikutnya</button>
    <button class="sortopt" id="smlewat2" style="padding:16px">Ganti pertanyaan</button></div>
@@ -9615,7 +9984,7 @@ function mwAtur(){
     <button class="sortopt ${M.aturan==="cepat"?"on":""}" data-mwa="cepat" style="padding:14px">Berhenti saat ${esc(L.pen)} tertebak
      <span style="display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:5px">Permainan langsung selesai, ${esc(L.mw)} tidak dikejar</span></button></div></div>
   <button class="primary" id="mwmulai" ${M.n>=4?"":"disabled"}>Bagikan kata</button></div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Aturan</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Aturan</h4>
   <div class="kvl">
    <div><span class="kk">${esc(L.warga)}</span><span class="vv">Menerima kata yang sama</span></div>
    <div><span class="kk">${esc(L.pen)}</span><span class="vv">Menerima kata berbeda tapi serumpun</span></div>
@@ -9639,12 +10008,12 @@ function mwBagiHal(){
  `<div class="card2" style="max-width:520px;margin:0 auto;text-align:center;padding:34px 24px">
   ${M.lihat?`
    <div class="sup" style="font-size:12.5px">${M.kata[i]?"Kata Anda":"Peran Anda"}</div>
-   <div style="font-family:Montserrat;font-weight:700;margin:12px 0 4px;color:var(--mar-700);line-height:1.15;
+   <div style="font-family:var(--fh);font-weight:700;margin:12px 0 4px;color:var(--mar-700);line-height:1.15;
     font-size:${M.kata[i]?"34px":"27px"}">
     ${M.kata[i]?esc(M.kata[i]):"Anda adalah "+esc(mwL().mw)}</div>
    <div class="sup" style="font-size:12.5px">${M.kata[i]?"Jangan sebut kata ini":"Anda tidak menerima kata. Ikuti petunjuk orang lain, lalu berlagak tahu"}</div>
    <button class="primary" id="mwnext" style="margin-top:22px;width:100%">${i<M.n?"Sudah, oper ke pemain "+(i+1):"Sudah, mulai ronde 1"}</button>`
-  :`<div style="font-family:Montserrat;font-weight:600;font-size:19px">Perangkat ada di ${esc(pnama(i))}</div>
+  :`<div style="font-family:var(--fh);font-weight:600;font-size:19px">Perangkat ada di ${esc(pnama(i))}</div>
    <div class="sup" style="font-size:13px;margin-top:8px">Pastikan tidak ada yang melihat, lalu tekan</div>
    <button class="primary" id="mwlihat" style="margin-top:22px;width:100%">Lihat kata saya</button>`}
  </div>
@@ -9654,7 +10023,7 @@ function mwPetunjuk(){
  const M=ST.mw, L=mwL(), hidup=mwHidup(), urut=M.urutan.filter(p=>hidup.indexOf(p)>=0);
  return hd("Ronde "+M.ronde+", giliran petunjuk")+
  `<div class="card2" style="max-width:560px;margin:0 auto">
-  <div class="spread"><div style="font-family:Montserrat;font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
+  <div class="spread"><div style="font-family:var(--fh);font-weight:600;font-size:16px">Urutan menyebut petunjuk</div>
    <span class="pill mut">${hidup.length} masih bermain</span></div>
   <div class="opts" style="margin-top:12px">${urut.map((p,i)=>`<span class="opt" style="pointer-events:none">${i+1}. ${esc(pnama(p))}</span>`).join("")}</div>
   ${M.keluar.length?`<div class="kvl" style="margin-top:12px">${M.keluar.map((x,i)=>`<div><span class="kk">Ronde ${i+1}</span>
@@ -9668,7 +10037,7 @@ function mwVote(){
  const M=ST.mw, hidup=mwHidup();
  return hd("Ronde "+M.ronde+", pemungutan suara")+
  `<div class="card2" style="max-width:560px;margin:0 auto">
-  <div style="font-family:Montserrat;font-weight:600;font-size:16px">Siapa yang keluar ronde ini</div>
+  <div style="font-family:var(--fh);font-weight:600;font-size:16px">Siapa yang keluar ronde ini</div>
   <div class="sup" style="font-size:12.5px;margin-top:4px">Satu pilihan hasil kesepakatan kelompok</div>
   <div class="opts" style="margin-top:14px">${hidup.map(i=>`<button class="opt ${M.vote===i?"on":""}" data-mwv="${i}">${esc(pnama(i))}</button>`).join("")}</div>
   <button class="primary" id="mwbuka" ${M.vote?"":"disabled"} style="margin-top:16px;width:100%">Buka kartunya</button></div>`;
@@ -9679,7 +10048,7 @@ function mwUngkap(){
  return hd(esc(pnama(u.p))+" keluar")+
  `<div class="card2" style="max-width:560px;margin:0 auto;text-align:center;padding:30px 24px">
   <div class="sup" style="font-size:12.5px">Perannya</div>
-  <div style="font-family:Montserrat;font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
+  <div style="font-family:var(--fh);font-weight:700;font-size:30px;margin:10px 0 4px;color:var(--mar-700)">${esc(nama||"")}</div>
   <div class="sup" style="font-size:12.5px">${u.kata?("katanya "+esc(u.kata)):"tidak pernah menerima kata"}</div>
   ${u.tebak?`
    <div class="field" style="max-width:320px;margin:20px auto 0;text-align:left">
@@ -9858,7 +10227,7 @@ function kpAtur(){
    <div class="opts"><button class="opt ${K.tantang?"on":""}" data-kpt="1">Ya</button>
     <button class="opt ${K.tantang?"":"on"}" data-kpt="0">Tidak</button></div></div>
   <button class="primary" id="kpmulai" ${K.n>=3?"":"disabled"}>Mulai</button></div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Cara main</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Cara main</h4>
   <div class="kvl">
    <div><span class="kk">1</span><span class="vv">Aplikasi menunjuk satu orang duduk di kursi panas</span></div>
    <div><span class="kk">2</span><span class="vv">Kartu berisi pertanyaan tentang dirinya, kelompok menebak dulu</span></div>
@@ -9878,14 +10247,14 @@ function kpMain(){
  `<div style="max-width:560px;margin:0 auto">
   <div class="spread" style="margin-bottom:10px">
    <div><div class="sup" style="font-size:12px">Putaran ${K.putaran}</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:26px;line-height:1">${esc(pnama(K.kursi))}</div></div>
+    <div style="font-family:var(--fh);font-weight:700;font-size:26px;line-height:1">${esc(pnama(K.kursi))}</div></div>
    <div style="text-align:right"><div class="sup" style="font-size:12px">Belum kebagian</div>
-    <div style="font-family:Montserrat;font-weight:700;font-size:20px">${belum}</div></div></div>
+    <div style="font-family:var(--fh);font-weight:700;font-size:20px">${belum}</div></div></div>
   <div class="prog" style="margin-bottom:14px"><i style="width:${(K.n-belum)/K.n*100}%"></i></div>
   <div style="border:1px solid var(--line-2);border-radius:14px;padding:34px 24px;text-align:center;background:var(--bg-2);
    min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
    <span class="pill ${K.jenis==="tantang"?"warn":"mut"}">${K.jenis==="tantang"?"Kartu tantangan":"Kartu pertanyaan"}</span>
-   <div style="font-family:Montserrat;font-weight:600;font-size:20px;line-height:1.45">${esc(K.tanya)}</div></div>
+   <div style="font-family:var(--fh);font-weight:600;font-size:20px;line-height:1.45">${esc(K.tanya)}</div></div>
   <div class="grid2" style="gap:10px;margin-top:16px">
    <button class="sortopt" id="kpnext" style="padding:16px">Sudah dijawab, lanjut</button>
    <button class="sortopt" id="kpganti" style="padding:16px">Ganti kartu</button></div>
@@ -10043,13 +10412,13 @@ function page_unit_edit(){
     <button data-und="${i}" ${x.p.total?"disabled":""}>Hapus</button></div></div>`).join("")}
   <p class="sup" style="margin-top:12px;margin-bottom:0">Mengganti nama unit aman kapan saja, karena namanya diteruskan ke respons, token, kegiatan, daftar bahaya, dan daftar unit pada siklus. Menghapus unit hanya mungkin bila belum ada data yang merujuknya.</p></div></div>
  <div class="grid2">
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang perlu diputuskan sebelum memecah unit</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Yang perlu diputuskan sebelum memecah unit</h4>
    <ul class="ivl">
     <li class="org">Unit harus mencerminkan pengaturan kerja yang nyata, bukan struktur jabatan, karena yang diukur pajanan dari cara kerja diatur</li>
     <li class="org">Unit dengan kurang dari ${K_MIN} pekerja tidak akan pernah bisa diterbitkan angkanya, jadi lebih baik digabung</li>
     <li class="org">Mengganti nama unit di tengah siklus mengubah label, bukan angkanya, dan itu tercatat pada jejak audit</li>
     <li>Penggabungan dua unit belum tersedia, untuk sekarang ganti nama salah satunya lalu pindahkan datanya secara manual</li></ul></div>
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Siapa yang berwenang</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Siapa yang berwenang</h4>
    <div class="kvl">
     <div><span class="kk">Menetapkan nama unit</span><span class="vv">Admin Perusahaan</span></div>
     <div><span class="kk">Memilih unit yang diikutkan siklus</span><span class="vv">Admin Perusahaan, pada halaman siklus</span></div>
@@ -10211,7 +10580,7 @@ function page_akun_tenant(){
     <div class="mval">${x.n}</div>
     <span class="pill ${x.n>=K_MIN?"ok":x.n?"warn":"mut"}">${x.n>=K_MIN?"Cukup untuk penerbitan":x.n?"Di bawah ambang":"Belum ada akun"}</span></div>`).join("")}
    <p class="sup" style="margin-top:10px;margin-bottom:0">Jumlah akun bukan jumlah responden. Angka unit tetap disupresi bila yang benar-benar mengisi kurang dari ${K_MIN}.</p></div></div>
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Yang tidak dapat Anda buat, dan alasannya</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Yang tidak dapat Anda buat, dan alasannya</h4>
    <div class="kvl">
     <div><span class="kk">Admin Perusahaan dan Direksi</span><span class="vv">Dibuat Admin Platform</span></div>
     <div><span class="kk">Praktisi assurance dan Auditor SMK3</span><span class="vv">Tidak boleh dibuat pihak yang ditelaah</span></div>
@@ -10243,7 +10612,7 @@ function page_akun_platform(){
     <div class="mval">${x.n}</div>
     <span class="pill ${ROLE_MANDIRI.indexOf(x.r)>=0?"warn":x.n?"ok":"mut"}">${ROLE_MANDIRI.indexOf(x.r)>=0?"Perlu pemisahan":x.n?"Terisi":"Kosong"}</span></div>`).join("")}
    </div></div>
-  <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Celah pemisahan tugas yang masih terbuka</h4>
+  <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Celah pemisahan tugas yang masih terbuka</h4>
    <p style="margin:0;font-size:13px;color:var(--ink-2);line-height:1.68">Admin Platform saat ini menerbitkan akun praktisi assurance dan auditor SMK3, sekaligus menetapkan tabel norma dan menerbitkan berkas bukti. Pihak yang menerbitkan akun penelaah sebaiknya bukan pihak yang membangun angkanya.</p>
    <ul class="ivl" style="margin-top:10px">
     <li class="org">Pilihan pertama, pendaftaran mandiri penelaah dengan verifikasi asosiasi profesi</li>
@@ -10379,7 +10748,7 @@ function page_setelan(){
  const t=TENANTS.find(x=>x.id===ST.tenant);
  return hd("Pengaturan")+
  `<div class="grid2">${SETELAN.map(s=>`<div class="card2">
-  <div class="spread"><h4 style="font-family:Montserrat;font-size:15px;margin:0">${esc(s.n)}</h4>
+  <div class="spread"><h4 style="font-family:var(--fh);font-size:15px;margin:0">${esc(s.n)}</h4>
    <span class="pill mut">${esc(s.nilai())}</span></div>
   <p style="margin:8px 0 0;font-size:13px;color:var(--ink-2);line-height:1.6">${esc(s.d)}</p>
   <div class="row" style="margin-top:12px"><button class="primary" data-go="${s.p}">Buka</button></div></div>`).join("")}</div>
@@ -10442,12 +10811,12 @@ function page_super(){
    const n=(NAV[r]||[]).filter(e=>e[0]!=="Kelompok").length;
    const akun=list.filter(u=>u.role===r).length;
    return `<div class="card2">
-    <div class="spread"><h4 style="font-family:Montserrat;font-size:15px;margin:0">${esc(ROLE_LABEL[r]||r)}</h4>
+    <div class="spread"><h4 style="font-family:var(--fh);font-size:15px;margin:0">${esc(ROLE_LABEL[r]||r)}</h4>
      <span class="pill mut">${n} halaman</span></div>
     <div class="ms" style="margin-top:6px">${akun} akun terdaftar pada peran ini</div>
     <div class="row" style="margin-top:12px"><button class="primary" data-sup="${r}">Buka mode ${esc(ROLE_LABEL[r]||r)}</button></div></div>`}).join("")}</div>
   </div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Batas yang tetap berlaku pada mode peran</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Batas yang tetap berlaku pada mode peran</h4>
   <ul class="ivl">
    <li class="org">Ambang penerbitan ${K_MIN} tetap berlaku, mode peran tidak membuka jawaban perorangan</li>
    <li class="org">Laporan pribadi pekerja tetap hanya terbuka pada sesi responden yang bersangkutan</li>
@@ -10548,14 +10917,14 @@ page_akun_tenant = function(){
   ${t.units.map(un=>{
    const isi=pekerja.filter(x=>x.unit===un);
    return `<div style="padding:12px 0;border-bottom:1px solid var(--line)">
-    <div class="spread"><div class="mn" style="font-family:Montserrat;font-weight:600">${esc(un)}</div>
+    <div class="spread"><div class="mn" style="font-family:var(--fh);font-weight:600">${esc(un)}</div>
      <span class="pill ${isi.length>=K_MIN?"ok":isi.length?"warn":"mut"}">${isi.length} akun</span></div>
     ${isi.length?`<div class="opts" style="margin-top:8px">${isi.map(x=>`<span class="opt" style="pointer-events:none">${esc(x.nama)}</span>`).join("")}</div>`
      :`<div class="ms" style="margin-top:6px">Belum ada akun pada unit ini</div>`}</div>`}).join("")}
   <p class="sup" style="margin-top:12px;margin-bottom:0">Jumlah akun bukan jumlah responden. Angka unit tetap disupresi bila yang benar-benar mengisi kurang dari ${K_MIN}.</p></div></div>
  <div class="panel"><div class="ph"><h3>Seluruh akun perusahaan ini</h3></div><div class="pb">
   ${list.length?list.map(u=>akunBaris(u,{hapus:true})).join(""):`<p style="margin:0;color:var(--ink-3)">Belum ada akun.</p>`}</div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Batas wewenang Anda</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Batas wewenang Anda</h4>
   <div class="kvl">
    <div><span class="kk">Anda mengurus</span><span class="vv">Akun pekerja dan penyusun laporan, pemetaan unit, isi permainan</span></div>
    <div><span class="kk">Superadmin mengurus</span><span class="vv">Akun HR dan Direksi, bank butir, tabel norma, ambang penerbitan</span></div>
@@ -10605,7 +10974,7 @@ page_akun_platform = function(){
   <p class="sup" style="margin-top:10px;margin-bottom:0">Daftar unit mengikuti perusahaan yang dipilih di atas. Mengganti perusahaan memuat ulang daftar unitnya.</p></div></div>
  <div class="panel"><div class="ph"><h3>Daftar akun</h3></div><div class="pb">
   ${list.map(u=>akunBaris(u,{hapus:true})).join("")}</div></div>
- <div class="card2"><h4 style="font-family:Montserrat;font-size:14px;margin:0 0 8px">Pembagian urusan</h4>
+ <div class="card2"><h4 style="font-family:var(--fh);font-size:14px;margin:0 0 8px">Pembagian urusan</h4>
   <div class="kvl">
    <div><span class="kk">Superadmin</span><span class="vv">Menerbitkan akun HR dan Direksi untuk setiap perusahaan</span></div>
    <div><span class="kk">HR</span><span class="vv">Akun pekerja dan penyusun, pemetaan unit, isi permainan, siklus asesmen</span></div>
@@ -10757,7 +11126,7 @@ function page_beranda(){
  return `<div class="hd"><h1>${esc(sapa())}, ${esc(namaSapa(u.name))}</h1></div>
  <div class="card2" style="margin-bottom:16px">
   <div class="spread" style="flex-wrap:wrap;gap:10px">
-   <div><div style="font-family:Montserrat;font-weight:600;font-size:15px">${esc(u.name)}</div>
+   <div><div style="font-family:var(--fh);font-weight:600;font-size:15px">${esc(u.name)}</div>
     <div class="ms">${esc(ROLE_LABEL[u.role]||u.role)}${u.role==="platform"?"":" · "+esc(t?t.name:"")}${u.unit?" · "+esc(u.unit):""}</div></div>
    <div class="row">${sisa.length?`<button class="primary" data-go="${sisa[0].p}">${esc(sisa[0].n)}</button>`:""}
     ${L.length>1?`<button data-go="${L[L.length-1].p}">${esc(L[L.length-1].n)}</button>`:""}</div></div></div>
@@ -10838,8 +11207,8 @@ shell=function(body){
  return h;
 };
 /* ---------- beranda ---------- */
-const BR_WARNA=["linear-gradient(135deg,#0A3A4A,#0E7490)","linear-gradient(135deg,#0E7490,#17A398)",
- "linear-gradient(135deg,#17A398,#3FB6A8)","linear-gradient(135deg,#0E6376,#0A3A4A)"];
+const BR_WARNA=["linear-gradient(135deg,#22135A,#6A2CC7)","linear-gradient(135deg,#6A2CC7,#E8336A)",
+ "linear-gradient(135deg,#E8336A,#F0648F)","linear-gradient(135deg,#4A23A8,#22135A)"];
 function brKartu2(k,v,f,ik,i){
  const panjang=String(v).length>7;
  return `<div class="br-card"><div style="min-width:0">
@@ -10897,6 +11266,248 @@ function pageHTML(){
  const f=window["page_"+ST.page];
  return f? f() : hd("Halaman tidak ditemukan");
 }
+
+/* ===================================================================
+   Lapisan desain: kerangka dasbor, gerbang masuk, beranda, dan
+   perapian kolom isian. Berjalan setelah seluruh lapisan lain,
+   tanpa mengubah logika data maupun pengikat tombol yang sudah ada.
+=================================================================== */
+(function(){
+ /* simpanan halaman depan lama bertema teal dialihkan ke tema baru */
+ try{
+  if(LAY.tema&&String(LAY.tema.d2).toUpperCase()==="#0E7490")
+   LAY.tema={d1:"#1A0F48",d2:"#6A2CC7",d3:"#E8336A",mint:"#FF9EC0",gold:"#F2C14E"};
+  if(!localStorage.getItem(LP_KUNCI)) FOTO.heroDark=.92;
+ }catch(e){FOTO.heroDark=.92}
+})();
+const KS_CHEV='<svg viewBox="0 0 24 24" class="ks-chev"><path d="m6 9 6 6 6-6"/></svg>';
+const KS_SEP='<svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>';
+let ksUid=0;
+if(typeof PAGE_IKON!=="undefined") PAGE_IKON.mulai="periksa";
+if(typeof MTAB!=="undefined") Object.keys(MTAB).forEach(r=>{MTAB[r]=MTAB[r].map(e=>e[0]==="mulai"?[e[0],e[1],"periksa"]:e)});
+
+/* ---------- kerangka: brand, menu berkelompok yang dapat dilipat, remah roti ---------- */
+const _ksShell=shell;
+shell=function(body){
+ const tp=document.createElement("template");
+ tp.innerHTML=_ksShell(body);
+ const R=tp.content;
+ const br=R.querySelector(".rail .brand");
+ if(br&&!br.querySelector(".ks-mark")){
+  const w=document.createElement("div");
+  [...br.childNodes].forEach(n=>w.appendChild(n));
+  br.innerHTML='<span class="ks-mark">K</span>';
+  br.appendChild(w);
+ }
+ const nav=R.querySelector(".rail nav.nav");
+ let grupAktif="";
+ if(nav){
+  const groups=[]; let cur=null;
+  [...nav.children].forEach(k=>{
+   if(k.classList.contains("nav-g")){cur={g:k.textContent.trim(),items:[]};groups.push(cur)}
+   else if(k.tagName==="BUTTON"){if(!cur){cur={g:"",items:[]};groups.push(cur)}cur.items.push(k)}
+  });
+  const total=groups.reduce((a,g)=>a+g.items.length,0);
+  const soloAktif=groups.some(g=>g.items.length===1&&g.items[0].classList.contains("on"));
+  ST.navOpen=ST.navOpen||{};
+  nav.innerHTML="";
+  groups.forEach(g=>{
+   if(!g.items.length) return;
+   const aktif=g.items.some(b=>b.classList.contains("on"));
+   if(aktif) grupAktif=g.g;
+   const solo=g.items.length===1&&(!g.g||g.g.toLowerCase()===g.items[0].textContent.trim().toLowerCase());
+   if(solo){const d=document.createElement("div");d.className="ks-solo";d.appendChild(g.items[0]);nav.appendChild(d);return}
+   let buka=total<=12?true:(aktif||(soloAktif&&g===groups.find(x=>x.items.length>1)));
+   if(ST.navOpen[g.g]!=null) buka=ST.navOpen[g.g];
+   if(aktif) buka=true;
+   const s=document.createElement("div");
+   s.className="ks-sec"+(buka?" open":"");
+   s.innerHTML=`<button type="button" class="ks-sec-h" data-sec="${esc(g.g)}" aria-expanded="${buka}">
+    <span class="ks-sec-l">${esc(g.g)}</span><span class="ks-sec-n">${g.items.length}</span>${KS_CHEV}</button><div class="ks-sec-b"></div>`;
+   const b=s.querySelector(".ks-sec-b");
+   g.items.forEach(x=>b.appendChild(x));
+   nav.appendChild(s);
+  });
+ }
+ const who=R.querySelector(".whoami"), lo=who&&who.querySelector("#logout"), row=who&&who.querySelector(".row2");
+ if(lo&&row){
+  lo.className="ks-logout"; lo.removeAttribute("style");
+  lo.setAttribute("title","Keluar"); lo.setAttribute("aria-label","Keluar");
+  lo.innerHTML=`<svg viewBox="0 0 24 24">${IKON.keluar}</svg>`;
+  row.appendChild(lo);
+ }
+ const tb=R.querySelector(".topbar");
+ if(tb){
+  const t=tb.querySelector(".t");
+  if(t){
+   const judul=t.textContent.trim();
+   t.className="t ks-crumb";
+   t.innerHTML=(grupAktif&&grupAktif.toLowerCase()!==judul.toLowerCase()?`<span>${esc(grupAktif)}</span>${KS_SEP}`:"")+`<b>${esc(judul)}</b>`;
+  }
+  const tn=tb.querySelector(".pill.mut");
+  if(tn&&tn.textContent.trim()){tn.classList.add("ks-tenant");tn.insertAdjacentHTML("afterbegin",`<svg viewBox="0 0 24 24">${IKON.gedung}</svg>`)}
+ }
+ return tp.innerHTML;
+};
+const _ksBindShell=bindShell;
+bindShell=function(){
+ _ksBindShell();
+ document.querySelectorAll(".ks-sec-h").forEach(b=>b.onclick=()=>{
+  const s=b.parentElement, buka=!s.classList.contains("open");
+  s.classList.toggle("open",buka); b.setAttribute("aria-expanded",buka);
+  ST.navOpen=ST.navOpen||{}; ST.navOpen[b.dataset.sec]=buka;
+ });
+};
+
+/* ---------- gerbang masuk: formulir di depan, akun demo ringkas ---------- */
+gate=function(){
+ const tab=ST.gateTab||"masuk";
+ const staf=ACCOUNTS.filter(a=>/^SF/.test(a.id)), peran=ACCOUNTS.filter(a=>!/^SF/.test(a.id));
+ const kartu=a=>`<button type="button" class="lg-acct" data-id="${a.id}" title="${esc((typeof ACC_KET!=="undefined"&&ACC_KET[a.role])||"")}">
+   <span class="av">${esc(initials(a.name))}</span>
+   <span class="ks-acc-t"><span class="nm">${esc(/^SF/.test(a.id)?a.name:(ROLE_LABEL[a.role]||a.role))}</span>
+   <span class="em">${esc(/^SF/.test(a.id)?(ROLE_LABEL[a.role]||a.role):a.name)}</span></span></button>`;
+ return istilah(`<div class="ks-gate">
+ <aside class="ks-gh">
+  ${FOTO.hero?`<div class="ks-gh-img" style="background-image:url('${esc(FOTO.hero)}')"></div>`:""}<div class="ks-gh-scrim"></div>
+  <div class="ks-gh-top"><div class="ks-logo"><span class="ks-mark">K</span>${esc(LAY.judul||"KERJASEHAT")}</div>
+   <button type="button" id="lg_back">Halaman depan</button></div>
+  <div>
+   <div class="ks-gh-lab">CESGS dan Universitas Airlangga</div>
+   <h1>Asesmen risiko psikososial di tempat kerja</h1>
+   <p>Satu portal untuk menjalankan siklus asesmen, membaca hasil teragregasi, dan menyiapkan berkas bukti bagi pelaporan keberlanjutan. Jawaban individu tidak pernah terbuka bagi atasan.</p>
+  </div>
+  <div class="ks-facts">
+   <div><div class="fk">Standar acuan</div><div class="fv">POJK 51, GRI 403</div></div>
+   <div><div class="fk">Kewajiban</div><div class="fv">Permenaker 5/2018</div></div>
+   <div><div class="fk">Ambang kerahasiaan</div><div class="fv">k minimal ${K_MIN}</div></div>
+   <div><div class="fk">Biaya</div><div class="fv">Gratis</div></div>
+  </div>
+ </aside>
+ <main class="ks-gp"><div class="ks-form">
+  <h2>${tab==="masuk"?"Masuk ke portal":"Daftarkan perusahaan"}</h2>
+  <div class="ks-sub">${tab==="masuk"?"Gunakan surel kerja yang terdaftar pada perusahaan Anda.":"Isi data singkat berikut. Akun admin perusahaan dibuat setelah pendaftaran."}</div>
+  <div class="ks-seg" role="tablist">
+   <button type="button" data-gt="masuk" class="${tab==="masuk"?"on":""}" role="tab" aria-selected="${tab==="masuk"}">Masuk</button>
+   <button type="button" data-gt="daftar" class="${tab==="daftar"?"on":""}" role="tab" aria-selected="${tab==="daftar"}">Daftar baru</button></div>
+  ${tab==="masuk"?`
+  <div class="field"><label class="lbl" for="lg_mail">Surel</label><input id="lg_mail" type="email" autocomplete="username" placeholder="nama@perusahaan.co.id"></div>
+  <div class="field"><label class="lbl" for="lg_pass">Kata sandi</label>
+   <div class="ks-pw"><input id="lg_pass" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi">
+   <button type="button" id="ks_eye" aria-label="Tampilkan kata sandi">Tampilkan</button></div></div>
+  <button type="button" class="primary ks-cta" id="lg_go">Masuk ke dasbor</button>`
+  :`
+  <div class="field"><label class="lbl" for="rg_co">Nama perusahaan</label><input id="rg_co" placeholder="PT Contoh Nusantara"></div>
+  <div class="grid2" style="gap:0 16px">
+   <div class="field"><label class="lbl" for="rg_nm">Penanggung jawab</label><input id="rg_nm" placeholder="Nama lengkap"></div>
+   <div class="field"><label class="lbl" for="rg_n">Jumlah pekerja</label><input id="rg_n" inputmode="numeric" placeholder="Misalnya 240"></div></div>
+  <div class="field"><label class="lbl" for="rg_mail">Surel kerja</label><input id="rg_mail" type="email" placeholder="hse@perusahaan.co.id"></div>
+  <button type="button" class="primary ks-cta" id="rg_go">Daftarkan perusahaan</button>`}
+  <div class="ks-or">atau masuk cepat dengan akun demo</div>
+  <div class="ks-accts">${peran.map(kartu).join("")}</div>
+  ${staf.length?`<details class="ks-staf"><summary>Akun staf contoh (${staf.length})</summary><div class="ks-accts">${staf.map(kartu).join("")}</div></details>`:""}
+  <div class="ks-fine">Seluruh data pada purwarupa ini adalah data contoh. Tidak ada data pekerja nyata yang tersimpan.</div>
+ </div></main>
+ </div>`);
+};
+const _ksBindGate=bindGate;
+bindGate=function(){
+ _ksBindGate();
+ const eye=$("#ks_eye"), pw=$("#lg_pass");
+ if(eye&&pw) eye.onclick=()=>{const t=pw.type==="password";pw.type=t?"text":"password";eye.textContent=t?"Sembunyikan":"Tampilkan";pw.focus()};
+ document.querySelectorAll(".ks-form input").forEach(i=>i.addEventListener("keydown",e=>{
+  if(e.key!=="Enter") return;
+  const b=$("#lg_go")||$("#rg_go"); if(b) b.click();
+ }));
+};
+
+/* ---------- beranda: satu langkah berikutnya yang jelas ---------- */
+page_beranda=function(){
+ const u=ST.user, t=TENANTS.find(x=>x.id===ST.tenant);
+ const L=brLangkah(u.role), sisa=L.filter(x=>!x.ok), selesai=L.length-sisa.length;
+ const persen=L.length?Math.round(selesai/L.length*100):0;
+ const ik=BR_IKON[u.role]||["daftar","daftar","daftar","daftar"];
+ const kartu=brStatus(u.role).map((html,i)=>{
+  const k=(html.match(/class="(?:k|lpt1)">([^<]*)</)||[])[1]||"";
+  const v=(html.match(/class="(?:v|lpt2)"[^>]*>([^<]*)</)||[])[1]||"";
+  const f=(html.match(/class="(?:f|lpt3)">([^<]*)</)||[])[1]||"";
+  return `<div class="ks-stat"><div class="ks-stat-top"><span class="ks-stat-i"><svg viewBox="0 0 24 24">${IKON[ik[i]]||IKON.daftar}</svg></span>
+   <span class="ks-stat-k">${k}</span></div><div class="ks-stat-v${v.length>7?" sm":""}">${v}</div><div class="ks-stat-f">${f}</div></div>`;
+ }).join("");
+ const lanjut=sisa[0];
+ return `<section class="ks-welcome">
+  <div>
+   <span class="ks-w-role">${esc(ROLE_LABEL[u.role]||u.role)}</span>
+   <h1>${esc(sapa())}, ${esc(namaSapa(u.name))}</h1>
+   <div class="ks-w-meta">
+    ${u.role==="platform"||!t?"":`<span><svg viewBox="0 0 24 24">${IKON.gedung}</svg>${esc(t.name)}</span>`}
+    <span><svg viewBox="0 0 24 24">${IKON.kalender}</svg>${esc(brTanggal())}</span>
+    ${u.unit?`<span><svg viewBox="0 0 24 24">${IKON.orang}</svg>${esc(u.unit)}</span>`:""}</div>
+  </div>
+  <div class="ks-next">
+   <div class="ks-next-k">${lanjut?"Langkah berikutnya":"Semua langkah selesai"}</div>
+   <div class="ks-next-t">${lanjut?esc(lanjut.n):"Tidak ada langkah yang tertunda"}</div>
+   <div class="ks-prog"><i style="width:${persen}%"></i></div>
+   <div class="ks-next-row"><span class="ks-next-f">${selesai} dari ${L.length} langkah selesai</span>
+    ${lanjut?`<button class="primary" data-go="${lanjut.p}">Lanjutkan</button>`:""}</div>
+  </div>
+ </section>
+ <div class="ks-stats">${kartu}</div>
+ <div class="panel"><div class="ph"><h3>Daftar langkah</h3>
+  <span class="pill ${sisa.length?"warn":"ok"}">${selesai} dari ${L.length} selesai</span></div>
+  <div class="pb flush">
+  ${L.map((x,i)=>{const nx=x===lanjut; return `<div class="ks-step${x.ok?" done":""}${nx?" next":""}">
+   <span class="ks-step-no">${x.ok?"&#10003;":i+1}</span><span class="ks-step-t">${esc(x.n)}</span>
+   <span class="ks-step-s">${x.ok?"Selesai":nx?"Berikutnya":"Belum"}</span>
+   <button class="${nx?"primary":""}" data-go="${x.p}">${x.ok?"Lihat":nx?"Mulai":"Buka"}</button></div>`}).join("")}
+  </div></div>`;
+};
+
+/* ---------- perapian halaman setelah dirender ---------- */
+function ksRapikan(){
+ const page=document.querySelector(".page"); if(!page) return;
+ page.querySelectorAll(".field").forEach(f=>{
+  const lb=f.querySelector(":scope > .lbl");
+  const el=f.querySelectorAll(":scope > input, :scope > select, :scope > textarea");
+  if(!lb||el.length!==1||lb.children.length) return;
+  const x=el[0];
+  let teks=lb.textContent.trim(), opsional=false;
+  const mo=teks.match(/^(.*?),\s*opsional$/i); if(mo){teks=mo[1];opsional=true}
+  const mu=teks.match(/^(.*\S)\s+\(([^()]{1,14})\)$/);
+  if(mu&&x.tagName==="INPUT"&&!/^(checkbox|radio|color|range|file|hidden)$/.test(x.type)){
+   teks=mu[1];
+   const w=document.createElement("div"); w.className="ks-inp";
+   x.parentNode.insertBefore(w,x); w.appendChild(x);
+   w.insertAdjacentHTML("beforeend",`<span class="ks-unit">${esc(mu[2])}</span>`);
+   if(!x.getAttribute("inputmode")) x.setAttribute("inputmode","decimal");
+  }
+  if(teks!==lb.textContent.trim()||opsional){lb.textContent=teks;if(opsional)lb.insertAdjacentHTML("beforeend",'<span class="ks-opt">Opsional</span>')}
+  if(lb.tagName==="LABEL"&&!lb.htmlFor){if(!x.id){x.id="ks_f"+(++ksUid)}lb.htmlFor=x.id}
+ });
+ /* tombol simpan menempel di bawah pada halaman formulir panjang */
+ const isian=page.querySelectorAll("input:not([type=hidden]),select,textarea").length;
+ if(isian>=6){
+  const baris=[...page.children].filter(c=>c.classList.contains("row")&&c.querySelector("button.primary"));
+  if(baris.length) baris[baris.length-1].classList.add("ks-actionbar");
+ }
+ /* hanya satu tombol utama pada daftar langkah */
+ page.querySelectorAll(".panel > .pb").forEach(pb=>{
+  [...pb.querySelectorAll(":scope > .rank > button.primary")].slice(1).forEach(b=>b.classList.remove("primary"));
+ });
+ page.querySelectorAll("button").forEach(b=>{
+  if(!b.classList.contains("primary")&&/^(Hapus|Nonaktifkan|Kosongkan|Buang)\b/.test(b.textContent.trim())) b.classList.add("ks-danger");
+ });
+}
+const _ksRender=render;
+render=function(){
+ _ksRender();
+ try{ksRapikan()}catch(e){console.error("Perapian tampilan gagal",e)}
+};
+/* logo halaman depan diberi tanda merek */
+const _ksLanding=landing;
+landing=function(){
+ return _ksLanding().replace('<div class="lp-logo">','<div class="lp-logo"><span class="ks-mark">K</span>');
+};
 
 /* =================== boot =================== */
 (async function boot(){
